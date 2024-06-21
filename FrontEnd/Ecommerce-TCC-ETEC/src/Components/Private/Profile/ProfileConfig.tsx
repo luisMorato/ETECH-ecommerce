@@ -1,0 +1,269 @@
+import { userProps } from "../../../interfaces/userProps";
+
+import { IoLocationSharp } from "react-icons/io5";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
+import { captilze } from "../../../utils/captalize";
+
+import Button from "../../Layout/Button";
+import AddressBox from "./AddressBox";
+import StyledInput from "../../Layout/StyledInput";
+
+interface profileConfigProps {
+  user: Omit<userProps, 'password'> | undefined,
+  userImage?: string,
+  token: string | undefined
+}
+ 
+const ProfileConfig = ({ user, userImage, token }: profileConfigProps) => {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: {
+      errors
+    }
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: user?.name,
+      email: user?.email,
+      password: '',
+      newPassword: '',
+      phoneNumber: user?.phoneNumber ?? '',
+      postalCode: user?.postalCode ?? '',
+      city: user?.city ?? '',
+      address: user?.address ?? '',
+      houseNumber: user?.houseNumber ?? undefined,
+      state: user?.state ?? '',
+      country: user?.country ?? '',
+    }
+  });
+
+  const EditUserDataSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
+
+    const formData = new FormData();
+
+    Object.keys(data).forEach((key) => {
+      const value = data[key as keyof Omit<FieldValues, 'role'>];
+      if(!value){
+        formData.append(key, '');
+      }else{
+          formData.append(key, String(value))
+      }
+    });
+
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          "authorization": `Bearer ${token}`
+        },
+        body: formData,
+      });
+  
+      const resJson = await response.json();
+      const { message } = resJson;
+  
+      if(!response.ok){
+        toast.error(message);
+        return;
+      }
+
+      toast.success(message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
+    } catch (error) {
+      console.log('Error: ', error);
+    }
+  }
+
+  const fetchPostalCode = async () => {
+    const data: FieldValues = getValues();
+
+    const url = new URL(`https://viacep.com.br/ws/${data.postalCode.replace('-', '')}/json`);
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "content-type":"application/json",
+        }
+      });
+
+      if(!response.ok){
+        toast.error('Something Went Wrong!');
+        return;
+      }
+
+      const resJson = await response.json();
+      const { logradouro: apiAddress, localidade: apiCity, uf: apiState } = resJson;
+
+      setValue('address', apiAddress);
+      setValue('city', apiCity);
+      setValue('state', apiState);
+    } catch (error) {
+      console.log('Error: ', error);
+    }
+  }
+
+  const hasAddressDetails = () => {
+    return user?.address && user?.postalCode && user?.country && user?.city && user?.state;
+  };
+  
+  return user && (
+    <div className="flex gap-5 my-5">
+      <div className="flex flex-col min-h-[570px] h-fit py-5 px-3 bg-white w-[550px] rounded-2xl">
+        <h1 className="text-black text-3xl font-medium mb-4">Personal Data</h1>
+        <div className="flex items-center justify-center self-center rounded-full bg-neutral-400 h-24 w-24 overflow-hidden mb-5">
+            {!userImage ?
+                <span className="font-bold text-3xl">{captilze(user.name[0])}</span>
+                :
+                <img src={userImage} alt="User Profile Image" />
+            }
+        </div>
+        <form onSubmit={handleSubmit(EditUserDataSubmit)} className="flex flex-col gap-5">
+            <StyledInput
+              name="name"
+              label="Name:"
+              register={register}
+              options={{
+                required: true,
+              }}
+              type="text"
+              placeholder="John Doe"
+              errors={errors}
+            />
+            <div className="flex gap-3">
+              <StyledInput
+                name="password"
+                label="Password:"
+                register={register}
+                options={{
+                  required: true,
+                }}
+                type="password"
+                placeholder="******"
+                errors={errors}
+              />
+              <StyledInput
+                name="newPassword"
+                label="New Password:"
+                register={register}
+                options={{
+                  minLength: 6,
+                }}
+                type="password"
+                placeholder="******"
+                errors={errors}
+              />
+          </div>
+          <StyledInput
+            name="email"
+            label="Email:"
+            register={register}
+            options={{
+              required: true,
+            }}
+            type="email"
+            placeholder="JohnDoe@test.com"
+            errors={errors}
+          />
+          <div className="flex gap-3 items-center">
+            <StyledInput
+              name="postalCode"
+              label="Postal Code:"
+              register={register}
+              options={{
+                pattern: /^\d{5}-\d{3}$/,
+              }}
+              type="text"
+              placeholder="00000-000"
+              errors={errors}
+            />
+            <div>
+              <Button
+                type="button"
+                outline
+                onClick={fetchPostalCode}
+              >Search</Button>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <StyledInput
+              name="city"
+              label="City:"
+              register={register}
+              type="text"
+              placeholder="City"
+              errors={errors}
+            />
+            <div className="flex gap-2 items-center">
+              <StyledInput
+                name="address"
+                label="Address:"
+                register={register}
+                type="text"
+                placeholder="Street XYZ"
+                errors={errors}
+              />
+              <StyledInput
+                name="houseNumber"
+                label="Number:"
+                register={register}
+                type="text"
+                placeholder="Ex: 123"
+                className="max-w-24"
+                errors={errors}
+              />
+            </div>
+          </div>
+          <StyledInput
+            name="state"
+            label="State:"
+            register={register}
+            type="text"
+            placeholder="Ex: SP"
+            errors={errors}
+          />
+          <StyledInput
+            name="country"
+            label="Country:"
+            register={register}
+            type="text"
+            placeholder="Ex: Brazil, United States"
+            errors={errors}
+          />
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+            >
+              Save Changes
+            </Button>
+          </div>
+        </form>
+      </div>
+      {user.role !== 'ADMIN' && 
+        <>
+          {hasAddressDetails() ?
+            (<AddressBox
+                user={user}
+                className="max-h-[200px] border border-mainBlue"
+              />
+            )
+            : 
+            (<div className="flex flex-col items-center justify-center gap-3 bg-white rounded-xl p-5 w-[250px] max-h-[200px] text-black">
+              <IoLocationSharp size={30}/>
+              <h2 className="text-xl font-medium">No Adresses</h2>  
+            </div>)
+          }
+        </>
+      }
+    </div>
+  )
+}
+
+export default ProfileConfig;
