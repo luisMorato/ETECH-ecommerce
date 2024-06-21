@@ -3,8 +3,7 @@ import { IoIosSearch } from "react-icons/io";
 
 import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
-
-interface HardwareBrands {
+interface brandsProps {
     name: string
 }
 
@@ -12,7 +11,7 @@ const Brands = () => {
     const [showMore, setShowMore] = useState(false);
     const [brandSearch, setBrandSearch] = useState('');
 
-    const hardwareBrands: HardwareBrands[] = useMemo(() => [
+    const brands: brandsProps[] = useMemo(() => [
         {name: "Acer"},
         {name: "AMD"},
         {name: "Adata"},
@@ -77,7 +76,7 @@ const Brands = () => {
                     />
                     <label htmlFor="subcategory">All</label>
                 </div>
-                {hardwareBrands
+                {brands
                 .filter((brand) => brand.name.toLowerCase().includes(brandSearch.toLowerCase()))
                 .map((brand) => (
                     <div key={brand.name} className="flex gap-1.5">
