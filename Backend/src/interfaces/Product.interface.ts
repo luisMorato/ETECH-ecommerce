@@ -47,20 +47,20 @@ export type productProps = (
     }
 );
 
-interface commentData { 
-    id: number,
-    text: string,
-    user: {
-      id: number, 
-      name: string, 
-      image?: Buffer, 
-    }
-}
+// interface commentData { 
+//     id: number,
+//     text: string,
+//     user: {
+//       id: number, 
+//       name: string, 
+//       image?: Buffer, 
+//     }
+// }
 
 
 export interface productsUseCasesProps {
     registerProduct: (data: Omit<requestProduct, 'image'>, filesName: string[]) => Promise<{ product: productProps, message: string } | null>;
     deleteProduct: (data: deleteProduct) => Promise<{ message: string } | undefined>
-    getUniqueProduct: (productId: number) => Promise<{ product: productProps, commentData?: commentData[] }  | null | undefined>
+    getUniqueProduct: (productId: number) => Promise<{ product: productProps }  | null | undefined>
     getAllProducts: (perPage: number, category: string, subcategory?: string, brand?: string, pageIndex?: number, query?: string) => Promise<{ products: productProps[] | [], quantity: number | undefined } | null | undefined>
 }

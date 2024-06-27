@@ -146,34 +146,34 @@ export class productsUseCases implements productsUseCasesProps {
       if (dbProduct) {
         const product = new Product(dbProduct);
 
-        const comments = (product.productData).comment?.map((data) => data);
+        //const comments = (product.productData).comment?.map((data) => data);
 
-        interface commentData { 
-          id: number,
-          text: string,
-          user: {
-            id: number, 
-            name: string, 
-            image?: Buffer, 
-          } 
-        }
-        let commentData: commentData[] = [];
+        // interface commentData { 
+        //   id: number,
+        //   text: string,
+        //   user: {
+        //     id: number, 
+        //     name: string, 
+        //     image?: Buffer, 
+        //   } 
+        // }
+        // let commentData: commentData[] = [];
 
-        if(comments){
-          commentData = comments.map((data) => {
-              return {
-                id: data.id,
-                text: data.text,
-                user: {
-                  id: data.user.id,
-                  name: data.user.name,
-                  imageBuffer: data.user.image ? fs.readFileSync(path.join(process.cwd(), "public/images/user", data.user.image)) : undefined
-                }
-              }
-          });
-        }
+        // if(comments){
+        //   commentData = comments.map((data) => {
+        //       return {
+        //         id: data.id,
+        //         text: data.text,
+        //         user: {
+        //           id: data.user.id,
+        //           name: data.user.name,
+        //           imageBuffer: data.user.image ? fs.readFileSync(path.join(process.cwd(), "public/images/user", data.user.image)) : undefined
+        //         }
+        //       }
+        //   });
+        //}
 
-        return {product: product.productData || null, commentData};
+        return {product: product.productData || null};
       }
     } catch (error) {
       console.log("error: ", error);

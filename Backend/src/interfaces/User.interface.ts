@@ -1,3 +1,10 @@
+interface userCreditCard {
+    number: string,
+    bank: string,
+    expiresAt: string,
+    cardCode: string
+}
+
 export interface DbUserProps {
     id: number,
     name: string,
@@ -12,6 +19,7 @@ export interface DbUserProps {
     state: string | null,
     country: string | null,
     postalCode: string | null,
+    creditCard?: userCreditCard | null
 }
 
 export interface requestUserProps {

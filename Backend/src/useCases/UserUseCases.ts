@@ -65,7 +65,7 @@ export class UserUseCases implements userUseCasesProps {
             city,
             state, 
             country,
-            postalCode
+            postalCode,
          } = data;
 
         const existingUser = await this.getUniqueUser(userId);
@@ -121,7 +121,7 @@ export class UserUseCases implements userUseCasesProps {
                     city,
                     state,
                     country,
-                    postalCode
+                    postalCode,
                 }
             });
 
@@ -188,6 +188,16 @@ export class UserUseCases implements userUseCasesProps {
             const dbUser = await db?.user.findUnique({
                 where: {
                     id: userId
+                },
+                include: {
+                    creditCard: {
+                        select: {
+                            number: true,
+                            bank: true,
+                            expiresAt: true,
+                            cardCode: true,
+                        }
+                    }
                 }
             });
 
@@ -207,6 +217,16 @@ export class UserUseCases implements userUseCasesProps {
             const dbUser = await db?.user.findFirst({
                 where: {
                     email
+                },
+                include: {
+                    creditCard: {
+                        select: {
+                            number: true,
+                            bank: true,
+                            expiresAt: true,
+                            cardCode: true,
+                        }
+                    }
                 }
             });
     

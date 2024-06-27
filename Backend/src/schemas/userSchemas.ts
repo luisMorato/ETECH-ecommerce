@@ -24,7 +24,7 @@ export const editUserSchema = zfd.formData({
     city: z.string().optional(),
     state: z.string().optional(),
     country: z.string().optional(),
-    postalCode: z.string().optional()
+    postalCode: z.string().optional(),
 });
 
 export const completeUserSchema = z.object({
@@ -40,7 +40,13 @@ export const completeUserSchema = z.object({
     city: z.string().nullable(),
     state: z.string().nullable(),
     country: z.string().nullable(),
-    postalCode: z.string().nullable()
+    postalCode: z.string().nullable(),
+    creditCard: z.object({
+        number: z.string(),
+        bank: z.string(),
+        expiresAt: z.string(),
+        cardCode: z.string()
+    }).nullish()
 }).nullish();
 
 export const userSchema = z.object({

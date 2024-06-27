@@ -18,14 +18,17 @@ export const productSchema = z.object({
     price: z.number(),
     desc: z.array(z.string()),
     stock: z.number().int(),
-    // comment: z.array(z.object({
-    //     id: z.number(),
-    //     text: z.string(),
-    //     user: z.object({
-    //         name: z.string(),
-    //     })
-    // })).optional(),
+    comment: z.array(z.object({
+        id: z.number(),
+        text: z.string(),
+        user: z.object({
+            id: z.number().int(),
+            name: z.string(),
+            image: z.string().nullable()
+        })
+    })).optional(),
     categories: z.object({
+        id: z.number().int(),
         name: z.string()
     }).optional(),
     subCategories: z.object({

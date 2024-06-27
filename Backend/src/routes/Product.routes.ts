@@ -58,6 +58,7 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
         },
       },
     }, async (req, reply) => {
+      //Try: const data = requestProductData.parse(req.body);
       const data = (req.raw as Request).body;
       const files: MultipartFile[] = (req.raw as any).files;
 
@@ -136,32 +137,32 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
     }
   );
 
-  app
-  .withTypeProvider<ZodTypeProvider>()
-  .get("/image/:imageName",
-    {
-      schema: {
-        params: z.object({
-          imageName: z.string(),
-        }),
-      },
-    }, async (req, reply) => {
-      const { imageName } = req.params;
+  // app
+  // .withTypeProvider<ZodTypeProvider>()
+  // .get("/image/:imageName",
+  //   {
+  //     schema: {
+  //       params: z.object({
+  //         imageName: z.string(),
+  //       }),
+  //     },
+  //   }, async (req, reply) => {
+  //     const { imageName } = req.params;
 
-      const imagePath = path.join(
-        process.cwd(),
-        "public/images/products",
-        imageName
-      );
+  //     const imagePath = path.join(
+  //       process.cwd(),
+  //       "public/images/products",
+  //       imageName
+  //     );
 
-      const contentType = imageName.endsWith(".jpg")
-        ? "image/jpg"
-        : "image/png";
-      const imageBuffer = fs.readFileSync(imagePath);
+  //     const contentType = imageName.endsWith(".jpg")
+  //       ? "image/jpg"
+  //       : "image/png";
+  //     const imageBuffer = fs.readFileSync(imagePath);
 
-      return reply.type(contentType).send(imageBuffer);
-    }
-  );
+  //     return reply.type(contentType).send(imageBuffer);
+  //   }
+  // );
 
   app
   .withTypeProvider<ZodTypeProvider>()
@@ -198,15 +199,15 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
         response: {
           200: z.object({
             product: productSchema,
-            commentData: z.array(z.object({
-              id: z.number(),
-              text: z.string(),
-              user: z.object({
-                  id: z.number(),
-                  name: z.string(),
-                  image: z.instanceof(Buffer).optional()
-              })
-            })).optional()
+            // commentData: z.array(z.object({
+            //   id: z.number(),
+            //   text: z.string(),
+            //   user: z.object({
+            //       id: z.number(),
+            //       name: z.string(),
+            //       image: z.instanceof(Buffer).optional()
+            //   })
+            // })).optional()
           }),
         },
       },
@@ -216,8 +217,9 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
       const res = await productUseCases.getUniqueProduct(productId);
 
       if (res) {
-        const { product, commentData } = res
-        return reply.code(200).send({ product, commentData });
+        //const { product, commentData } = res
+        const { product } = res
+        return reply.code(200).send({ product });
       }
     }
   );

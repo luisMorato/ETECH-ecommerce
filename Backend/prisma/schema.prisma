@@ -3,15 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-//ToDo: Create Credit Card Table and make the relation with the user
 //ToDo: Add createdAt and updateddAt Fields to User's Table
 //ToDo: Add Chat Relation to User
 model User {
-  id          Int     @default(autoincrement())  @id
+  id          Int     @id @default(autoincrement())
   name        String
   email       String  @unique
   image       String?
@@ -27,84 +26,94 @@ model User {
   // createdAt   DateTime @default(now())
   // updateddAt   DateTime @default(now())
 
-  comments    Comment[]
-  cart        Cart?   
+  comments   Comment[]
+  cart       Cart?
   //chat        Chat?
-  //creditCard  CreditCard?
+  creditCard CreditCard?
 }
 
-//ToDo: Create Credit Card Table 
-// model CreditCard {
-//   id          Int     @default(autoincrement())  @id
-//   userId      Int
-//   number      String
-//   Bank        String
-//   expiresAt   DateTime
+//ToDo: Make the relation with Order's table
+model CreditCard {
+  id        Int    @id @default(autoincrement())
+  userId    Int
+  //orderId     Int
+  number    String
+  bank      String
+  expiresAt String
+  cardCode  String
 
-//   user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  //order       Order   @relation(fields: [orderId], references: [id])
+  //@@unique([orderId])
 
-//   @@unique([userId])
-// }
+  @@unique([userId])
+}
 
+//ToDo: Add createdAt to Comments Table
 model Comment {
-  id        Int     @default(autoincrement()) @id
+  id        Int    @id @default(autoincrement())
   userId    Int
   productId Int
   text      String
+  // createdAt   DateTime @default(now())
 
-  product   Product @relation(fields: [productId], references: [id])
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 //ToDo: Add createdAt and updateddAt to Cart's Table
 //ToDo: Add Multiple Orders to Cart's Table
 model Cart {
-  id            Int    @default(autoincrement())  @id
-  userId        Int
+  id     Int @id @default(autoincrement())
+  userId Int
+  // createdAt   DateTime @default(now())
+  // updateddAt   DateTime @default(now())
 
-  cartProducts  CartProducts[]
-  order         Order?  
-  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartProducts CartProducts[]
+  order        Order?
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
 }
 
-//Add "onDelete: Cascade" to Products Field
+//ToDo: Remove the Relation OrderDetail from CartProducts Table
 model CartProducts {
-  id            Int      @default(autoincrement())  @id
+  id            Int  @id @default(autoincrement())
   cartId        Int
   productId     Int
   orderDetailId Int?
   quantity      Int?
 
-  products      Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
-  cart          Cart          @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  orderDetail   OrderDetail?   @relation(fields: [orderDetailId], references: [id])
+  products    Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cart        Cart         @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  orderDetail OrderDetail? @relation(fields: [orderDetailId], references: [id])
 }
 
 //ToDo: Add createdAt and updateddAt to Order's Table
-//ToDo: Add Payment Method to Order's Table
 model Order {
-  id              Int       @default(autoincrement())  @id
-  cartId          Int
-  date            DateTime  @default(now())
-  status          String    @default("Processing Order")
-  trackingCode    String    @default(cuid())
-  //paymentMethod   String    @defailt("credit Card")
+  id            Int      @id @default(autoincrement())
+  cartId        Int
+  date          DateTime @default(now())
+  status        String   @default("Processing Order")
+  trackingCode  String   @default(cuid())
+  paymentMethod String
   // createdAt   DateTime @default(now())
   // updateddAt   DateTime @default(now())
 
-  cart          Cart        @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  orderDetails  OrderDetail?
+  cart         Cart         @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  orderDetails OrderDetail?
+
+  //creditCard    CreditCard?
   @@unique([cartId])
 }
 
+//ToDo: Fix The Relation With CartProducts table, so that when the cartProduct is Deleted After the Order is placed, the Product is not deleted from the OrderDetail Table too
 model OrderDetail {
-  id            Int    @default(autoincrement())  @id
-  orderId       Int
+  id      Int @id @default(autoincrement())
+  orderId Int
 
-  cartProducts  CartProducts[]
-  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  cartProducts CartProducts[]
+  order        Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@unique([orderId])
 }
@@ -113,38 +122,38 @@ model OrderDetail {
 //ToDo: Add Brand to Products Table
 //ToDo: Change the Field Image to be Images
 model Product {
-  id              Int    @default(autoincrement())  @id
-  image           String[]
-  name            String
-  price           Float
-  desc            String[]
-  stock           Int
+  id            Int      @id @default(autoincrement())
+  image         String[]
+  name          String
+  price         Float
+  desc          String[]
+  stock         Int
   //Brand           String
-  categoryId      Int
-  subCategoryId   Int
+  categoryId    Int
+  subCategoryId Int
   //createdAt       DateTime @default(now())
 
-  cartProducts    CartProducts[]
-  comment         Comment[]
-  categories      ProductCategory   @relation(fields: [categoryId], references: [id])
-  subCategories   productSubCategory   @relation(fields: [subCategoryId], references: [id])
+  cartProducts  CartProducts[]
+  comment       Comment[]
+  categories    ProductCategory    @relation(fields: [categoryId], references: [id])
+  subCategories productSubCategory @relation(fields: [subCategoryId], references: [id])
 }
 
 model ProductCategory {
-  id              Int         @default(autoincrement())  @id
-  name            String
+  id   Int    @id @default(autoincrement())
+  name String
 
-  products        Product[]
-  subCategories   productSubCategory[]
+  products      Product[]
+  subCategories productSubCategory[]
 }
 
 model productSubCategory {
-  id          Int         @default(autoincrement())  @id
-  categoryId  Int
-  name        String
+  id         Int    @id @default(autoincrement())
+  categoryId Int
+  name       String
 
-  products        Product[]
-  categories  ProductCategory @relation(fields: [categoryId], references: [id])
+  products   Product[]
+  categories ProductCategory @relation(fields: [categoryId], references: [id])
 }
 
 //ToDo: Create chat and message tables
@@ -154,7 +163,7 @@ model productSubCategory {
 //   messages  Message[]
 
 //   user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
 //   @@unique([userId])
 // }
 

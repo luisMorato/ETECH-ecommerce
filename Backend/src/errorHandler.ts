@@ -7,6 +7,7 @@ import { Unauthorized } from "./_errors/Unauthorized";
 import { Forbidden } from "./_errors/Fobidden";
 import { UnprocessableEntity } from "./_errors/UnprocessableEntity";
 import { Conflict } from "./_errors/Conflict";
+import { NotFound } from "./_errors/NotFound";
 
 
 type fastifyErrorHandler = FastifyInstance['errorHandler'];
@@ -37,6 +38,10 @@ export const errorHandler: fastifyErrorHandler = (error, req, reply) => {
 
     if(error instanceof UnprocessableEntity){
         return reply.code(422).send({ message: error.message });
+    }
+
+    if(error instanceof NotFound){
+        return reply.code(404).send({ message: error.message });
     }
 
     return reply.code(500).send({ message: error.message });

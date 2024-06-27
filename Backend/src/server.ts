@@ -16,6 +16,7 @@ import { ProductsRoutes } from "./routes/Product.routes";
 import { CartRoutes } from "./routes/Cart.routes";
 import { OrderRoutes } from "./routes/Order.routes";
 import { CategoryRoutes } from "./routes/Category.routes";
+import { CreditCardRoutes } from "./routes/CreditCard.routes";
 
 //Error Handler
 import { errorHandler } from "./errorHandler";
@@ -28,7 +29,8 @@ app.setSerializerCompiler(serializerCompiler);
 const __dirname = path.resolve(path.dirname(""));
 
 app.register(fastifyStatic, {
-  root: path.join(__dirname, "images/"),
+  root: path.join(__dirname, "public"),
+  prefix: "/public/"
 });
 
 app.register(fastifyMultipart);
@@ -45,6 +47,14 @@ app.register(
     userRoutes, 
     { 
         prefix: '/user'
+    }
+);
+
+//CreditCard
+app.register(
+    CreditCardRoutes, 
+    { 
+        prefix: '/creditCard'
     }
 );
 

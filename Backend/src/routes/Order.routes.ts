@@ -125,11 +125,17 @@ export const OrderRoutes = async (app: FastifyInstance) => {
 
     app
     .withTypeProvider<ZodTypeProvider>()
-    .put('/', {
+    .put('/:orderId', {
         preHandler: authentication,
         schema: {
             body: z.object({
-                orderId: z.number().int()
+                paymentMethod: z.string().min(1),
+                number: z.string().optional(),
+                expiration: z.string().optional(),
+                cardCode: z.string().optional()
+            }),
+            params: z.object({
+                orderId: z.string().transform((val) => parseInt(val))
             }),
             response: {
                 200: z.object({
@@ -138,7 +144,8 @@ export const OrderRoutes = async (app: FastifyInstance) => {
             }
         }
     }, async (req, reply) => {
-        const { orderId } = req.body;
+        const { paymentMethod, number, expiration, cardCode } = req.body;
+        const { orderId } = req.params;
 
         const token = await getToken(req);
 
@@ -151,9 +158,9 @@ export const OrderRoutes = async (app: FastifyInstance) => {
                 throw new Unauthorized("User Not Found");
             }
 
-            const update = await orderUseCases.updateOrder(orderId);
+            const update = await orderUseCases.updateOrder({orderId, paymentMethod, number, expiration, cardCode});
 
-            if(update){
+            if(update?.message){
                 const { message } = update;
 
                 return reply.send({ message });

@@ -1,8 +1,6 @@
 import Multer from 'multer';
 import path from 'path';
 
-let fileName = '';
-
 const imageStorage = Multer.diskStorage({
     destination: (req, file, cb) => {
         let folder = "";
@@ -16,7 +14,7 @@ const imageStorage = Multer.diskStorage({
         cb(null, `public/images/${folder}`)
     },
     filename: (req, file, cb) => {
-        fileName = Date.now() + Math.floor(Math.random() * 1000) + path.extname(file.originalname)
+        const fileName = Date.now() + Math.floor(Math.random() * 1000) + path.extname(file.originalname)
         cb(null, fileName)
     }
 });

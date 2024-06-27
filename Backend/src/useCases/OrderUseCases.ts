@@ -1,10 +1,11 @@
 import { db } from "../lib/db/db";
 
-import { orderUseCasesProps } from "../interfaces/Order.interface";
+import { orderUseCasesProps, updateOrderData } from "../interfaces/Order.interface";
 import { CartUseCases } from "./CartUseCases";
 import { Order } from "../entities/Order";
 import { queryData } from "../interfaces/Order.interface";
 import { BadRequest } from "../_errors/BadRequest";
+import { Unauthorized } from "../_errors/Unauthorized";
 
 const cartUseCases = new CartUseCases();
 
@@ -14,6 +15,16 @@ export class OrderUseCases implements orderUseCasesProps {
 
         if(cart) {
             const { id: cartId } = cart;
+
+            const cartProducts = await db?.cartProducts.findMany({
+                where: {
+                    cartId
+                },
+            });
+
+            if(!cartProducts){
+                throw new BadRequest("Cart Is Empty");
+            }
 
             //Check If Order Already Exists before create a new one
             const existingOrder = await db?.order.findFirst({
@@ -52,30 +63,33 @@ export class OrderUseCases implements orderUseCasesProps {
             const order = await db?.order.create({
                 data: {
                     cartId,
+                    paymentMethod: '',
                 },
             });
 
-            if(order){
-                const orderDetail = await db?.orderDetail.create({
-                    data: {
-                        orderId: order.id
-                    }
-                });
+            if(!order){
+                throw new Error('Something Went Wrong');
+            }
 
-                const cartProductsUpdate = await db?.cartProducts.updateMany({
-                    where: {
-                        cartId
-                    },
-                    data: {
-                        orderDetailId: orderDetail?.id
-                    }
-                });
+            const orderDetail = await db?.orderDetail.create({
+                data: {
+                    orderId: order.id,
+                },
+            });
 
-                if(orderDetail && cartProductsUpdate){
-                    const simplifiedOrder = new Order(order);
-
-                    return { order: simplifiedOrder.getProps, message: "Order Created Successfully!" };
+            await db?.cartProducts.updateMany({
+                where: {
+                    cartId
+                },
+                data: {
+                    orderDetailId: orderDetail?.id
                 }
+            });
+
+            if(order){
+                const simplifiedOrder = new Order(order);
+
+                return { order: simplifiedOrder.getProps, message: "Order Created Successfully!" };
             }
         }
     }
@@ -105,7 +119,7 @@ export class OrderUseCases implements orderUseCasesProps {
                 include: {
                     orderDetails: {
                         where: {
-                            id: orderDetail?.id
+                            id: orderDetail?.id,
                         },
                         select: {
                             cartProducts: {
@@ -166,14 +180,45 @@ export class OrderUseCases implements orderUseCasesProps {
         }
     }
 
-    updateOrder = async (orderId: number) => {
+    updateOrder = async ({ orderId, paymentMethod, number, expiration, cardCode }: updateOrderData) => {
         try {
+            if(paymentMethod === "Credit Card"){
+                const creditCard = await db?.creditCard.findFirst({
+                    where: {
+                        number
+                    }
+                });
+
+                if(!creditCard){
+                    throw new Unauthorized("You Don't Have Credit Card Registered");
+                }
+
+                if(cardCode !== creditCard.cardCode){
+                    throw new Unauthorized("Incorrect Card Code");
+                }
+
+                const update = await db?.order.updateMany({
+                    where: {
+                        id: orderId
+                    },
+                    data: {
+                        status: "Payment Made",
+                        paymentMethod: paymentMethod,
+                    }
+                });
+
+                if(update){
+                    return { message: "Order Updated" };
+                }
+            }
+
             const update = await db?.order.updateMany({
                 where: {
                     id: orderId
                 },
                 data: {
                     status: "Payment Made",
+                    paymentMethod: paymentMethod
                 }
             });
 
