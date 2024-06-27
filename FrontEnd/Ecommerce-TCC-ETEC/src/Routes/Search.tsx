@@ -14,6 +14,7 @@ const Search = () => {
 
   const [products, setProducts] = useState<productProps[]>([]);
 
+  //Fetch All the Products That Corresponds to the Current Search Input Value
   useEffect(() => {
     const fetchProducts = async () => {
       const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/products`);
@@ -45,6 +46,7 @@ const Search = () => {
     fetchProducts();
   }, [search]);
 
+  //Function That Adds Some Product to the User's Cart
   const addProduct = useCallback(async (productId: number) => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/cart/add`;
 

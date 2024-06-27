@@ -15,6 +15,13 @@
 //     creditCard?: string,
 // }
 
+interface userCreditCard {
+    number: string,
+    bank: string,
+    expiresAt: string,
+    cardCode: string
+}
+
 export interface userProps {
     id: number,
     name: string,
@@ -29,5 +36,5 @@ export interface userProps {
     state?: string,
     country?: string,
     postalCode?: string,
-    creditCard?: string,
+    creditCard?: userCreditCard
 }

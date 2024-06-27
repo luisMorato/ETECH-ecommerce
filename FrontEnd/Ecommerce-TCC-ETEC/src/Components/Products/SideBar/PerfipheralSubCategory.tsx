@@ -16,6 +16,7 @@ const PerfipheralSubCategory = () => {
 
     const currentUrl = new URL(window.location.toString());
 
+    //Set the Peripheral SubCategory in the URL State to Persist The Reloads
     const setPeripheralSubCategory = (subcategory: string) => {
         currentUrl.searchParams.set('subcategory', subcategory);
         window.history.pushState(null, '', currentUrl);

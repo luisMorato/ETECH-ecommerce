@@ -13,6 +13,7 @@ const ComputerSubCategory = () => {
 
   const currentUrl = new URL(window.location.toString());
 
+  //Set the Computer SubCategory in the URL State to Persist The Reloads
   const setComputerSubCategory = (subcategory: string) => {
       currentUrl.searchParams.set('subcategory', subcategory);
       window.history.pushState(null, '', currentUrl);

@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { userProps } from "../../interfaces/userProps";
+import { completeOrderProps } from "../../interfaces/OrderProps";
 
 import ProfileSideBar from "../../Components/Private/Profile/ProfileSideBar";
 import Dashboard from "../../Components/Private/Profile/Dashboard";
 import ProfileConfig from "../../Components/Private/Profile/ProfileConfig";
 import MyOrders from "../../Components/Private/Profile/MyOrders";
 import ProductRegisterForm from "../../Components/Private/Profile/ProductRegisterForm";
-import { completeOrderProps } from "../../interfaces/OrderProps";
 import AllProducts from "../../Components/Private/Profile/AllProducts";
 import SalesStatistics from "../../Components/Private/Profile/SalesStatistics";
 import UsersList from "../../Components/Private/Profile/UsersList";
+import CreditCardForm from "../../Components/Private/Profile/CreditCardForm";
 
 const Profile = () => {
   const { userToken: token } = useParams();
@@ -23,11 +24,13 @@ const Profile = () => {
 
   const [order, setOrder] = useState<completeOrderProps>();
   const [user, setUser] = useState<userProps | undefined>(undefined);
-  const [userImage, setUserImage] = useState('');
+  //const [userImage, setUserImage] = useState('');
 
+  //Sets the profile view option (dashboard, profile data config, etc) in the URL to persist reloads
   const currentUrl = new URL(window.location.toString());
   const currentOption = currentUrl.searchParams.get('option') ?? 'dashboard';
   
+  //UseEffect Used to fetch the user's data everytime the token changes, that is, everytime a login is made
   useEffect(() => {
     const fetchUser = async () => {
       if(token){
@@ -42,19 +45,21 @@ const Profile = () => {
         const resJson = await response.json();
         
         if(response.ok){
-          const { user: apiUser, imageBuffer } = resJson;
+          //const { user: apiUser, imageBuffer } = resJson;
+          const { user: apiUser } = resJson;
           if(!apiUser){
             navigate("/");
             return;
           }
+
           setUser(apiUser);
 
-          if(imageBuffer){
-            const blob = new Blob([new Uint8Array(imageBuffer.data)], { type: 'image/jpg' });
-            const imageURL = URL.createObjectURL(blob);
+          // if(imageBuffer){
+          //   const blob = new Blob([new Uint8Array(imageBuffer.data)], { type: 'image/jpg' });
+          //   const imageURL = URL.createObjectURL(blob);
   
-            setUserImage(imageURL);
-          }
+          //   setUserImage(`${import.meta.env.VITE_BACKEND_URL}/public/images/user/${apiUser?.image}`);
+          // }
         }
       }
     }
@@ -62,6 +67,7 @@ const Profile = () => {
     fetchUser();
   }, [token, navigate]);
 
+  //UseEffect Used to fetch the user's orders everytime the token and user changes
   useEffect(() => {
     const fetchOrder = async () => {
       if(!user || user?.role === "ADMIN"){
@@ -94,7 +100,7 @@ const Profile = () => {
   }, [token, user]);
 
   return user && (
-    <div className="flex gap-12 mx-auto min-h-full">
+    <div className="flex gap-12 mx-auto min-h-screen">
       <div className="flex-1 bg-white max-w-[250px]">
         <ProfileSideBar
           user={user}
@@ -103,48 +109,47 @@ const Profile = () => {
       {currentOption === "dashboard" && (
          <Dashboard
          user={user}
-         userImage={userImage}
+         //userImage={userImage}
          order={order}
        />
       )}
       { currentOption === "profileConfig" && (
-        <ProfileConfig
-          user={user}
-          userImage={userImage}
-          token={token}
-        />
+        <div className="mb-5">
+          <ProfileConfig
+            user={user}
+            //userImage={userImage}
+            token={token}
+          />
+          {user.role !== "ADMIN" && 
+            <CreditCardForm
+              token={token}
+            />
+          }
+        </div>
       )}
       { currentOption === "myoders" && 
         <MyOrders
           order={order}
         />
       }
-      <div className="min-h-screen">
-        { currentOption === "registerProduct" && (
-          <ProductRegisterForm
+      { currentOption === "registerProduct" && (
+        <ProductRegisterForm
+          token={token}
+        />
+      )}
+      { currentOption === 'allProducts' &&
+          <AllProducts
             token={token}
           />
-        )}
-      </div>
-      <div className="min-h-screen">
-        { currentOption === 'allProducts' &&
-            <AllProducts
-              token={token}
-            />
-        }
-      </div>
-      <div className="min-h-screen">
-        { currentOption === 'usersList' &&
-            <UsersList
-              token={token}
-            />
-        }
-      </div>
-      <div className="min-h-screen">
+      }
+      { currentOption === 'usersList' &&
+          <UsersList
+            token={token}
+          />
+      }
+      <div>
         { currentOption === 'salesStatistics' &&
-            <SalesStatistics
-              token={token}
-            />
+            <SalesStatistics />
         }
       </div>
     </div>

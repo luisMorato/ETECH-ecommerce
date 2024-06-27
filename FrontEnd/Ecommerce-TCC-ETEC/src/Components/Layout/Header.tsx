@@ -10,24 +10,27 @@ import Navbar from "./Navbar";
 
 interface HeaderProps {
   user?: userProps,
-  userImage: string,
+  //userImage: string,
 }
 
-const Header = ({ user, userImage }: HeaderProps) => {
+const Header = ({ user }: HeaderProps) => {
   const navigate = useNavigate();
 
   const { search, setSearch } = useContext(SearchContext);
 
+  //Handle the search input change
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   }
 
+  //Check if the key pressed is "ENTER" to go to the search page
   const checkKeyPressed = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === 'Enter'){
       navigate('/search');
     }
   }
 
+  //Goes to the search page
   const handleSearchClick = () => {
     if(!window.location.pathname.includes('/search')){
       navigate('/search');
@@ -62,7 +65,7 @@ const Header = ({ user, userImage }: HeaderProps) => {
           </div>}
           <Navbar 
             user={user}
-            userImage={userImage}
+            //userImage={userImage}
           />
         </div>
     </header>

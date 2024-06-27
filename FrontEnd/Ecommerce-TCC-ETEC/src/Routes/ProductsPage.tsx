@@ -34,6 +34,7 @@ const ProductsPage = () => {
   const [quantity, setQuantity] = useState<number>();
   const [page, setPage] = useState<number>(URLPage || 1);
 
+  //Function That Adds Some Product to the User's Cart
   const addProduct = useCallback(async (productId: number) => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/cart/add`;
 
@@ -66,6 +67,7 @@ const ProductsPage = () => {
     }
   }, [token]);
 
+  //Function That Remove Some Product to the User's Cart
   const subtractProduct = useCallback(async (productId: number) => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/cart/add`;
 
@@ -93,6 +95,7 @@ const ProductsPage = () => {
     }
   }, [token]);
 
+  //Fetch Products Stored in the Database, Based in the Category | SubCategory | Search | Brand Passed to the Backend as a Filter Parameter
   useEffect(() => {
     const fetchProducts = async () => {
       const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/products`);

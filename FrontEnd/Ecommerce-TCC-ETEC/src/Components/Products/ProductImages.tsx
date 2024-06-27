@@ -23,6 +23,8 @@ const ProductImages = ({ images, product, setCurrentImage, currentImage }: produ
                         <img
                             key={image}
                             src={image}
+                            //Another way to do it:
+                            //src={`${import.meta.env.VITE_BACKEND_URL}/public/images/products/${image}`}
                             alt={`Product-${product.name}`}
                             onMouseOver={zoomImage}
                             className={`transition duration-100`}

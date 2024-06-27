@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import { checkTextLength } from "../../../utils/checkTextLength";
 
 interface orderProductCardProps {
@@ -17,35 +17,14 @@ interface orderProductCardProps {
 }
 
 const OrderProductCard = ({ cartProduct, removeFromCart }: orderProductCardProps) => {
-    const [images, setImages] = useState<string>();
-
-    useEffect(() => {
-        const getImages = async () => {
-            try {
-                const url = `${import.meta.env.VITE_BACKEND_URL}/products/image/${cartProduct?.products.image[0]}`
-                const response = await fetch(url, {
-                    method: "GET",
-                });
-
-                if(response.ok){
-                    const res = await response.blob(); 
-                    const imageURL = URL.createObjectURL(res);
-                    setImages(imageURL);
-                }
-            } catch (error) {
-                console.log('Error: ', error);
-            }
-        }
-
-        getImages();
-    }, [cartProduct?.products]);
+    const productImageUrl = `${import.meta.env.VITE_BACKEND_URL}/public/images/products/${cartProduct?.products.image[0]}`;
   
     return (
         <div className="self-center bg-white w-2/4 rounded-2xl">
             <h2 className="text-lg text-black font-medium px-5 my-3">{cartProduct?.products.name}</h2>
             <div className="flex gap-5 px-5 py-3">
                 <div className="max-w-[200px] mr-5">
-                    <img src={images} alt={`product-${cartProduct?.products.name}`} />
+                    <img src={productImageUrl} alt={`product-${cartProduct?.products.name}`} />
                 </div>
                 <div className="flex flex-col items-start justify-evenly font-medium w-3/5">
                     <p className="text-black">{checkTextLength(cartProduct?.products.desc[0], 40)}</p>

@@ -4,6 +4,7 @@ interface dbOrderProps {
     date: Date,
     status: string,
     trackingCode: string,
+    paymentMethod: string,
 }
 
 export type completeOrderProps = ({

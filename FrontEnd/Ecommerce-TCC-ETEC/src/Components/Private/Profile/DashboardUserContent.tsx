@@ -23,13 +23,13 @@ import AddressBox from "./AddressBox";
 
 interface dashboardUserContentProps {
     user: userProps | undefined,
-    userImage?: string,
+    //userImage?: string,
     order?: completeOrderProps,
     setOption: (option: string) => void,
     correctedDate: string
 }
 
-const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate }: dashboardUserContentProps) => {
+const DashboardUserContent = ({ user, order, setOption }: dashboardUserContentProps) => {
     const { userToken: token } = useParams();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -50,12 +50,14 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
     });
 
     useEffect(() => {
-        if(userImage){
-            setPreview(userImage);
+        //Set The Image if user already Have One;
+        if(user?.image){
+            setPreview(`${import.meta.env.VITE_BACKEND_URL}/public/images/user/${user.image}`);
         }
-    }, [userImage]);
+    }, [user?.image]);
     
-    const handleDelete = async (e: FormEvent<HTMLFormElement>) => {
+    //Handle the request for delete user's address
+    const handleDeleteAddress = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
@@ -72,7 +74,6 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
             state: String(userData.state),
             postalCode: String(userData.postalCode),
             country: String(userData.country),
-            // creditCard: String(userData.creditCard) // Inclua aqui se for necessário em ambos os casos
         };
 
         if(choice === 'deleteAddress'){
@@ -83,12 +84,6 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
                 state: '',
                 postalCode: '',
                 country: ''
-            });
-        }
-
-        if(choice === 'deleteCreditCard'){
-            Object.assign(baseData, {
-              //creditCard: ''
             });
         }
 
@@ -124,13 +119,12 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
         }
     }
 
-    const handleGetPassword = (e: ChangeEvent<HTMLInputElement>) => {
-        setUserData({
-            ...userData,
-            password: e.target.value
-        });
+    //Handle the request for delete user's credit Card
+    const handleDeleteCreditCard = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
     }
 
+    //Handle the Change of the file input
     const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files){
             setUserData({...userData, 
@@ -144,10 +138,13 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
         }
     }
 
+    //Handle the request to change user's Image 
     const handleImageChange = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData();
+
+        console.log(userData);
 
         Object.keys(userData).forEach((key) => {
             const value = userData[key as keyof Omit<userProps, 'id' | 'role'>];
@@ -183,11 +180,39 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
         }
     }
 
+     //Get the user's Password, and save it in a state, to send to backend with the Address | creditCard | ImageUpload Request
+     const handleGetPassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserData({
+            ...userData,
+            password: e.target.value
+        });
+    }
+
+    //Handle the Choice, to check if the request is for image Upload | Delete Address | Delete Credit Card
     const handleChoice = (choice: string) => {
         setChoice(choice);
         setIsOpen(true);
     }
 
+    //Based on the Choice, return's the function to made the request
+    const getAction = (e: FormEvent<HTMLFormElement>) => {
+        console.log(choice);
+        switch (choice) {
+            case 'imageUpload':
+                handleImageChange(e);
+                break;
+            case 'deleteCreditCard':
+                handleDeleteCreditCard(e);
+                break;
+            case 'deleteAddress':
+                handleDeleteAddress(e);
+                break;
+            default:
+                null;
+        }
+    };
+
+    //Check If user has all the address details by returning a boolean
     const hasAddressDetails = () => {
         return user?.address && user?.postalCode && user?.country && user?.city && user?.state;
     };
@@ -197,7 +222,7 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
             <GetPassword
                 setIsOpen={setIsOpen}
                 isOpen={isOpen}
-                handleSubmit={choice !== 'imageUpload' ? handleDelete : handleImageChange}
+                handleSubmit={(e) => getAction(e)}
                 choice={choice}
                 handleGetPassword={handleGetPassword}
             />
@@ -221,31 +246,38 @@ const DashboardUserContent = ({ user, userImage, order, setOption, correctedDate
                     </div>
                 </div>
                 <div className="flex gap-5 w-2/5 max-w-[300px] max-h-[280px]">
-                    <div className="flex flex-col gap-5 bg-white rounded-xl p-5 flex-1 min-w-[300px]">
-                        <div className="flex items-center gap-3">
-                            <BsCreditCard size={30}/>
-                            <h2 className="text-xl font-medium">Cards</h2>
-                        </div>
-                        <div className="flex flex-col justify-between h-full">
-                            <div className="flex flex-col gap-2 font-medium">
-                                <span className="text-lg">Ending In: 4593</span>
-                                <span className="text-neutral-400">Itaú Bank</span>
-                                <span className="text-neutral-400">Expiration Date: {correctedDate}</span>
+                    {user.creditCard &&
+                        <div className="flex flex-col gap-5 bg-white rounded-xl p-5 flex-1 min-w-[300px]">
+                            <div className="flex items-center gap-3">
+                                <BsCreditCard size={30}/>
+                                <h2 className="text-xl font-medium">Cards</h2>
                             </div>
-                            <div className="flex justify-between w-1/2 mx-auto text-[#2295E9] text-lg font-medium">
-                                <button className="hover:text-[#1678BE]">Edit</button>
-                                <button
-                                    onClick={() => handleChoice('deleteCreditCard')}
-                                    className="hover:text-[#1678BE]"
-                                >Delete</button>
+                            <div className="flex flex-col justify-between h-full">
+                                <div className="flex flex-col gap-2 font-medium">
+                                    <span className="text-lg">Ending In: {user.creditCard?.number.substring(15, user.creditCard.number.length)}</span>
+                                    <span className="text-neutral-400">{user.creditCard?.bank} Bank</span>
+                                    <span className="text-neutral-400">Expiration Date: {user.creditCard?.expiresAt}</span>
+                                </div>
+                                <div className="flex justify-between w-1/2 mx-auto text-[#2295E9] text-lg font-medium">
+                                    <button
+                                        onClick={() => setOption('profileConfig')} 
+                                        className="hover:text-[#1678BE]"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => handleChoice('deleteCreditCard')}
+                                        className="hover:text-[#1678BE]"
+                                    >Delete</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                     {hasAddressDetails() &&
                         <AddressBox 
                             user={user}
-                            setOption={setOption}
-                            handleChoice={handleChoice}
+                            editFunction={() => setOption('profileConfig')}
+                            deleteFunction={() => handleChoice('deleteAddress')}
                             className="max-h-[300px]"
                         />
                     }

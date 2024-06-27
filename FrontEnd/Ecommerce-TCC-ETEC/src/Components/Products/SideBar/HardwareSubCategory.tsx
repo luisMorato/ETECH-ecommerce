@@ -13,6 +13,7 @@ const HardwareSubCategory = () => {
 
     const currentUrl = new URL(window.location.toString());
 
+    //Set the Hardware SubCategory in the URL State to Persist The Reloads
     const setHardwareSubCategory = (subcategory: string) => {
         currentUrl.searchParams.set('subcategory', subcategory);
         window.history.pushState(null, '', currentUrl);

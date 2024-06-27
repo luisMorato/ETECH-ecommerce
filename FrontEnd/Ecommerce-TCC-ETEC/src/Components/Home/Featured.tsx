@@ -12,9 +12,10 @@ const Featured = () => {
 
     const [start, setStart] = useState(true);
     const sliderRef = useRef<HTMLDivElement | null>(null);
-    const interval = useRef<number | undefined>(undefined);
-    const slideBackInterval = useRef<number | undefined>(undefined);
+    const interval = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const slideBackInterval = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
+    //Slide forward until it reaches the max width, then it scroll back to the beginning
     const slideForward = useCallback(() => {
         if(sliderRef.current){
             const sliderWidth = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
@@ -31,6 +32,7 @@ const Featured = () => {
         }
     }, []);
 
+    //Handle the slide Back to beginning
     const slideBack = () => {
         if(sliderRef.current){
             if(sliderRef.current.scrollLeft === 0){
@@ -42,27 +44,32 @@ const Featured = () => {
         }
     }
 
+    //Slide Forward a Little When the button is Clicked
     const clickForwards = () => {
         if(sliderRef.current){
             sliderRef.current.scrollLeft += 50;
         }
     }
 
+    //Slide Back a Little When the button is Clicked
     const clickBackwards = () => {
         if(sliderRef.current){
             sliderRef.current.scrollLeft -= 50;
         }
     }
 
+    //Stops the Sliding when the mouse is over the component
     const handleMouseOver = () => {
         setStart(false);
         clearInterval(interval.current);
     }
 
+    //Start Sliding when the mouse leaves the component
     const handleMouseLeave = () => {
         setStart(true);
     }
 
+    //Call the function to slide Forwards every 50 milliseconds
     useEffect(() => {
         interval.current = setInterval(() => {
             slideForward();
@@ -71,6 +78,7 @@ const Featured = () => {
         return () => clearInterval(interval.current);
     }, [start, slideForward]);
     
+    //Fetch products from database to redender in the component
     useEffect(() => {
         const fetchProducts = async () => {
             url.searchParams.set('perPage', String(10));

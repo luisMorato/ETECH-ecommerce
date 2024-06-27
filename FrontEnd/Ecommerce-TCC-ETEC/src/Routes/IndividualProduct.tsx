@@ -10,19 +10,6 @@ import ProductDetails from "../Components/Products/ProductDetails";
 import CommentsSection from "../Components/Products/CommentsSection";
 import ProductImages from "../Components/Products/ProductImages";
 
-interface commentData { 
-  id: number,
-  text: string,
-  user: {
-    id: number, 
-    name: string, 
-    imageBuffer?: {
-      data: number[],
-      type: string
-    },
-  }
-}
-
 interface commentProps {
   id: number,
   text: string,
@@ -47,6 +34,7 @@ const IndividualProduct = () => {
   const [text, setText] = useState('');
   const [commentAdded, setCommentAdded] = useState(false);
 
+  //Used to Fetch Especific Product Data, based on the URL parameter called ProductId
   useEffect(() => {
     const fetchProduct = async () => {
       if(productId){
@@ -64,35 +52,11 @@ const IndividualProduct = () => {
 
         if(productsResponse.ok){
           const productsJson = await productsResponse.json();
-          const { product: apiProduct, commentData } = productsJson;
+          const { product: apiProduct } = productsJson;
 
           setProduct(apiProduct);
+          setComments(apiProduct.comment);
           setCommentAdded(false);
-
-          if(commentData){
-            const newComments = (commentData as commentData[]).map((data) => {
-              const { id, text, user } = data;
-              let imgBlob;
-              let imageUrl = '';
-
-              if(user.imageBuffer){
-                imgBlob = new Blob([new Uint8Array(user.imageBuffer.data)], { type: 'image/jpg' });
-                imageUrl = URL.createObjectURL(imgBlob);
-              }
-
-              return {
-                id,
-                text,
-                user: {
-                  id: user.id,
-                  name: user.name,
-                  image: imageUrl || undefined,
-                }
-              }
-            }).filter((comment) => comment !== null);
-
-            setComments(newComments);
-          }
         }
 
         if(productsImagesResponse.ok){
@@ -115,6 +79,7 @@ const IndividualProduct = () => {
   const quantitySold = useMemo(() => Math.floor(Math.random() * 100), []);
   const installments = useMemo(() => Math.floor(Math.random() * 12), []);
 
+  //Function That Adds the Current Product to the User's Cart
   const addProduct = async (productId: number | undefined) => {
     if(!productId){
       toast.error('Something Went Wrong!');
@@ -151,6 +116,7 @@ const IndividualProduct = () => {
     }
   };
 
+  //Function That Adds a User's comment to the Current Product
   const addComment = async (e: FormEvent<HTMLFormElement>, text: string) => {
     e.preventDefault();
     const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/comments/${productId}`);

@@ -42,7 +42,7 @@ const Slider = () => {
     ], []);
     
     const [currentSlide, setCurrentSlide] = useState(0);
-    const interval = useRef<number | undefined>(undefined);
+    const interval = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     const handleSlideChange = (index: number) => {
         clearInterval(interval.current);

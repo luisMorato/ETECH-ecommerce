@@ -1,6 +1,6 @@
 import { 
   ChangeEvent, 
-  FormEvent, 
+  FormEvent,  
   useEffect, 
   useState
 } from "react";
@@ -25,14 +25,16 @@ import { UseSessionStorage } from "../../../Hooks/useSessionStorage";
 import Button from "../../Layout/Button";
 import Welcome from "./Welcome";
 import GetPassword from "./GetPassword";
+import Container from "./Container";
+import Box from "./Box";
 
 interface dashboardUserContentProps {
   user: userProps | undefined,
   setOption: (option: string) => void,
-  userImage?: string,
+  //userImage?: string,
 }
 
-const DashboardAdminContent = ( { user, setOption, userImage }: dashboardUserContentProps ) => {
+const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps ) => {
   const { token } = UseSessionStorage('token');
 
   const [productsQuantity, setProductsQuantity] = useState(0);
@@ -156,15 +158,18 @@ const DashboardAdminContent = ( { user, setOption, userImage }: dashboardUserCon
   }, [orderSearch, token]);
 
   useEffect(() => {
-    if(userImage){
-        setPreview(userImage);
+    //Set The Image if user already Have One;
+    if(user?.image){
+        setPreview(`${import.meta.env.VITE_BACKEND_URL}/public/images/user/${user.image}`);
     }
-}, [userImage]);
+  }, [user?.image]);
 
+  //Handle the Order Search Input change to search for some Order
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOrderSearch(e.target.value);
   }
 
+  //Get the User's Password Before Allowing to proceed
   const handleGetPassword = (e: ChangeEvent<HTMLInputElement>) => {
     setUserData({
         ...userData,
@@ -172,6 +177,7 @@ const DashboardAdminContent = ( { user, setOption, userImage }: dashboardUserCon
     });
   }
 
+  //Handle the File Input Change
   const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if(e.target.files){
         setUserData({...userData, 
@@ -185,6 +191,7 @@ const DashboardAdminContent = ( { user, setOption, userImage }: dashboardUserCon
     }
   }
 
+  //Make the upload of the image to the BackEnd or Update it if the User Already Have One
   const handleImageChange = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -241,36 +248,36 @@ const DashboardAdminContent = ( { user, setOption, userImage }: dashboardUserCon
               handleFileInputChange={handleFileInputChange}
               setOption={setOption}
           />
-          <div className="bg-white flex-1 max-w-[200px] p-3 rounded-xl">
-            <div className="flex items-center gap-4 flex-1 justify-between border-b pb-1">
+          <Container className="max-w-[200px]">
+            <Box>
               <h2 className="text-2xl font-medium">Stock</h2>
               <FaBoxOpen size={30} className="text-[#2295E9]"/>
-            </div>
+            </Box>
             <div className="flex flex-col mt-5">
               <h2 className="text-4xl text-right font-medium">{stock}</h2>
             </div>
-          </div>
-          <div className="bg-white flex-1 max-w-[200px] p-3 rounded-xl">
-            <div className="flex items-center gap-4 flex-1 justify-between border-b pb-1">
+          </Container>
+          <Container className="max-w-[200px]">
+            <Box>
               <h2 className="text-2xl font-medium">Products</h2>
               <FaShoppingBasket size={30} className="text-[#2295E9]"/>
-            </div>
+            </Box>
             <div className="flex flex-col mt-5">
               <h2 className="text-4xl text-right font-medium">{productsQuantity}</h2>
             </div>
-          </div>
-          <div className="bg-white flex-1 max-w-[200px] p-3 rounded-xl">
-            <div className="flex items-center gap-4 flex-1 justify-between border-b pb-1">
+          </Container>
+          <Container className="max-w-[200px]">
+            <Box>
               <h2 className="text-2xl font-medium">Users</h2>
               <FaUserCheck size={30} className="text-[#2295E9]"/>
-            </div>
+            </Box>
             <div className="flex flex-col mt-5">
               <h2 className="text-4xl text-right font-medium">{usersQuantity}</h2>
             </div>
-          </div>
+          </Container>
         </div>
         <div className="flex gap-5">
-          <div className="bg-white flex-1 max-w-[620px] rounded-xl p-3">
+          <Container className="max-w-[620px]">
             <div className="flex items-center justify-between pb-2 border-b">
               <div className="flex items-center gap-3">
                 <FaClockRotateLeft size={25}/>
@@ -309,7 +316,7 @@ const DashboardAdminContent = ( { user, setOption, userImage }: dashboardUserCon
                 </div>
               }
             </div>
-          </div>
+          </Container>
           <div className="bg-white flex-1 rounded-xl p-3 max-w-[640px]">
             <h2>Statistics</h2>
             <span>Overview</span>

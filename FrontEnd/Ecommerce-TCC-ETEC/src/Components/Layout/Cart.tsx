@@ -24,6 +24,7 @@ interface CartProductsProps {
 const Cart = ({ cartProducts, token, subtotal }: CartProductsProps) => {
     const navigate = useNavigate();
 
+    //Removes a CartProduct from database
     const removeProduct = useCallback(async (productId: number) => {
         const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart`);
 
@@ -57,26 +58,10 @@ const Cart = ({ cartProducts, token, subtotal }: CartProductsProps) => {
 
     }, [token]);
 
-    const buildOrder = async () => {
+    //Check if the cart has any product before goes to the checkout page
+    const checkOut = async () => {
         if(cartProducts.length === 0){
             toast.error('Cart is Empty');
-            return;
-        }
-
-        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout`);
-
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "authorization": `Bearer ${token}`
-            }
-        });
-
-        const resJson = await response.json();
-        const { message } = resJson;
-
-        if(!response.ok){
-            toast.error(message);
             return;
         }
 
@@ -111,7 +96,7 @@ const Cart = ({ cartProducts, token, subtotal }: CartProductsProps) => {
             <div className="flex mt-5">
                 <Button
                     className="flex-1"
-                    onClick={buildOrder}
+                    onClick={checkOut}
                 >CheckOut</Button>
             </div>
         </div>

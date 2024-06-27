@@ -8,6 +8,7 @@ import ListItem from './ListItem';
 const TopMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  //Handle the scroll to some point of the page and set the behavior to be smooth
   const smoothScrollTo = (id: string) => {
     const div = document.getElementById(id);
 
@@ -39,11 +40,11 @@ const TopMenu = () => {
                   {isOpen && 
                     <div className="absolute top-full left-0 w-full h-fit z-30 bg-white border border-neutral-400/50 rounded-b-2xl overflow-hidden">
                         <ul>
-                          <ListItem href='/products?category=hardware'>Hardware</ListItem>
-                          <ListItem href='/products?category=peripherals'>Peripherals</ListItem>
-                          <ListItem href='/products?category=computers'>Computers</ListItem>
-                          <ListItem href='/products?category=notebooks'>NoteBooks</ListItem>
-                          <ListItem href='/products?category=monitors' isLastItem>Monitors</ListItem>
+                          <ListItem to='/products?category=hardware'>Hardware</ListItem>
+                          <ListItem to='/products?category=peripherals'>Peripherals</ListItem>
+                          <ListItem to='/products?category=computers'>Computers</ListItem>
+                          <ListItem to='/products?category=notebooks'>NoteBooks</ListItem>
+                          <ListItem to='/products?category=monitors' isLastItem>Monitors</ListItem>
                         </ul>
                     </div>
                   }

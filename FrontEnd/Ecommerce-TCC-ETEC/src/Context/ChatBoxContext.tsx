@@ -10,11 +10,13 @@ interface chatBoxContextProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
+//Create a Context For the Chat Modal
 export const ChatBoxModalContext = createContext<chatBoxContextProps>({
     isOpen: false,
     setIsOpen: () => void 0
 });
 
+//Create a Provider For the Context of the Chat Modal
 export const ChatBoxModalContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [isOpen, setIsOpen] = useState(false);
 

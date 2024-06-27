@@ -10,7 +10,7 @@ import StyledInput from "../../Layout/StyledInput";
 interface deliveryMethodFormProps {
     userData: Omit<userProps, 'id' | 'role'> | undefined
     submitData: SubmitHandler<FieldValues>,
-    setEditInfo: Dispatch<SetStateAction<boolean>>
+    setEditInfo: Dispatch<SetStateAction<boolean>>,
 }
 
 const DeliveryMethodForm = ({ userData, submitData, setEditInfo }: deliveryMethodFormProps) => {

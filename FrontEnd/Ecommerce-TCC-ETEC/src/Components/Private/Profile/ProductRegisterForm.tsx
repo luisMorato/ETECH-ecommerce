@@ -32,6 +32,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
 
     const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState<categoriesAndSubCategories[]>([]);
 
+    //Handle the Change From the Inputs in the Form Component
     const handleFormEdit = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>, name: string) => {
       setProductToRegister({
         ...productToRegister,
@@ -39,6 +40,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
       });
     }
 
+    //Handle a Description Topic Add
     const handleDescAdd = () => {
       const descInputValue = (document.getElementById('descInput') as HTMLInputElement).value;
 
@@ -55,6 +57,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
       (document.getElementById('descInput') as HTMLInputElement).value = '';
     }
 
+    //Remove a Description Topic
     const removeDescItem = (index: number) => {
       setProductToRegister({
         ...productToRegister,
@@ -62,6 +65,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
       });
     }
   
+    //Handle the File Input Change
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>, name: string) => {
       if (e.target.files && e.target.files.length > 0) {
         FileValidation(e.target.files, e);
@@ -73,6 +77,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
       }
     }
 
+    //Make the Valitdation Of the Images Selected, checking the MimeType | Quantity of Images | Width and Height
     const FileValidation = (files: FileList, e: ChangeEvent<HTMLInputElement>) => {
       //Check if the quantity of files is more than 4
       if (files.length > 4) {
@@ -106,6 +111,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
       // }
     }
     
+    //Send the data to the Backend To Add a New Product
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -152,6 +158,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
         }
     }
 
+    //Fetch the existing Category and Subcategory
     useEffect(() => {
       const fetchCategories = async () => {
           const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/categories`);
@@ -175,7 +182,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
     }, []);
   
     return (
-      <div className="flex flex-col gap-8 bg-white text-black rounded-xl p-5 mt-5 w-[550px]">
+      <div className="flex flex-col gap-8 bg-white text-black rounded-xl p-5 mt-5 h-fit w-[550px]">
         <h1 className="text-3xl font-medium">Product Register</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">

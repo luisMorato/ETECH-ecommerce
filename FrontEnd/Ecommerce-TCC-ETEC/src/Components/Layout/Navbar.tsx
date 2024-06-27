@@ -17,10 +17,10 @@ import UserButtons from "./UserButtons";
 
 type navbarProps = {
   user?: userProps,
-  userImage: string,
+  //userImage: string,
 };
 
-const Navbar = ({ user, userImage }: navbarProps) => {
+const Navbar = ({ user }: navbarProps) => {
   const { token, setToken } = UseSessionStorage('token');
   const navigate = useNavigate();
 
@@ -31,6 +31,7 @@ const Navbar = ({ user, userImage }: navbarProps) => {
 
   const [cartProducts, setCartProducts] = useState<cartProductsProps[]>([]);
   
+  //SignOut the user by removing the token from the session and redirecting to the HomePage
   const signOut = () => {
     setToken('');
     window.location.pathname = "/profile";
@@ -39,6 +40,7 @@ const Navbar = ({ user, userImage }: navbarProps) => {
     }
   }
 
+  //Cehck if the User is not admin before Fetch the Cart Data 
   useEffect(() => {
     const fetchCartData = async () => {
       if(!user || user?.role === "ADMIN"){
@@ -97,7 +99,7 @@ const Navbar = ({ user, userImage }: navbarProps) => {
             }
             <UserButtons
               user={user}
-              userImage={userImage}
+              //userImage={userImage}
               signOut={signOut} 
               token={token}
             />

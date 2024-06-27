@@ -9,6 +9,7 @@ const NoteBookSubCategory = () => {
 
     const currentUrl = new URL(window.location.toString());
 
+    //Set the Notebook SubCategory in the URL State to Persist The Reloads
     const setNotebooksSubCategory = (subcategory: string) => {
         currentUrl.searchParams.set('subcategory', subcategory);
         window.history.pushState(null, '', currentUrl);

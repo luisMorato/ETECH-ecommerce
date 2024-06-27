@@ -19,12 +19,14 @@ export type productProps = (
             name: string,
         };
         } & {
-        // comment?: {
-        //     id: number,
-        //     text: string,
-        //     user: {
-        //         name: string,
-        //     };
-        // }[];
+        comment?: {
+            id: number,
+            text: string,
+            user: {
+                id: number,
+                name: string,
+                image: string
+            };
+        }[];
     }
 );

@@ -36,11 +36,13 @@ const LoginModal = () => {
     }
   });
 
+  //Close the Login Modal and Open the Register Modal
   const toggleToRegister = () => {
     setLoginIsOpen(false);
     setRegisterIsOpen(true);
   }
 
+  //Make the request to the backend to Generate the token to Login the User
   const LoginSubmit: SubmitHandler<FieldValues> = async (data) => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/user/login`;
 

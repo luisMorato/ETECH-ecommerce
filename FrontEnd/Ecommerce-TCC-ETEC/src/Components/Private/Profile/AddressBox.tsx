@@ -6,11 +6,11 @@ import { userProps } from "../../../interfaces/userProps";
 
 interface addressBoxProps extends ComponentProps<'div'>{
     user: Omit<userProps, 'id' | 'password'>,
-    setOption?: (option: string) => void,
-    handleChoice?: (choice: string) => void
+    editFunction?:() => void,
+    deleteFunction?: () => void
 }
 
-const AddressBox = ({ user, setOption, handleChoice, ...props }: addressBoxProps) => {
+const AddressBox = ({ user, editFunction, deleteFunction, ...props }: addressBoxProps) => {
     return (
         <div className={twMerge("flex flex-col gap-5 bg-white rounded-xl p-5 flex-1 min-w-[300px]", props.className)}>
             <div className="flex items-center gap-3 text-black">
@@ -19,19 +19,19 @@ const AddressBox = ({ user, setOption, handleChoice, ...props }: addressBoxProps
             </div>
             <div className="flex flex-col justify-between h-full">
                 <div className="flex flex-col gap-2 font-medium">
-                    <span className="text-black">Street: {user.address}</span>
+                    <span className="text-black">Street: {user.address}, {user.houseNumber}</span>
                     <span className="text-neutral-400">Postal Code: {user.postalCode}</span>
                     <span className="text-neutral-400">{user.city} - {user.state} | {user.country}</span>
                 </div>
-                {setOption && handleChoice && (
+                {editFunction && deleteFunction && (
                     <div className="flex justify-between w-1/2 mx-auto text-[#2295E9] text-lg font-medium">
                         <button 
                             className="hover:text-[#1678BE]" 
-                            onClick={() => setOption('profileConfig')}
+                            onClick={editFunction}
                         >Edit</button>
                         <button 
                             className="hover:text-[#1678BE]"
-                            onClick={() => handleChoice('deleteAddress')}
+                            onClick={deleteFunction}
                         >Delete</button>
                     </div>
                 )}

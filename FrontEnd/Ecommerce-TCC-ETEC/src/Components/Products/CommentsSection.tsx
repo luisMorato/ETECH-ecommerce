@@ -21,6 +21,7 @@ interface commetsProps {
 }
 
 const CommentsSection = ({ addComment, setText, text, comments }: commetsProps) => {
+    //Handle the TextArea Input Change
     const handleCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
     }
@@ -29,19 +30,19 @@ const CommentsSection = ({ addComment, setText, text, comments }: commetsProps) 
         <div className="bg-white p-5 rounded-xl">
             <h2 className="text-lg font-medium mb-3">Comments</h2>
             {comments && comments.length > 0 &&
-             comments.map((data) => (
-                <div key={data?.id} className="flex gap-2 mb-5">
+             comments.map((comment) => (
+                <div key={comment?.id} className="flex gap-2 mb-5">
                     <div className="flex items-center justify-center self-end text-neutral-400 border border-neutral-400 rounded-full overflow-hidden size-10">
-                       {!data.user.image ?
+                       {!comment.user.image ?
                             <FaUserAlt size={25} />
                             :
-                            <img src={data.user?.image} alt={`${data?.user.name}-image`} />
+                            <img src={`${import.meta.env.VITE_BACKEND_URL}/public/images/user/${comment.user.image}`} alt={`${comment.user.name}-image`} />
                         }
                     </div>
                     <div className="relative bg-neutral-200 px-3 py-1 rounded-2xl">
                         <div className="absolute bottom-0 left-0 bg-neutral-200 w-3 h-3"></div>
-                        <span className="font-medium">{captilze(data?.user.name)}</span>
-                        <p>{data?.text}</p>
+                        <span className="font-medium">{captilze(comment?.user.name)}</span>
+                        <p>{comment?.text}</p>
                     </div>
                 </div>
             ))}

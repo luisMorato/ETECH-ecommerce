@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { 
+    ChangeEvent,
+    useEffect, 
+    useState
+} from "react";
+import { useParams } from "react-router-dom";
 import { FaPix } from "react-icons/fa6";
 import { FaBarcode } from "react-icons/fa6";
+import { toast } from "react-toastify";
+
+import { completeOrderProps } from "../../../interfaces/OrderProps";
 
 import CreditCard from "./CreditCard";
 import Button from "../../Layout/Button";
@@ -10,22 +18,108 @@ interface paymentMethodProps {
 }
 
 const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
-    const [option, setOption] = useState('creditcard');
+    const { userToken: token } = useParams();
+
+    const [paymentMethod, setPaymentMethod] = useState('Credit Card');
+    const [creditCardData, setCreditCardData] = useState({
+        number: '',
+        expiration: '',
+        cardCode: ''
+    });
+    const [order, setOrder] = useState<completeOrderProps>();
+
+    //Handle the CreditCard Input Change
+    const handleCreditCardDataChange = (e: ChangeEvent<HTMLInputElement>, name: string) => {
+        setCreditCardData({
+            ...creditCardData,
+            [name]: e.target.value
+        });
+    }
+
+    //Build the Order Without the payment method and the status of "processing Order"
+    useEffect(() => {
+        const buildOrder = async () => {
+            const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout`);
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "authorization": `Bearer ${token}`
+                }
+            });
+
+            const resJson = await response.json();
+            const { order: apiOrder, message } = resJson;
+
+            if(!response.ok){
+                toast.error(message);
+                return;
+            }
+
+            console.log(apiOrder);
+            setOrder(apiOrder);
+        }
+
+        buildOrder()
+    }, [token]);
+
+    //Place the order, replacing the payment method to the one chosen and changing the status to be "Payment Made"
+    const placeOrder = async (orderId: number) => {
+        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout/${orderId}`);
+        let data;
+        
+        data = { 
+            paymentMethod
+        }
+
+        if(paymentMethod){
+            data = {
+                paymentMethod,
+                ...creditCardData
+            }
+        }
+
+        try {
+          const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+              "authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+          });
+
+          console.log(response);
     
-    return (
+          const resJson = await response.json();
+          const { message } = resJson;
+    
+          if(!response.ok){
+            toast.error(message);
+            return;
+          }
+    
+          setNextStep('completeOrder');
+        } catch (error) {
+          console.error('Error: ', error);
+        }
+    }
+    
+    return order && (
         <div className="flex flex-col gap-5 text-black mx-auto w-2/4 py-5">
             <div className="bg-white py-4 mb-3 rounded-lg">
                 <h1 className="text-xl text-black text-center font-medium">Choose the Payment Method</h1>
             </div>
             <div className="flex flex-col gap-5">
                 <CreditCard 
-                    setOption={setOption}
-                    option={option}
+                    setPaymentMethod={setPaymentMethod}
+                    paymentMethod={paymentMethod}
+                    handleCreditCardDataChange={handleCreditCardDataChange}
                 />
                 <div
-                    onClick={() => setOption('pix')}
+                    onClick={() => setPaymentMethod('pix')}
                     className={`relative flex items-center justify-between bg-white px-2 py-3 rounded-lg cursor-pointer
-                        ${option === 'pix' ? "border border-[#2295E9]" : ""}`
+                        ${paymentMethod === 'pix' ? "border border-[#2295E9]" : ""}`
                     }
                 >
                     <div className="flex items-center gap-3">
@@ -39,9 +133,9 @@ const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
                     </div>
                 </div>
                 <div
-                        onClick={() => setOption('ticket')}
+                        onClick={() => setPaymentMethod("ticket")}
                         className={`relative flex items-center justify-between bg-white px-2 py-3 rounded-lg cursor-pointer
-                            ${option === 'ticket' ? "border border-[#2295E9]" : ""}`
+                            ${paymentMethod === "ticket" ? "border border-[#2295E9]" : ""}`
                         }
                     >
                         <div className="flex items-center gap-3">
@@ -57,13 +151,10 @@ const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
                 <div className="flex mt-5">
                     <Button
                         className="flex-1"
-                        onClick={() => setNextStep('completeOrder')}
+                        onClick={() => placeOrder(order.id)}
                     >
                         Place Order
                     </Button>
-                </div>
-                <div>
-
                 </div>
             </div>
         </div>

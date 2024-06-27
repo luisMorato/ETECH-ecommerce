@@ -22,6 +22,7 @@ const UsersList = ({ token }: usersListProps) => {
   const pages = useMemo(() => quantity && Math.ceil(quantity / 10), [quantity]) ?? 0;
   const [page, setPage] = useState<number>(Number(currentPage) || 1);
   
+  //Fetch All Users Registered in the Database (Only Admin is Allowed)
   useEffect(() => {
     const fetchUsers = async () => {
       const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user/all`);
@@ -60,20 +61,20 @@ const UsersList = ({ token }: usersListProps) => {
     fetchUsers();
   }, [token, page, userSearch, currentUrl]);
 
-  const nextPage = () => {
-    setPage((prevValue) => prevValue >= pages ? prevValue : prevValue + 1);
+    const nextPage = () => {
+      setPage((prevValue) => prevValue >= pages ? prevValue : prevValue + 1);
     }
 
     const goToFirstPage = () => {
-        setPage(1);
+      setPage(1);
     }
 
     const prevPage = () => {
-        setPage((prevValue) => prevValue <= 1 ? prevValue : prevValue - 1);
+      setPage((prevValue) => prevValue <= 1 ? prevValue : prevValue - 1);
     }
 
     const goToLastPage = () => {
-        setPage(pages);
+      setPage(pages);
     }
 
   return users && (

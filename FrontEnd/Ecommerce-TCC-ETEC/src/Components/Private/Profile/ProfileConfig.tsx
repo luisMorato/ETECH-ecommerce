@@ -12,11 +12,11 @@ import StyledInput from "../../Layout/StyledInput";
 
 interface profileConfigProps {
   user: Omit<userProps, 'password'> | undefined,
-  userImage?: string,
+  //userImage?: string,
   token: string | undefined
 }
  
-const ProfileConfig = ({ user, userImage, token }: profileConfigProps) => {
+const ProfileConfig = ({ user, token }: profileConfigProps) => {
   const {
     register,
     handleSubmit,
@@ -41,6 +41,7 @@ const ProfileConfig = ({ user, userImage, token }: profileConfigProps) => {
     }
   });
 
+  //Grab the edited User Data And Make a PUT Request to change it in the Database
   const EditUserDataSubmit: SubmitHandler<FieldValues> = async (data) => {
     const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
 
@@ -81,6 +82,7 @@ const ProfileConfig = ({ user, userImage, token }: profileConfigProps) => {
     }
   }
 
+  //Make a Request to an External API to get the address Data Automatically through the Postal Code
   const fetchPostalCode = async () => {
     const data: FieldValues = getValues();
 
@@ -110,19 +112,20 @@ const ProfileConfig = ({ user, userImage, token }: profileConfigProps) => {
     }
   }
 
+  //Check If user has all the address details by returning a boolean
   const hasAddressDetails = () => {
     return user?.address && user?.postalCode && user?.country && user?.city && user?.state;
-  };
+  }
   
   return user && (
     <div className="flex gap-5 my-5">
-      <div className="flex flex-col min-h-[570px] h-fit py-5 px-3 bg-white w-[550px] rounded-2xl">
-        <h1 className="text-black text-3xl font-medium mb-4">Personal Data</h1>
+      <div className="flex flex-col min-h-[570px] h-fit py-5 px-3 bg-white w-[550px] rounded-2xl text-black">
+        <h1 className="text-3xl font-medium mb-4">Personal Data</h1>
         <div className="flex items-center justify-center self-center rounded-full bg-neutral-400 h-24 w-24 overflow-hidden mb-5">
-            {!userImage ?
+            {!user.image ?
                 <span className="font-bold text-3xl">{captilze(user.name[0])}</span>
                 :
-                <img src={userImage} alt="User Profile Image" />
+                <img src={`${import.meta.env.VITE_BACKEND_URL}/public/images/user/${user.image}`} alt="User Profile Image" />
             }
         </div>
         <form onSubmit={handleSubmit(EditUserDataSubmit)} className="flex flex-col gap-5">
@@ -172,6 +175,17 @@ const ProfileConfig = ({ user, userImage, token }: profileConfigProps) => {
             placeholder="JohnDoe@test.com"
             errors={errors}
           />
+          <StyledInput
+            name="phoneNumber"
+            label="Phone Number:"
+            register={register}
+            options={{
+              pattern: /^\(\d{2}\) 9 \d{4}-\d{4}$/
+            }}
+            type="text"
+            placeholder="(99) 9 9999-9999"
+            errors={errors}
+          />
           <div className="flex gap-3 items-center">
             <StyledInput
               name="postalCode"
@@ -214,6 +228,9 @@ const ProfileConfig = ({ user, userImage, token }: profileConfigProps) => {
                 name="houseNumber"
                 label="Number:"
                 register={register}
+                options={{
+                  maxLength: 3
+                }}
                 type="text"
                 placeholder="Ex: 123"
                 className="max-w-24"

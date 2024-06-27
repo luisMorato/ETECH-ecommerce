@@ -39,6 +39,7 @@ const AllProducts = ({ token }: allProductsProps) => {
     const currentSearch = currentUrl.searchParams.get('search');
     const [productSearch, setProductSearh] = useState(currentSearch || '');
 
+    //Fetch All Products Registered in the Database
     useEffect(() => {
         const fetchProducts = async () => {
             const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/products`);
@@ -79,6 +80,7 @@ const AllProducts = ({ token }: allProductsProps) => {
         fetchProducts();
     }, [productSearch, currentUrl, page]);
 
+    //Remove some product From the Database (Only Admin is Allowed)
     const removeDbProduct = async (productId: number) => {
         const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/products`);
 

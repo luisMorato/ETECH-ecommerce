@@ -6,7 +6,7 @@ import {
 } from "react";
 import { useParams } from "react-router-dom";
 
-import { completeOrderProps } from "../../interfaces/OrderProps";
+import { cartProductsProps } from "../../interfaces/cartProps";
 
 import OrderProducts from "../../Components/Private/Checkout/OrderProducts";
 import DeliveryMethod from "../../Components/Private/Checkout/DeliveryMethod";
@@ -17,15 +17,16 @@ const Checkout = () => {
   const { userToken: token } = useParams();
   const url = useMemo(() => new URL(window.location.toString()), []);
 
-  const [order, setOrder] = useState<completeOrderProps>();
+  const [cartProducts, setCartProducts] = useState<cartProductsProps[]>([]);
   
+  //Fetch The Cart Data to Render the products that will go to the Order
   useEffect(() => {
-    const fetchOrder = async () => {
-      const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout`);
+    const fetchCartData = async () => {
+      const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart`);
 
       try {
         const response = await fetch(url, {
-          method: "GET",
+          method: 'GET',
           headers: {
             "content-type": "application/json",
             "authorization": `Bearer ${token}`
@@ -34,43 +35,38 @@ const Checkout = () => {
   
         if(response.ok){
           const resJson = await response.json();
-          const { completeOrder } = resJson;
-    
-          setOrder(completeOrder);
+
+          const { cart } = resJson;
+          setCartProducts(cart.cartProducts);
         }
       } catch (error) {
         console.log('Error: ', error);
       }
     }
-
-    fetchOrder();
+    
+    fetchCartData();
   }, [token]);
 
   const step = url.searchParams.get('step') ?? 'orderproducts';
   
+  //Set the next Step to the order (Delivery Method | payment Method | Complete Order) and store it in a URL state to persist Reaload
   const setNextStep = useCallback((step: string) => {
       url.searchParams.set('step', step);
       window.history.pushState(null, '', url);
       window.location.reload();
   }, [url]);
 
-  useEffect(() => {
-    if(order?.status === "Payment Made"){
-      setNextStep('completeOrder');
-    }
-  }, [order, setNextStep]);
-
   return (
     <div className="min-h-screen">
       <div className="py-5">
         {step === 'orderproducts' &&
           <OrderProducts
-            cartProducts={order?.orderDetails.cartProducts || []}
+            cartProducts={cartProducts || []}
             setNextStep={setNextStep}
           />
         }
         {step === 'deliverymethod' &&
-          <DeliveryMethod 
+          <DeliveryMethod
             setNextStep={setNextStep}
           />
         }
@@ -81,7 +77,7 @@ const Checkout = () => {
         }
         {step === 'completeOrder' &&
           <CompleteOrder 
-            orderId={order?.id}
+            //orderId={order?.id}
           />
         }
       </div>

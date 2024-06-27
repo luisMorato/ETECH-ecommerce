@@ -1,4 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { 
+    useCallback,
+    useEffect,
+    useState,
+ } from 'react';
 import { FaX } from 'react-icons/fa6';
 
 interface modalProps {
@@ -16,6 +20,7 @@ const Modal = ({ isOpen, header, body, footer, onClose }: modalProps) => {
         setShowModal(isOpen);
     }, [isOpen]);
 
+    //Awaits 300ms before set the IsOpen to false, to anable the animation of the modal translating
     const handleClose = useCallback(() => {
         setShowModal(false);
 
@@ -27,7 +32,7 @@ const Modal = ({ isOpen, header, body, footer, onClose }: modalProps) => {
     return (
         <div className={`${isOpen ? "opacity-100 fixed z-50 flex items-center justify-center w-full h-full bg-black/80" : "opacity-0 hidden"} `}>
             <div
-                className={`bg-white rounded-2xl translate opacity duration-300 px-3 w-[400px]
+                className={`bg-white text-black rounded-2xl translate opacity duration-300 px-3 w-[400px]
                     ${showModal ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`
                 }
             >

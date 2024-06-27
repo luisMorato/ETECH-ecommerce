@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import Button from "../../Layout/Button";
 import OrderProductCard from "./OrderProductCard";
+import { checkTextLength } from "../../../utils/checkTextLength";
 
 interface orderProductsProps {
     cartProducts: {
@@ -21,10 +22,12 @@ interface orderProductsProps {
 }
 
 const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
-    const total = useMemo(() => cartProducts.map((product) => product.quantity * product.products.price).reduce((prev, current) => prev + current, 0), [cartProducts]);
-
     const { userToken: token } = useParams();
 
+    //Calculate the total price from the products in the cart
+    const total = useMemo(() => cartProducts.map((product) => product.quantity * product.products.price).reduce((prev, current) => prev + current, 0), [cartProducts]);
+
+    //Remove a cart product before build the order
     const removeFromCart = useCallback(async (productId: number) => {
         const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart`);
 
@@ -65,9 +68,10 @@ const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
             ))}
             <div className="self-center bg-white w-2/4 px-8 py-5 rounded-2xl">
                 {cartProducts.map((cartProduct) => (
-                    <div key={cartProduct.products.id} className="flex justify-between flex-1 mb-3 text-black">
-                        <p className="font-medium">{cartProduct.products.name}</p>
-                        <span className="font-bold">$ {(cartProduct.products.price).toFixed(2)}</span>
+                    <div key={cartProduct.products.id} className="flex justify-between gap-2 flex-1 mb-3 text-black">
+                        {/*ToDo: Check Window Witdh To hide part of the Product Name*/}
+                        <p className="font-medium">{window.innerWidth <= 1600 ? checkTextLength(cartProduct.products.name, 55) : cartProduct.products.name}</p>
+                        <span className="text-nowrap font-bold">$ {(cartProduct.products.price).toFixed(2)}</span>
                     </div>
                 ))}
                 <div className="flex justify-between flex-1 mb-3 mt-6 font-medium text-[#2295E9]">

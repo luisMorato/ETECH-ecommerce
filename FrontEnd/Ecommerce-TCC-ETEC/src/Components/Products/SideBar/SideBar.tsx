@@ -21,10 +21,12 @@ interface SideBarProps {
 const SideBar = ({ category, setPriceInterval, priceInterval }: SideBarProps) => {
   const [freeShipping, setFreeShipping] = useState(false);
 
+  //Handle the Change of the Price Range Input
   const handlePriceInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPriceInterval(parseFloat(e.target.value))
   } 
 
+  //Remove All Filters, such as SubCategory | Brands | Free Shipping | Price Interval
   const clearFilters = () => {
     const currentUrl = new URL(window.location.toString());
     currentUrl.searchParams.delete('subcategory');

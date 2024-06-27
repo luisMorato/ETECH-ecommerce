@@ -10,13 +10,14 @@ import ListItem from "./ListItem";
 
 interface userButtonsProps {
     user?: userProps,
-    userImage: string,
+    //userImage: string,
     signOut: () => void,
     token: string | undefined
 }
 
-const UserButtons = ({ user, userImage, signOut, token }: userButtonsProps) => {
+const UserButtons = ({ user, signOut, token }: userButtonsProps) => {
     const [openUserMenu, setOpenUserMenu] = useState(false);
+    const userImageUrl = `${import.meta.env.VITE_BACKEND_URL}/public/images/user/${user?.image}`;
 
     return (
         <div className="flex items-center gap-5">
@@ -45,10 +46,10 @@ const UserButtons = ({ user, userImage, signOut, token }: userButtonsProps) => {
               className="flex items-center gap-3 text-neutral-400 border border-neutral-300 rounded-full p-1 overflow-hidden h-fit hover:scale-105"
             >
                 <span className="bg-neutral-300 flex items-center justify-center rounded-full h-9 w-9 overflow-hidden">
-                    {!userImage ?
+                    {!user?.image ?
                       <FaUserAlt size={25} className="text-neutral-400/70"/>
                       :
-                      <img src={userImage} alt={`${user?.name}-image`}/>
+                      <img src={userImageUrl} alt={`${user?.name}-image`}/>
                     }
                 </span>
                 <span className="-translate-x-2 border-l border-l-neutral-300 pl-2 ml-1">
@@ -58,8 +59,8 @@ const UserButtons = ({ user, userImage, signOut, token }: userButtonsProps) => {
             {openUserMenu && 
             (<div className="absolute top-full translate-y-1 right-0 z-30 w-[120px] border border-neutral-400/50 bg-white rounded-2xl overflow-hidden">
               <ul>
-                <ListItem className="font-medium" href={`/profile/${token}`}>Profile</ListItem>
-                <ListItem className="font-medium">
+                <ListItem className="font-medium" to={`/profile/${token}`}>Profile</ListItem>
+                <ListItem className="font-medium" to="">
                   <button onClick={signOut}>Sign Out</button>
                 </ListItem>
               </ul>

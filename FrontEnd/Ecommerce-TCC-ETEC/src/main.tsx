@@ -48,6 +48,7 @@ const router = createBrowserRouter([{
       element: <Profile />,
     },
     {
+      //ToDo: Add an AuthProvider To Check If User is Logged In to Allow the Access
       //If no userToken was provided, in this case, it's need to be redirected to the homepage
       path: "/profile",
       element: <Navigate to="/"></Navigate>
@@ -57,6 +58,7 @@ const router = createBrowserRouter([{
       element: <Checkout />
     },
     {
+      //ToDo: Add an AuthProvider To Check If User is Logged In to Allow the Access
       //If no userToken was provided, in this case, it's need to be redirected to the homepage
       path: "/checkout",
       element: <Navigate to="/"></Navigate>
@@ -75,11 +77,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     />
     <RegisterModalContextProvider>
     <LoginModalContextProvider>
-      <ChatBoxModalContextProvider>
-        <SearchContextProvider>
-          <RouterProvider router={router}/>
-        </SearchContextProvider>
-      </ChatBoxModalContextProvider>
+        <ChatBoxModalContextProvider>
+          <SearchContextProvider>
+            <RouterProvider router={router}/>
+          </SearchContextProvider>
+        </ChatBoxModalContextProvider>
     </LoginModalContextProvider>
     </RegisterModalContextProvider>
   </React.StrictMode>,

@@ -33,11 +33,13 @@ const RegisterModal = () => {
     }
   });
   
+  //Closes the Register Modal and Open the Login Modal
   const toggleToLogin = () => {
     setRegisterIsOpen(false);
     setLoginIsOpen(true);
   }
 
+  //Make the request to the Backend to Register the User
   const registerSubmit: SubmitHandler<FieldValues> = async (data) => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/user`;
 

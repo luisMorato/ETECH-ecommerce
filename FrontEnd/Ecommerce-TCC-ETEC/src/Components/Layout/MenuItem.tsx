@@ -1,9 +1,7 @@
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface menuItemProps extends ComponentProps<'a'> {
-    children: string | React.ReactElement,
-}
+interface menuItemProps extends ComponentProps<'a'> {}
 
 const MenuItem = (props: menuItemProps) => {
   return (

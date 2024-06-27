@@ -10,11 +10,13 @@ type searchContextProps = {
     setSearch: Dispatch<SetStateAction<string>>,
 }
 
+//Create a Context For the Search Modal
 export const SearchContext = createContext<searchContextProps>({
     search: '',
     setSearch: () => void 0
 });
 
+//Create a Provider For the Context of the Search Modal
 export const SearchContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [search, setSearch] = useState<string>('');
 

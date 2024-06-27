@@ -38,7 +38,8 @@ const Brands = () => {
 
     const currentUrl = new URL(window.location.toString());
 
-    const setHardwareBrand = (brand: string) => {
+    //Set the Brand in the URL State to Persist The Reloads
+    const setBrand = (brand: string) => {
         currentUrl.searchParams.set('brand', brand);
         window.history.pushState(null, '', currentUrl);
         window.location.reload();
@@ -46,6 +47,7 @@ const Brands = () => {
   
     const currentBrand = currentUrl.searchParams.get('brand');
 
+    //Handle the Brand Search Input Change
     const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setBrandSearch(e.target.value);
     }
@@ -72,7 +74,7 @@ const Brands = () => {
                         type="radio"
                         className="cursor-pointer"
                         checked={!currentBrand || currentBrand === "all" ? true : false}
-                        onChange={(e) => setHardwareBrand(e.currentTarget.id)}
+                        onChange={(e) => setBrand(e.currentTarget.id)}
                     />
                     <label htmlFor="subcategory">All</label>
                 </div>
@@ -86,7 +88,7 @@ const Brands = () => {
                             type="radio"
                             className="cursor-pointer"
                             checked={(brand.name).replace(/\s+/g, '').toLowerCase() === currentBrand}
-                            onChange={(e) => setHardwareBrand(e.currentTarget.id)}
+                            onChange={(e) => setBrand(e.currentTarget.id)}
                         />
                         <label htmlFor="subcategory">{brand.name}</label>
                     </div>
