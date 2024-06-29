@@ -62,5 +62,5 @@ export interface productsUseCasesProps {
     registerProduct: (data: Omit<requestProduct, 'image'>, filesName: string[]) => Promise<{ product: productProps, message: string } | null>;
     deleteProduct: (data: deleteProduct) => Promise<{ message: string } | undefined>
     getUniqueProduct: (productId: number) => Promise<{ product: productProps }  | null | undefined>
-    getAllProducts: (perPage: number, category: string, subcategory?: string, brand?: string, pageIndex?: number, query?: string) => Promise<{ products: productProps[] | [], quantity: number | undefined } | null | undefined>
+    getAllProducts: (perPage?: number, category?: string, subcategory?: string, brand?: string, pageIndex?: number, query?: string) => Promise<{ products: productProps[] | [], quantity: number | undefined } | null | undefined>
 }

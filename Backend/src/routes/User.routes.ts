@@ -196,7 +196,7 @@ export const userRoutes = async (app: FastifyInstance) => {
         schema: {
             querystring: z.object({
                 pageIndex: z.string().transform((val) => parseInt(val)).optional(),
-                perPage: z.string().transform((val) => parseInt(val)),
+                perPage: z.string().transform((val) => parseInt(val)).optional(),
                 search: z.string().optional()
             }),
             response: {

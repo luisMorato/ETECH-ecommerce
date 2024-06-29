@@ -104,7 +104,7 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
   .get( "/", {
       schema: {
         querystring: z.object({
-          perPage: z.string().transform((val) => parseInt(val)),
+          perPage: z.string().transform((val) => parseInt(val)).optional(),
           pageIndex: z.string().default("0").transform((val) => parseInt(val)).optional(),
           category: z.string().optional(),
           subcategory: z.string().optional(),

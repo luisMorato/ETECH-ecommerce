@@ -272,8 +272,13 @@ export class UserUseCases implements userUseCasesProps {
                         mode: 'insensitive'           
                     }
                 } : {},
-                take: Number(perPage),
-                skip: Number(( pageIndex || 0 ) * perPage)
+                ...(perPage && {  
+                        take: Number(perPage), 
+                        skip: Number(( pageIndex || 0 ) * perPage) 
+                    }
+                )
+                // take: Number(perPage),
+                // skip: Number(( pageIndex || 0 ) * perPage)
             });
 
             if(dbUsers){

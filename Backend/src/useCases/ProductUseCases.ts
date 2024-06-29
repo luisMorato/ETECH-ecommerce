@@ -181,7 +181,7 @@ export class productsUseCases implements productsUseCasesProps {
     }
   };
 
-  getAllProducts = async (perPage: number, category?: string, subcategory?: string, brand?: string, pageIndex?: number, query?: string) => {
+  getAllProducts = async (perPage?: number, category?: string, subcategory?: string, brand?: string, pageIndex?: number, query?: string) => {
     try {
       const quantity = await db?.product.count({
         where: {
@@ -219,8 +219,9 @@ export class productsUseCases implements productsUseCasesProps {
             }
           }
         },
-        take: perPage,
-        skip: ( pageIndex || 0 ) * perPage,
+        ...(perPage && { take: perPage, skip: ( pageIndex || 0 ) * perPage }),
+        // take: perPage,
+        // skip: ( pageIndex || 0 ) * perPage,
         include: {
           categories: true,
           subCategories: true

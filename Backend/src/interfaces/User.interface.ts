@@ -51,7 +51,7 @@ export interface editUser {
 
 export interface queryData {
     pageIndex?: number,
-    perPage: number,
+    perPage?: number,
     search?: string
 }
 
