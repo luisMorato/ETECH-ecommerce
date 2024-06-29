@@ -8,6 +8,9 @@ import {
 } from "recharts";
 
 const ActiveUsersChart = () => {
+    const currentUrl = new URL(window.location.toString());
+    const currentOption = currentUrl.searchParams.get('option') ?? 'dashboard';
+  
     const data = [
       { days: 1, activeUsers: 20 },
       { days: 2, activeUsers: 12 },
@@ -19,7 +22,7 @@ const ActiveUsersChart = () => {
     ];
     
     return (
-      <div className="w-1/2">
+      <div className={currentOption === "dashboard" ? "w-full h-[300px]" : "w-1/2 h-[400px]"}>
         <h2 className="text-xl font-medium text-center mb-5">Active Users (Last 7 Days)</h2>
         <ResponsiveContainer width={"100%"} height={"100%"}>
           <BarChart data={data}>

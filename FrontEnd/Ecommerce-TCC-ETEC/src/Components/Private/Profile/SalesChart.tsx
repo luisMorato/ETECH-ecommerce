@@ -1,6 +1,9 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const SalesChart = () => {
+    const currentUrl = new URL(window.location.toString());
+    const currentOption = currentUrl.searchParams.get('option') ?? 'dashboard';
+    
     const data = [
         { day: 1, sales: 100 },
         { day: 2, sales: 120 },
@@ -12,7 +15,7 @@ const SalesChart = () => {
     ];
   
     return (
-        <div className="h-[400px] w-full">
+        <div className={`w-full ${currentOption === "dashboard" ? "h-[300px]" : "h-[400px]"}`}>
             <h2 className="text-2xl font-medium text-center mb-5">Sales Value (Last Month)</h2>
             <ResponsiveContainer width={"100%"} height={"100%"}>
                 <LineChart data={data}>

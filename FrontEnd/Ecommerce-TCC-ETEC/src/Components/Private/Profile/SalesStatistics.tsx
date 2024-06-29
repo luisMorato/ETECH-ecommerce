@@ -129,7 +129,7 @@ const SalesStatistics = ({ token }: salesStatisticsProps) => {
         <div className="flex-1 pb-10">
           <SalesChart />
         </div>
-        <div className="flex gap-5 h-[400px] my-5 pb-5">
+        <div className="flex my-5 pb-5">
           <BestSellingCategoryChart />
           <ActiveUsersChart />
         </div>

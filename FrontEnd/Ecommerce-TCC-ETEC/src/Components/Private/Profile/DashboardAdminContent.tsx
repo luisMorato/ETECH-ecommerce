@@ -15,6 +15,7 @@ import {
   FaShoppingBasket
 } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
+import { BsGraphUp } from "react-icons/bs";
 
 import { userProps } from "../../../interfaces/userProps"
 import { productProps } from "../../../interfaces/productsProps";
@@ -27,6 +28,8 @@ import Welcome from "./Welcome";
 import GetPassword from "./GetPassword";
 import Container from "./Container";
 import Box from "./Box";
+import SalesChart from "./SalesChart";
+import ActiveUsersChart from "./ActiveUsersChart";
 
 interface dashboardUserContentProps {
   user: userProps | undefined,
@@ -106,7 +109,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
         const usersJson = await usersResponse.json();
         const { quantity: usersApiQuantity } = usersJson;
 
-        setUsersQuantity(usersApiQuantity);
+        setUsersQuantity(usersApiQuantity - 1);
 
         const ordersJson = await ordersResponse.json();
         const { orders: apiOrders, quantity: ordersApiQuantity } = ordersJson;
@@ -235,7 +238,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
           choice={'imageUpload'}
           handleGetPassword={handleGetPassword}
       />
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 max-w-[1280px]">
         <div className="flex gap-5">
           <Welcome
               preview={preview}
@@ -272,7 +275,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
           </Container>
         </div>
         <div className="flex gap-5">
-          <Container className="max-w-[620px]">
+          <Container className="max-w-1/2">
             <div className="flex items-center justify-between pb-2 border-b">
               <div className="flex items-center gap-3">
                 <FaClockRotateLeft size={25}/>
@@ -288,33 +291,44 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                 />
               </div>
             </div>
-            <p className="mb-4 mt-2">Orders: {ordersQuantity}</p>
-            <div className={`${orders?.length >= 3 ? "overflow-y-scroll h-[550px]" : "h-fit overflow-y-hidden"}`}>
-              {//Check if any order exists, if it does, render it, else show "No Last Orders"
-                orders ?
-                orders.map((order) => (
-                  <div className="flex flex-col gap-2 p-3 mb-5 bg-neutral-100 rounded-2xl" key={order.id}>
-                    <span>User: {order.cart?.user.name}</span>
-                    <span>Email: {order.cart?.user.email}</span>
-                    <span>Code: {order.id}</span>
-                    <span>Date: {new Date(order.date).toISOString()}</span>
-                    <span>Status: {order.status}</span>
-                    <span>Tracking Code: {order.trackingCode}</span>
-                    <div className="flex justify-end">
-                      <Button>Change Status</Button>
-                    </div>
+            {//Check if any order exists, if it does, render it, else show "No Last Orders"
+              orders.length > 0 ? (
+                <div>
+                  <p className="mb-4 mt-2">Orders: {ordersQuantity}</p>
+                  <div className={`${orders?.length >= 4 ? "overflow-y-scroll h-[700px]" : "h-fit overflow-y-hidden"}`}>
+                    {orders.map((order) => (
+                      <div className="flex flex-col gap-2 p-5 mb-5 bg-neutral-100 rounded-2xl" key={order.id}>
+                        <span>User: {order.cart?.user.name}</span>
+                        <span>Email: {order.cart?.user.email}</span>
+                        <span>Code: {order.id}</span>
+                        <span>Date: {new Date(order.date).toISOString()}</span>
+                        <span>Status: {order.status}</span>
+                        <span>Tracking Code: {order.trackingCode}</span>
+                        <div className="flex justify-end">
+                          <Button>Change Status</Button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))
+                </div>)
                 :
                 <div>
-                  <span className="text-lg">No Last Orders</span>
+                  <p className="text-xl text-center mt-5">No Last Orders</p>
                 </div>
-              }
-            </div>
+            }
           </Container>
-          <div className="bg-white flex-1 rounded-xl p-3 max-w-[640px]">
-            <h2>Statistics</h2>
-            <span>Overview</span>
+          <div className="bg-white flex-1 rounded-xl p-5 max-w-1/2 h-fit pb-16">
+            <div className="mb-5">
+              <div className="flex items-center gap-5 mb-3">
+                <BsGraphUp size={30} className="text-mainBlue"/>
+                <h2 className="text-2xl font-medium">Statistics</h2>
+              </div>
+              <span className="text-xl text-neutral-500 font-medium">Overview</span>
+            </div>
+            <div className="flex flex-col gap-16">
+              <SalesChart />
+              <ActiveUsersChart />
+            </div>
           </div>
         </div>
       </div>

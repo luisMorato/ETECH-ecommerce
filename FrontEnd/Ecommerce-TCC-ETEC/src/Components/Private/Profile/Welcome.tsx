@@ -17,7 +17,7 @@ interface welcomeProps {
 
 const Welcome = ({ preview, user, handleFileInputChange, setOption }: welcomeProps) => {
     return (
-        <section className="relative flex items-center gap-10 bg-white p-3 rounded-xl mb-5 w-[620px] h-full">
+        <section className="relative flex items-center flex-1 gap-10 bg-white p-3 rounded-xl mb-5 h-full">
             <div className="flex flex-col items-end gap-2">
                 <div className="relative ml-8">
                     <div className="flex items-center justify-center rounded-full bg-neutral-400 h-16 w-16 overflow-hidden">
