@@ -24,7 +24,6 @@ const Profile = () => {
 
   const [order, setOrder] = useState<completeOrderProps>();
   const [user, setUser] = useState<userProps | undefined>(undefined);
-  //const [userImage, setUserImage] = useState('');
 
   //Sets the profile view option (dashboard, profile data config, etc) in the URL to persist reloads
   const currentUrl = new URL(window.location.toString());
@@ -45,7 +44,6 @@ const Profile = () => {
         const resJson = await response.json();
         
         if(response.ok){
-          //const { user: apiUser, imageBuffer } = resJson;
           const { user: apiUser } = resJson;
           if(!apiUser){
             navigate("/");
@@ -53,13 +51,6 @@ const Profile = () => {
           }
 
           setUser(apiUser);
-
-          // if(imageBuffer){
-          //   const blob = new Blob([new Uint8Array(imageBuffer.data)], { type: 'image/jpg' });
-          //   const imageURL = URL.createObjectURL(blob);
-  
-          //   setUserImage(`${import.meta.env.VITE_BACKEND_URL}/public/images/user/${apiUser?.image}`);
-          // }
         }
       }
     }
@@ -109,7 +100,6 @@ const Profile = () => {
       {currentOption === "dashboard" && (
          <Dashboard
          user={user}
-         //userImage={userImage}
          order={order}
        />
       )}
@@ -117,7 +107,6 @@ const Profile = () => {
         <div className="mb-5">
           <ProfileConfig
             user={user}
-            //userImage={userImage}
             token={token}
           />
           {user.role !== "ADMIN" && 
@@ -147,11 +136,11 @@ const Profile = () => {
             token={token}
           />
       }
-      <div>
-        { currentOption === 'salesStatistics' &&
-            <SalesStatistics />
-        }
-      </div>
+      { currentOption === 'salesStatistics' &&
+          <SalesStatistics 
+            token={token}
+          />
+      }
     </div>
   )
 }

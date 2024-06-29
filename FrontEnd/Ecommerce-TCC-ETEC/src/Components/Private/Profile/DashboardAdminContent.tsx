@@ -31,7 +31,6 @@ import Box from "./Box";
 interface dashboardUserContentProps {
   user: userProps | undefined,
   setOption: (option: string) => void,
-  //userImage?: string,
 }
 
 const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps ) => {
@@ -63,17 +62,13 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
   });
   
   useEffect(() => {
-    const fetchProductsQuantity = async () => {
+    const fetchAdminDashboardData = async () => {
       if(user?.role !== 'ADMIN'){
         return;
       }
 
       const productsURL = new URL(`${import.meta.env.VITE_BACKEND_URL}/products`);
-      productsURL.searchParams.set('perPage', String(100000));
-
       const usersURL = new URL(`${import.meta.env.VITE_BACKEND_URL}/user/all`);
-      usersURL.searchParams.set('perPage', String(100000));
-
       const ordersURL = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout/all`);
 
       try {
@@ -123,7 +118,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
       }
     }
 
-    fetchProductsQuantity();
+    fetchAdminDashboardData();
   }, [user?.role, token]);
 
   useEffect(() => {
@@ -254,7 +249,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
               <FaBoxOpen size={30} className="text-[#2295E9]"/>
             </Box>
             <div className="flex flex-col mt-5">
-              <h2 className="text-4xl text-right font-medium">{stock}</h2>
+              <p className="text-4xl text-right font-medium">{stock}</p>
             </div>
           </Container>
           <Container className="max-w-[200px]">
@@ -263,7 +258,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
               <FaShoppingBasket size={30} className="text-[#2295E9]"/>
             </Box>
             <div className="flex flex-col mt-5">
-              <h2 className="text-4xl text-right font-medium">{productsQuantity}</h2>
+              <p className="text-4xl text-right font-medium">{productsQuantity}</p>
             </div>
           </Container>
           <Container className="max-w-[200px]">
@@ -272,7 +267,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
               <FaUserCheck size={30} className="text-[#2295E9]"/>
             </Box>
             <div className="flex flex-col mt-5">
-              <h2 className="text-4xl text-right font-medium">{usersQuantity}</h2>
+              <p className="text-4xl text-right font-medium">{usersQuantity}</p>
             </div>
           </Container>
         </div>

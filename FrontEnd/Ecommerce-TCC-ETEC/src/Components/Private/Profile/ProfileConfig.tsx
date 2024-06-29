@@ -12,7 +12,6 @@ import StyledInput from "../../Layout/StyledInput";
 
 interface profileConfigProps {
   user: Omit<userProps, 'password'> | undefined,
-  //userImage?: string,
   token: string | undefined
 }
  
@@ -120,7 +119,15 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
   return user && (
     <div className="flex gap-5 my-5">
       <div className="flex flex-col min-h-[570px] h-fit py-5 px-3 bg-white w-[550px] rounded-2xl text-black">
-        <h1 className="text-3xl font-medium mb-4">Personal Data</h1>
+        <h1 
+          className="relative text-3xl font-medium w-fit mb-5
+          after:absolute
+          after:top-full
+          after:left-0
+          after:bg-mainBlue
+          after:h-0.5
+          after:w-full"
+        >Personal Data</h1>
         <div className="flex items-center justify-center self-center rounded-full bg-neutral-400 h-24 w-24 overflow-hidden mb-5">
             {!user.image ?
                 <span className="font-bold text-3xl">{captilze(user.name[0])}</span>

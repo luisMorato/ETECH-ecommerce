@@ -23,7 +23,6 @@ import AddressBox from "./AddressBox";
 
 interface dashboardUserContentProps {
     user: userProps | undefined,
-    //userImage?: string,
     order?: completeOrderProps,
     setOption: (option: string) => void,
     correctedDate: string
@@ -196,7 +195,6 @@ const DashboardUserContent = ({ user, order, setOption }: dashboardUserContentPr
 
     //Based on the Choice, return's the function to made the request
     const getAction = (e: FormEvent<HTMLFormElement>) => {
-        console.log(choice);
         switch (choice) {
             case 'imageUpload':
                 handleImageChange(e);

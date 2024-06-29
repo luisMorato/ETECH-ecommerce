@@ -183,7 +183,15 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
   
     return (
       <div className="flex flex-col gap-8 bg-white text-black rounded-xl p-5 mt-5 h-fit w-[550px]">
-        <h1 className="text-3xl font-medium">Product Register</h1>
+        <h1 
+          className="relative text-3xl font-medium w-fit pb-0.5
+          after:absolute
+          after:top-full
+          after:left-0
+          after:bg-mainBlue
+          after:h-0.5
+          after:w-full"
+        >Product Register</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <label htmlFor="name" className="font-medium">Product Name:</label>

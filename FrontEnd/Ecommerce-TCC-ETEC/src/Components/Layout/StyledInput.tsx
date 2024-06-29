@@ -44,6 +44,7 @@ const StyledInput = ({ name, label, register, options, errors, roundedLg, ...pro
                     pattern: options?.pattern 
                 })}
                 {...props}
+                id={name}
                 type={showPassword ? "text" : props.type}
                 className={twMerge(props.className, "placeholder:text-neutral-400 text-neutral-800 px-3 py-2 flex-1 rounded-2xl focus:outline-none")}
             />

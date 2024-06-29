@@ -68,11 +68,17 @@ function App() {
     })
   }
 
+  window.addEventListener("load" , () => {
+    console.log({
+      id: Math.random() * 1000,
+    }, "Active User");
+  });
+
   return (
     <>
         <RegisterModal />
         <LoginModal />
-        <Header 
+        <Header
           user={user}
         />
         <TopMenu />
@@ -86,11 +92,13 @@ function App() {
         >
           <MdKeyboardDoubleArrowUp size={30} />
         </FixedButton>
-        <FixedButton
-          className="bottom-20 right-5 p-2 bg-green-700"
-        >
-          <IoLogoWhatsapp size={30} />
-        </FixedButton>
+        {user?.role !== 'ADMIN' &&
+          <FixedButton
+            className="bottom-20 right-5 p-2 bg-green-700"
+          >
+            <IoLogoWhatsapp size={30} />
+          </FixedButton>
+        }
         <div>
           {user && user.role !== 'ADMIN' && !isOpen &&
             <FixedButton className="bottom-5 right-5 p-2 bg-mainBlue"

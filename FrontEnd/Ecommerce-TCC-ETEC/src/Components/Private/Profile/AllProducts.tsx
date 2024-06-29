@@ -127,7 +127,15 @@ const AllProducts = ({ token }: allProductsProps) => {
   
     return (
         <div className="text-black py-5">
-            <h1 className="text-3xl font-medium">Database Products</h1>
+            <h1 
+                className="relative text-3xl font-medium w-fit
+                after:absolute
+                after:top-full
+                after:left-0
+                after:bg-mainBlue
+                after:h-0.5
+                after:w-full"
+            >Database Products</h1>
             <div className="relative flex items-center px-3 my-5 w-80 text-neutral-400 border border-neutral-400 rounded-2xl">
                 <span className="group-focus:text-black">
                     <IoIosSearch size={25} />

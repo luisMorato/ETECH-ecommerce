@@ -78,16 +78,16 @@ const Footer = () => {
                 luisfernandomorato_170701@outlook.com
               </span>
               <ul className="flex gap-3 mt-2">
-                <FooterLink to="">
+                <FooterLink to="https://www.instagram.com/l0u1s_f3r/" target="_blank" rel="noopener noreferrer">
                   <FaInstagramSquare size={30} />
                 </FooterLink>
-                <FooterLink to="">
+                <FooterLink to="https://www.linkedin.com/in/luis-fernando-morato-da-conceição-985123223/" target="_blank" rel="noopener noreferrer">
                   <FaLinkedin size={30} />
                 </FooterLink>
-                <FooterLink to="">
+                <FooterLink to="https://github.com/luisMorato?tab=repositories" target="_blank" rel="noopener noreferrer">
                   <FaGithub size={30} />
                 </FooterLink>
-                <FooterLink to="">
+                <FooterLink to="https://www.youtube.com/watch?v=g3DX4p_PUSI&ab_channel=Boluz113" target="_blank" rel="noopener noreferrer">
                   <FaYoutube size={30} />
                 </FooterLink>
               </ul>

@@ -46,7 +46,6 @@ const Header = ({ user }: HeaderProps) => {
           {<div className="relative flex w-[500px]">
               <input
                   name="searchInput"
-                  id="searchInput"
                   type="text"
                   placeholder="Search For Something..."
                   onChange={(e) => handleSearch(e)}

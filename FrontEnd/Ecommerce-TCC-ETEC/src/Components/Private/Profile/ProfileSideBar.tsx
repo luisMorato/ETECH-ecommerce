@@ -40,7 +40,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                         onClick={() => setOption('dashboard')} 
                         className="flex items-center gap-3 py-1.5 font-medium"
                     >
-                        <FaHouseChimney size={20} className="text-[#2295E9]"/> Dashboard
+                        <FaHouseChimney size={20} className="text-mainBlue"/> Dashboard
                     </button>
                 </ListItem>
                 <ListItem
@@ -52,7 +52,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                         onClick={() => setOption('profileConfig')} 
                         className="flex items-center gap-3 py-1.5 font-medium"
                     >
-                        <FaUser size={20} className="text-[#2295E9]"/> Profile Config
+                        <FaUser size={20} className="text-mainBlue"/> Profile Config
                     </button>
                 </ListItem>
                 {user?.role !== "ADMIN" && 
@@ -65,7 +65,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                         onClick={() => setOption('myoders')} 
                         className="flex items-center gap-3 py-1.5 font-medium"
                     >
-                        <FaShoppingBasket size={20} className="text-[#2295E9]"/> My Orders
+                        <FaShoppingBasket size={20} className="text-mainBlue"/> My Orders
                     </button>
                 </ListItem>}
                 {user?.role === "ADMIN" && (
@@ -79,7 +79,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                                 onClick={() => setOption('registerProduct')}
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
-                                <FaClipboardList size={20} className="text-[#2295E9]"/> Register Product
+                                <FaClipboardList size={20} className="text-mainBlue"/> Register Product
                             </button>
                         </ListItem>
                         <ListItem
@@ -91,7 +91,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                                 onClick={() => setOption('allProducts')}
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
-                                <FaListUl size={20} className="text-[#2295E9]"/> Products
+                                <FaListUl size={20} className="text-mainBlue"/> Products
                             </button>
                         </ListItem>
                         <ListItem
@@ -103,7 +103,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                                 onClick={() => setOption('usersList')}
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
-                                <PiUserListFill size={20} className="text-[#2295E9]"/> Users
+                                <PiUserListFill size={20} className="text-mainBlue"/> Users
                             </button>
                         </ListItem>
                         <ListItem
@@ -115,7 +115,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                                 onClick={() => setOption('salesStatistics')} 
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
-                                <BsGraphUp size={20} className="text-[#2295E9]"/> Sales Statistics
+                                <BsGraphUp size={20} className="text-mainBlue"/> Sales Statistics
                             </button>
                         </ListItem>
                     </>

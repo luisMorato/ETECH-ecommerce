@@ -24,10 +24,13 @@ const TopMenu = () => {
     <nav className="flex flex-1 bg-[#2295E9]">
         <div className='flex justify-between mx-auto w-5/6'>
           <ul className="flex">
-              <li className="relative cursor-pointer border-r border-r-[#1678BE] text-lg font-medium py-3 px-6 hover:bg-[#1678BE] pl-3 pr-12">
+              <li 
+                onMouseOver={() => setIsOpen(true)}
+                onMouseLeave={() => setIsOpen(false)}
+                className="relative cursor-pointer border-r border-r-[#1678BE] text-lg font-medium py-3 px-6 hover:bg-[#1678BE] pl-3 pr-12"
+              >
                 <>
                   <div
-                    onClick={() => setIsOpen((prevValue) => !prevValue)}
                     className="flex items-center gap-3"
                   >
                     <span>

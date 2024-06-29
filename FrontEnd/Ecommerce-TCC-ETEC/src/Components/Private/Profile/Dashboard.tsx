@@ -6,7 +6,6 @@ import DashboardAdminContent from "./DashboardAdminContent";
 
 interface dashboardProps {
   user: userProps | undefined,
-  //userImage?: string,
   order?: completeOrderProps
 }
 
@@ -26,13 +25,18 @@ const Dashboard = ({ user, order }: dashboardProps) => {
 
   return (
     <div className="flex flex-col gap-5 flex-1 text-black py-5 max-w-[1280px]">
-        <div className="inline-block bg-white py-3 px-5 rounded-xl">
-          <h1 className="text-3xl font-medium">Dashboard</h1>
-        </div>
+        <h1 
+        className="relative text-3xl font-medium w-fit
+        after:absolute
+        after:top-full
+        after:left-0
+        after:bg-mainBlue
+        after:h-0.5
+        after:w-full"
+        >Dashboard</h1>
         {user && user.role !== "ADMIN" ? (
-          <DashboardUserContent 
+          <DashboardUserContent
             user={user}
-            //userImage={userImage}
             order={order}
             setOption={setOption}
             correctedDate={correctedDate}
@@ -43,7 +47,6 @@ const Dashboard = ({ user, order }: dashboardProps) => {
           <DashboardAdminContent 
             user={user}
             setOption={setOption}
-            //userImage={userImage}
           />
         )}
     </div>
