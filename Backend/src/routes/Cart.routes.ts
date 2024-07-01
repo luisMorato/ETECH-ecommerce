@@ -55,7 +55,7 @@ export const CartRoutes = async (app: FastifyInstance) => {
                             id: z.number(),
                             cartId: z.number(),
                             productId: z.number(),
-                            orderDetailId: z.number().nullable(),
+                            //orderDetailId: z.number().nullable(),
                             quantity: z.number().nullable(),
                         })
                     ]),
@@ -200,4 +200,15 @@ export const CartRoutes = async (app: FastifyInstance) => {
             throw new BadRequest("User Don't Have a Cart");
         }
     });
+
+    //ToDo: Crate an route to Clear the Cart
+    app
+    .withTypeProvider<ZodTypeProvider>()
+    .delete('/removeAll', {
+        schema: {
+
+        }
+    }, async (req, reply) => {
+
+    })
 }

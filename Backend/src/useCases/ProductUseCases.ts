@@ -219,7 +219,11 @@ export class productsUseCases implements productsUseCasesProps {
             }
           }
         },
-        ...(perPage && { take: perPage, skip: ( pageIndex || 0 ) * perPage }),
+        ...(perPage && { 
+            take: perPage, 
+            skip: ( pageIndex || 0 ) * perPage 
+          }
+        ),
         // take: perPage,
         // skip: ( pageIndex || 0 ) * perPage,
         include: {

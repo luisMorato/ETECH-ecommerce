@@ -137,33 +137,6 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
     }
   );
 
-  // app
-  // .withTypeProvider<ZodTypeProvider>()
-  // .get("/image/:imageName",
-  //   {
-  //     schema: {
-  //       params: z.object({
-  //         imageName: z.string(),
-  //       }),
-  //     },
-  //   }, async (req, reply) => {
-  //     const { imageName } = req.params;
-
-  //     const imagePath = path.join(
-  //       process.cwd(),
-  //       "public/images/products",
-  //       imageName
-  //     );
-
-  //     const contentType = imageName.endsWith(".jpg")
-  //       ? "image/jpg"
-  //       : "image/png";
-  //     const imageBuffer = fs.readFileSync(imagePath);
-
-  //     return reply.type(contentType).send(imageBuffer);
-  //   }
-  // );
-
   app
   .withTypeProvider<ZodTypeProvider>()
   .get("/images/:productId",

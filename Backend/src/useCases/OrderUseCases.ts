@@ -1,40 +1,103 @@
 import { db } from "../lib/db/db";
 
-import { orderUseCasesProps, updateOrderData } from "../interfaces/Order.interface";
+import { 
+    orderUseCasesProps, 
+    updateOrderData
+} from "../interfaces/Order.interface";
 import { CartUseCases } from "./CartUseCases";
 import { Order } from "../entities/Order";
 import { queryData } from "../interfaces/Order.interface";
+
 import { BadRequest } from "../_errors/BadRequest";
 import { Unauthorized } from "../_errors/Unauthorized";
+import { NotFound } from "../_errors/NotFound";
 
 const cartUseCases = new CartUseCases();
 
 export class OrderUseCases implements orderUseCasesProps {
     createOrder = async ( userId: number ) => {
+        //ToDo: Fix the Error that is Creating 2 Orders At same time
         const cart = await cartUseCases.getUniqueCartByUserId(userId);
 
-        if(cart) {
+        if(!cart) {
+            throw new NotFound("Cart Is Empty");
+        }
+
+        const { id: cartId } = cart;
+        
+        const cartProducts = await db?.cartProducts.findMany({
+            where: {
+                cartId
+            },
+        });
+
+        if(!cartProducts){
+            throw new BadRequest("Cart Is Empty");
+        }
+
+        const dbOrder = await db?.order.create({
+            data: {
+                cartId,
+                paymentMethod: '',
+                orderDetails: {
+                    create: {
+                        orderProduct: {
+                            createMany: {
+                                data: cartProducts.map((cartProduct) => ({
+                                    productId: cartProduct.productId,
+                                    quantity: Number(cartProduct.quantity),
+                                })),
+                            }
+                        }
+                    }
+                }
+            },
+            include: {
+                orderDetails: {
+                    select: {
+                        orderProduct: {
+                            select: {
+                                quantity: true,
+                                products: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                        image: true,
+                                        price: true,
+                                        desc: true,
+                                        stock: true,
+                                    },
+                                },
+                            },
+                        },
+                    }
+                }
+            }
+        });
+
+        if(!dbOrder){
+            throw new Error('Something Went Wrong');
+        }
+
+        const completeOrder = new Order(dbOrder);
+
+        return { order: completeOrder.getProps, message: "Order Created Successfully!" };
+    }
+
+    getUserOrders = async (userId: number) => {
+        const cart = await cartUseCases.getUniqueCartByUserId(userId);
+
+        if(cart){
             const { id: cartId } = cart;
 
-            const cartProducts = await db?.cartProducts.findMany({
+            const orders = await db?.order.findMany({
                 where: {
-                    cartId
-                },
-            });
-
-            if(!cartProducts){
-                throw new BadRequest("Cart Is Empty");
-            }
-
-            //Check If Order Already Exists before create a new one
-            const existingOrder = await db?.order.findFirst({
-                where: {
-                    cartId
+                    cartId: cartId
                 },
                 include: {
                     orderDetails: {
                         select: {
-                            cartProducts: {
+                            orderProduct: {
                                 select: {
                                     quantity: true,
                                     products: {
@@ -49,97 +112,15 @@ export class OrderUseCases implements orderUseCasesProps {
                                     },
                                 },
                             },
-                        },
-                    },
-                }
-            });
-
-            if(existingOrder){
-                const simplifiedOrder = new Order(existingOrder);
-                
-                return { order: simplifiedOrder.getProps, message: 'Order Already Exists' };
-            }
-
-            const order = await db?.order.create({
-                data: {
-                    cartId,
-                    paymentMethod: '',
-                },
-            });
-
-            if(!order){
-                throw new Error('Something Went Wrong');
-            }
-
-            const orderDetail = await db?.orderDetail.create({
-                data: {
-                    orderId: order.id,
-                },
-            });
-
-            await db?.cartProducts.updateMany({
-                where: {
-                    cartId
-                },
-                data: {
-                    orderDetailId: orderDetail?.id
-                }
-            });
-
-            if(order){
-                const simplifiedOrder = new Order(order);
-
-                return { order: simplifiedOrder.getProps, message: "Order Created Successfully!" };
-            }
-        }
-    }
-
-    getUserOrder = async (userId: number) => {
-        const cart = await cartUseCases.getUniqueCartByUserId(userId);
-
-        if(cart){
-            const { id: cartId } = cart;
-
-            const order = await db?.order.findFirst({
-                where: {
-                    cartId: cartId
-                },
-            });
-
-            const orderDetail = await db?.orderDetail.findFirst({
-                where: {
-                    orderId: order?.id
-                }
-            });
-
-            const orderAndOrderDetails = await db?.order.findUnique({
-                where: {
-                    id: order?.id
-                },
-                include: {
-                    orderDetails: {
-                        where: {
-                            id: orderDetail?.id,
-                        },
-                        select: {
-                            cartProducts: {
-                                where: {
-                                    orderDetailId: orderDetail?.id
-                                },
-                                select: {
-                                    products: true,
-                                    quantity: true
-                                }
-                            }
                         }
                     }
                 }
             });
 
-            if(orderAndOrderDetails){
-                const completeOrder = new Order(orderAndOrderDetails);
+            if(orders){
+                const completeOrders = orders.map((order) => new Order(order).getProps);
 
-                return { completeOrder: completeOrder.getProps, message: "Order Found!" }
+                return { completeOrders, message: "Order Found!" }
             }
 
             throw new BadRequest("Order Not Found!");
@@ -197,7 +178,7 @@ export class OrderUseCases implements orderUseCasesProps {
                     throw new Unauthorized("Incorrect Card Code");
                 }
 
-                const update = await db?.order.updateMany({
+                const update = await db?.order.update({
                     where: {
                         id: orderId
                     },
@@ -212,7 +193,7 @@ export class OrderUseCases implements orderUseCasesProps {
                 }
             }
 
-            const update = await db?.order.updateMany({
+            const update = await db?.order.update({
                 where: {
                     id: orderId
                 },

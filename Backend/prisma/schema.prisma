@@ -70,23 +70,20 @@ model Cart {
   // updateddAt   DateTime @default(now())
 
   cartProducts CartProducts[]
-  order        Order?
+  order        Order[]
   user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
 }
 
-//ToDo: Remove the Relation OrderDetail from CartProducts Table
 model CartProducts {
-  id            Int  @id @default(autoincrement())
-  cartId        Int
-  productId     Int
-  orderDetailId Int?
-  quantity      Int?
+  id        Int  @id @default(autoincrement())
+  cartId    Int
+  productId Int
+  quantity  Int?
 
-  products    Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
-  cart        Cart         @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  orderDetail OrderDetail? @relation(fields: [orderDetailId], references: [id])
+  products Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cart     Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
 }
 
 //ToDo: Add createdAt and updateddAt to Order's Table
@@ -104,18 +101,28 @@ model Order {
   orderDetails OrderDetail?
 
   //creditCard    CreditCard?
-  @@unique([cartId])
+  //@@unique([cartId])
 }
 
-//ToDo: Fix The Relation With CartProducts table, so that when the cartProduct is Deleted After the Order is placed, the Product is not deleted from the OrderDetail Table too
 model OrderDetail {
   id      Int @id @default(autoincrement())
   orderId Int
 
-  cartProducts CartProducts[]
   order        Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderProduct OrderProduct[]
 
   @@unique([orderId])
+}
+
+//ToDo: Add Delete: Cascade to OrderDetail, because it needs to be deleted when its no order details
+model OrderProduct {
+  id            Int @id @default(autoincrement())
+  productId     Int
+  orderDetailId Int
+  quantity      Int
+
+  products    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderDetail OrderDetail @relation(fields: [orderDetailId], references: [id], onDelete: Cascade)
 }
 
 //ToDo: Add createdAt to Products Table
@@ -134,6 +141,7 @@ model Product {
   //createdAt       DateTime @default(now())
 
   cartProducts  CartProducts[]
+  orderProduct  OrderProduct[]
   comment       Comment[]
   categories    ProductCategory    @relation(fields: [categoryId], references: [id])
   subCategories productSubCategory @relation(fields: [subCategoryId], references: [id])

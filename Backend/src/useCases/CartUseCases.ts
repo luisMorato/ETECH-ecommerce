@@ -43,7 +43,7 @@ export class CartUseCases implements cartUseCasesProps {
                 if(cartProduct?.length === 0){
                     const add = await db?.cartProducts.create({
                         data: {
-                            cartId: cartId,
+                            cartId,
                             productId,
                             quantity: quantity || 1,
                         }
@@ -82,6 +82,9 @@ export class CartUseCases implements cartUseCasesProps {
             const create = await db?.cart.create({
                 data: {
                     userId,
+                    order: {
+                        create: []
+                    },
                     cartProducts: {
                         create: {
                             quantity,

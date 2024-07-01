@@ -39,7 +39,7 @@ export const OrderRoutes = async (app: FastifyInstance) => {
         schema: {
             response: {
                 201: z.object({
-                    order: simplifiedOrder,
+                    order: completeOrder,
                     message: z.string()
                 })
             }
@@ -66,7 +66,7 @@ export const OrderRoutes = async (app: FastifyInstance) => {
         schema: {
             response: {
                 200: z.object({
-                    completeOrder: completeOrder,
+                    completeOrders: z.array(completeOrder),
                     message: z.string()
                 })
             }
@@ -77,11 +77,11 @@ export const OrderRoutes = async (app: FastifyInstance) => {
         if(token){
             const { userId } = Jwt.verify(token, process.env.SECRET_KEY!) as JwtPayload;
 
-            const data = await orderUseCases.getUserOrder(userId); 
+            const data = await orderUseCases.getUserOrders(userId); 
 
             if(data){
-                const { completeOrder, message } = data;
-                return reply.code(200).send({ completeOrder, message });
+                const { completeOrders, message } = data;
+                return reply.code(200).send({ completeOrders, message });
             }
         }
     });
@@ -167,4 +167,6 @@ export const OrderRoutes = async (app: FastifyInstance) => {
             }
         }
     });
+
+    //ToDo: Create a route handler to Delete an order
 }

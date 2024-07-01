@@ -15,7 +15,7 @@ export const completeOrder = z.object({
     status: z.string(),
     trackingCode: z.string(),
     orderDetails: z.object({ 
-        cartProducts: z.array(z.object({
+        orderProduct: z.array(z.object({
             products: z.object({
                 id: z.number().int(),
                 name: z.string(),

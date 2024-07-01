@@ -9,8 +9,8 @@ export interface dbOrderProps {
 
 export type completeOrderProps = ({
     orderDetails?: {
-        cartProducts: {
-            quantity: number | null,
+        orderProduct: {
+            quantity: number,
             products: {
                 id: number,
                 name: string,
@@ -42,8 +42,8 @@ export interface updateOrderData {
 }
 
 export interface orderUseCasesProps {
-    createOrder: (userId: number) => Promise<{order: dbOrderProps, message: string} | null | undefined>,
-    getUserOrder: (userId: number) => Promise<{completeOrder: completeOrderProps, message: string} | null | undefined>,
+    createOrder: (userId: number) => Promise<{order: dbOrderProps, message: string} | undefined>,
+    getUserOrders: (userId: number) => Promise<{completeOrders: completeOrderProps[], message: string} | null | undefined>,
     getAllOrders: (data: queryData) => Promise<{orders: completeOrderProps[], quantity: number | undefined} | undefined>,
     updateOrder: ({ orderId, paymentMethod, number, expiration, cardCode }: updateOrderData) => Promise<{ message: string } | undefined >
 }
