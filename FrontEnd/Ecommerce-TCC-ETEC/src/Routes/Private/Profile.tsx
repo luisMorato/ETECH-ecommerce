@@ -22,7 +22,7 @@ const Profile = () => {
     navigate("/");
   }
 
-  const [order, setOrder] = useState<completeOrderProps>();
+  const [orders, setOrders] = useState<completeOrderProps[]>([]);
   const [user, setUser] = useState<userProps | undefined>(undefined);
 
   //Sets the profile view option (dashboard, profile data config, etc) in the URL to persist reloads
@@ -60,7 +60,7 @@ const Profile = () => {
 
   //UseEffect Used to fetch the user's orders everytime the token and user changes
   useEffect(() => {
-    const fetchOrder = async () => {
+    const fetchOrders = async () => {
       if(!user || user?.role === "ADMIN"){
         return;
       }
@@ -78,16 +78,16 @@ const Profile = () => {
   
         if(response.ok){
           const resJson = await response.json();
-          const { completeOrder } = resJson;
+          const { completeOrders } = resJson;
   
-          setOrder(completeOrder);
+          setOrders(completeOrders);
         }
       } catch (error) {
         console.log('Error: ', error);
       }
     }
 
-    fetchOrder();
+    fetchOrders();
   }, [token, user]);
 
   return user && (
@@ -100,7 +100,7 @@ const Profile = () => {
       {currentOption === "dashboard" && (
          <Dashboard
          user={user}
-         order={order}
+         orders={orders}
        />
       )}
       { currentOption === "profileConfig" && (
@@ -118,7 +118,7 @@ const Profile = () => {
       )}
       { currentOption === "myoders" && 
         <MyOrders
-          order={order}
+          orders={orders}
         />
       }
       { currentOption === "registerProduct" && (

@@ -16,7 +16,7 @@ const SalesChart = () => {
   
     return (
         <div className={`w-full ${currentOption === "dashboard" ? "h-[300px]" : "h-[400px]"}`}>
-            <h2 className="text-2xl font-medium text-center mb-5">Sales Value (Last Month)</h2>
+            <h2 className="text-2xl font-medium text-center mb-5">Sales Value (Last 7 Days)</h2>
             <ResponsiveContainer width={"100%"} height={"100%"}>
                 <LineChart data={data}>
                     <Tooltip />

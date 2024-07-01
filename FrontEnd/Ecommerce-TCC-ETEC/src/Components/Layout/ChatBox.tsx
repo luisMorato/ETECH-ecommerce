@@ -12,19 +12,20 @@ import { ChatBoxModalContext } from "../../Context/ChatBoxContext";
 import { userProps } from "../../interfaces/userProps";
 
 import Button from "./Button";
-//import { useParams } from "react-router-dom";
 
 interface chatBoxProps {
-    user: userProps | undefined
+    user: userProps | undefined,
 }
 
 const ChatBox = ({ user }: chatBoxProps) => {
     const { isOpen, setIsOpen } = useContext(ChatBoxModalContext);
-    //const { userToken: token } = useParams();
 
     const [showModal, setShowModal] = useState<boolean>(isOpen);
-    const [allMessages, setAllMessages] = useState<{ 
-        user: { userId: number, name: string }, 
+    const [allMessages, setAllMessages] = useState<{
+        user: { 
+            userId: number | undefined, 
+            name: string | undefined
+        },
         text: string, 
         createdAt: Date, 
     }[]>([]);
@@ -32,6 +33,7 @@ const ChatBox = ({ user }: chatBoxProps) => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: {
             errors
         }
@@ -79,8 +81,8 @@ const ChatBox = ({ user }: chatBoxProps) => {
         {
             id: 2,
             user: {
-                userId: 3,
-                name: 'joão'
+                userId: user?.id,
+                name: user?.name
             },
             messages: [
                 {
@@ -93,7 +95,7 @@ const ChatBox = ({ user }: chatBoxProps) => {
                 }
             ]
         },
-    ], [])
+    ], [user]);
 
     //Sending the message and storing in the Array
     const handleSendMessage:SubmitHandler<FieldValues> = (value) => {
@@ -106,6 +108,7 @@ const ChatBox = ({ user }: chatBoxProps) => {
             createdAt: new Date(Date.now())
         });
         renderMessages();
+        setValue("text", '');
     }
 
     //Update the "allMessages" State to trigger the render in the window
@@ -123,22 +126,33 @@ const ChatBox = ({ user }: chatBoxProps) => {
     }, [renderMessages]);
 
     // const handleMessageSubmit: SubmitHandler<FieldValues> = async (data) => {
-    //     const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/chat`);
+    //     const url = new URL("https://api.openai.com/v1/chat/completions");
+
+    //     const { text } = data;
 
     //     const response = await fetch(url, {
     //         method: "POST",
     //         headers: {
     //             "content-type": "application/json",
-    //             "authorization": `Bearer ${token}`
+    //             "authorization": `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
     //         },
-    //         body: JSON.stringify(data),
+    //         body: JSON.stringify({
+    //             model: "gpt-3.5-turbo",
+    //             messages: [{
+    //                 role: "user",
+    //                 content: text
+    //             }],
+    //             max_tokens: 100
+    //         }),
     //     });
 
     //     const resJson = await response.json();
 
+    //     console.log(resJson);
+
     //     if(response.ok){
-    //         const { message } = resJson;
-    //         console.log(message);
+    //         const { id, choices } = resJson;
+    //         console.log(id, choices[0]);
     //     }
     // }
 

@@ -6,10 +6,10 @@ import DashboardAdminContent from "./DashboardAdminContent";
 
 interface dashboardProps {
   user: userProps | undefined,
-  order?: completeOrderProps
+  orders?: completeOrderProps[]
 }
 
-const Dashboard = ({ user, order }: dashboardProps) => {
+const Dashboard = ({ user, orders }: dashboardProps) => {
   const date = new Date(Date.now());
   const correctedDate = date.toLocaleDateString().slice(0, 6) + (date.getFullYear() + 20);
 
@@ -37,7 +37,7 @@ const Dashboard = ({ user, order }: dashboardProps) => {
         {user && user.role !== "ADMIN" ? (
           <DashboardUserContent
             user={user}
-            order={order}
+            orders={orders}
             setOption={setOption}
             correctedDate={correctedDate}
           />

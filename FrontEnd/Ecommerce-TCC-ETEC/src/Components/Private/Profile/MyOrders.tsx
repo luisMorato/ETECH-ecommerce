@@ -3,10 +3,10 @@ import { FaShippingFast } from "react-icons/fa";
 import { completeOrderProps } from "../../../interfaces/OrderProps";
 
 interface myOrdersProps {
-  order: completeOrderProps | undefined,
+  orders: completeOrderProps[],
 }
 
-const MyOrders = ({ order }: myOrdersProps) => {
+const MyOrders = ({ orders }: myOrdersProps) => {
     return (
       <div className="flex flex-col gap-5 text-black py-5">
         <h1 className="text-3xl font-medium my-3">My Orders</h1>
@@ -15,25 +15,31 @@ const MyOrders = ({ order }: myOrdersProps) => {
                 <FaShippingFast size={30}/>
                 <h2 className="text-xl font-medium">Your Orders</h2>
             </div>
-            <div className="mt-5">
-                {order ? (
+            <div className="my-5">
+                {/* Get All User Orders Already Made */}
+                {orders && orders.length > 0 ? (
+                    orders.map((order) => (
+                        <div className="border border-neutral-300 rounded-xl p-3 mb-5 last-of-type:mb-0">
+                            {order.orderDetails?.orderProduct.map((product) => (
+                            <div key={product.products.id} className="flex flex-1 justify-between font-medium mb-3">
+                                <p>{product.products.name}</p>
+                                <p>${product.products.price}</p>
+                            </div>
+                            ))}
+                            <div className="flex flex-col gap-2 font-medium text-neutral-400 mt-6 pt-2 border-t border-t-neutral-300">
+                            <p>Tracking Code: {order.trackingCode}</p>
+                            <p>Status: {order.status}</p>
+                            <p>Ordered At: {new Date(order.date).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                    ))
+                )
+                :
+                ( 
                     <div>
-                        {order.orderDetails?.cartProducts.map((cartProduct) => (
-                        <div key={cartProduct.products.id} className="flex flex-1 justify-between font-medium mb-3">
-                            <p>{cartProduct.products.name}</p>
-                            <p>${cartProduct.products.price}</p>
-                        </div>
-                        ))}
-                        <div className="flex flex-col gap-2 font-medium text-neutral-400 mt-6 pt-2 border-t border-t-neutral-300">
-                        <p>Tracking Code: {order.trackingCode}</p>
-                        <p>Status: {order.status}</p>
-                        <p>Ordered At: {new Date(order.date).toLocaleDateString()}</p>
-                        </div>
-                    </div>)
-                    :
-                    (
-                    <p className="text-lg text-center">No Orders</p>
-                    )
+                        <p className="text-xl text-center mt-5">No Last Orders</p>
+                    </div>
+                )
                 }
             </div>
         </div>

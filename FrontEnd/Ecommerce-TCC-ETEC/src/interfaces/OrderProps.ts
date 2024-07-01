@@ -9,7 +9,7 @@ interface dbOrderProps {
 
 export type completeOrderProps = ({
     orderDetails: {
-        cartProducts: {
+        orderProduct: {
             quantity: number,
             products: {
                 id: number,

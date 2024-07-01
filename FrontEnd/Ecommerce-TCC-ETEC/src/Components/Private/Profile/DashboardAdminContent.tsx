@@ -312,9 +312,11 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                   </div>
                 </div>)
                 :
-                <div>
-                  <p className="text-xl text-center mt-5">No Last Orders</p>
-                </div>
+                ( 
+                  <div>
+                    <p className="text-xl text-center mt-5">No Last Orders</p>
+                  </div> 
+                )
             }
           </Container>
           <div className="bg-white flex-1 rounded-xl p-5 max-w-1/2 h-fit pb-16">

@@ -23,12 +23,12 @@ import AddressBox from "./AddressBox";
 
 interface dashboardUserContentProps {
     user: userProps | undefined,
-    order?: completeOrderProps,
+    orders?: completeOrderProps[],
     setOption: (option: string) => void,
     correctedDate: string
 }
 
-const DashboardUserContent = ({ user, order, setOption }: dashboardUserContentProps) => {
+const DashboardUserContent = ({ user, orders, setOption }: dashboardUserContentProps) => {
     const { userToken: token } = useParams();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -285,26 +285,31 @@ const DashboardUserContent = ({ user, order, setOption }: dashboardUserContentPr
             <div className="bg-white rounded-xl p-5 w-[620px]">
                 <div className="flex items-center gap-3 pb-2 border-b">
                     <FaShippingFast size={30}/>
-                    <h2 className="text-xl font-medium">Your Last Orders</h2>
+                    <h2 className="text-xl font-medium">Your Last Order</h2>
                 </div>
                 <div className="mt-5">
-                    {order ? (
+                    {/* Get Only The Last Order */}
+                    {orders && orders.length > 0 ? (
                         <div>
-                            {order.orderDetails?.cartProducts.map((cartProduct) => (
-                            <div key={cartProduct.products.id} className="flex flex-1 justify-between font-medium mb-3">
-                                <p>{cartProduct.products.name}</p>
-                                <p>${cartProduct.products.price}</p>
+                            {orders[0].orderDetails?.orderProduct.map((product) => (
+                            <div key={product.products.id} className="flex flex-1 justify-between font-medium mb-3">
+                                <p>{product.products.name}</p>
+                                <p>${product.products.price}</p>
                             </div>
                             ))}
                             <div className="flex flex-col gap-2 font-medium text-neutral-400 mt-6 pt-2 border-t border-t-neutral-300">
-                            <p>Tracking Code: {order.trackingCode}</p>
-                            <p>Status: {order.status}</p>
-                            <p>Ordered At: {new Date(order.date).toLocaleDateString()}</p>
+                            <p>Tracking Code: {orders[0].trackingCode}</p>
+                            <p>Status: {orders[0].status}</p>
+                            <p>Ordered At: {new Date(orders[0].date).toLocaleDateString()}</p>
                             </div>
-                        </div>)
-                        : 
-                        ( <span className="text-lg">No Orders</span> )
-                    }
+                        </div>
+                    )
+                    : 
+                    ( 
+                        <div>
+                            <p className="text-xl text-center mt-5">No Last Orders</p>
+                          </div> 
+                    )}
                 </div>
             </div>
         </>

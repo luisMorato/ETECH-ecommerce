@@ -44,7 +44,7 @@ function App() {
         if(response.ok){
           const resJson = await response.json();
           //const { user:apiUser, imageBuffer } = resJson;
-          const { user:apiUser } = resJson;
+          const { user: apiUser } = resJson;
           
           setUser(apiUser);
   

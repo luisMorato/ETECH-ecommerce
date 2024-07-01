@@ -1,12 +1,30 @@
 import { 
   useNavigate,
+  useParams,
 } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 
 import Button from "../../Layout/Button";
 
 const CompleteOrder = () => {
+  const { userToken: token } = useParams();
   const navigate = useNavigate();
+
+  const clearCartProducts = async () => {
+    const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart/removeAll`);
+
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        "authorization": `Bearer ${token}`
+      }
+    });
+    
+    if(response.ok){
+      navigate('/');
+    }
+  }
 
   return (
     <div className="flex flex-col items-center bg-white w-fit rounded-xl mx-auto p-5">
@@ -17,7 +35,7 @@ const CompleteOrder = () => {
         </div>
         <div className="flex mt-8 w-full">
           <Button
-            onClick={() => navigate('/')}
+            onClick={clearCartProducts}
             className="flex-1"
           >
             Back To Home
