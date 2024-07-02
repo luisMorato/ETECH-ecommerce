@@ -82,6 +82,7 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
           price: data.price,
           desc: String(data.desc).split(","),
           stock: Number(data.stock),
+          brand: String(data.brand),
           category: String(data.category),
           subCategory: String(data.subCategory),
         };

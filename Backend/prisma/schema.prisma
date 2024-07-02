@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//ToDo: Add createdAt and updateddAt Fields to User's Table
+//ToDo: Add createdAt and updatedAt Fields to User's Table
 //ToDo: Add Chat Relation to User
 model User {
   id          Int     @id @default(autoincrement())
@@ -62,7 +62,6 @@ model Comment {
 }
 
 //ToDo: Add createdAt and updateddAt to Cart's Table
-//ToDo: Add Multiple Orders to Cart's Table
 model Cart {
   id     Int @id @default(autoincrement())
   userId Int
@@ -114,7 +113,6 @@ model OrderDetail {
   @@unique([orderId])
 }
 
-//ToDo: Add Delete: Cascade to OrderDetail, because it needs to be deleted when its no order details
 model OrderProduct {
   id            Int @id @default(autoincrement())
   productId     Int
@@ -126,7 +124,6 @@ model OrderProduct {
 }
 
 //ToDo: Add createdAt to Products Table
-//ToDo: Add Brand to Products Table
 //ToDo: Change the Field Image to be Images
 model Product {
   id            Int      @id @default(autoincrement())
@@ -135,7 +132,7 @@ model Product {
   price         Float
   desc          String[]
   stock         Int
-  //Brand           String
+  brand         String
   categoryId    Int
   subCategoryId Int
   //createdAt       DateTime @default(now())

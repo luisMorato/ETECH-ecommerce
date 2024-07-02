@@ -18,10 +18,11 @@ export class productsUseCases implements productsUseCasesProps {
   registerProduct = async (data: Omit<requestProduct, 'image'>, filesName: string[]) => {
     try {
       const { 
-        name, 
-        price, 
-        desc, 
-        stock, 
+        name,
+        price,
+        desc,
+        stock,
+        brand,
         category, 
         subCategory
       } = data;
@@ -56,6 +57,7 @@ export class productsUseCases implements productsUseCasesProps {
           price: formatedPrice,
           desc: [...desc],
           stock,
+          brand,
           comment: {},
           categoryId: categoryAndSubCategory.id,
           subCategoryId: categoryAndSubCategory.subCategories[0].id
@@ -146,33 +148,6 @@ export class productsUseCases implements productsUseCasesProps {
       if (dbProduct) {
         const product = new Product(dbProduct);
 
-        //const comments = (product.productData).comment?.map((data) => data);
-
-        // interface commentData { 
-        //   id: number,
-        //   text: string,
-        //   user: {
-        //     id: number, 
-        //     name: string, 
-        //     image?: Buffer, 
-        //   } 
-        // }
-        // let commentData: commentData[] = [];
-
-        // if(comments){
-        //   commentData = comments.map((data) => {
-        //       return {
-        //         id: data.id,
-        //         text: data.text,
-        //         user: {
-        //           id: data.user.id,
-        //           name: data.user.name,
-        //           imageBuffer: data.user.image ? fs.readFileSync(path.join(process.cwd(), "public/images/user", data.user.image)) : undefined
-        //         }
-        //       }
-        //   });
-        //}
-
         return {product: product.productData || null};
       }
     } catch (error) {
@@ -195,8 +170,13 @@ export class productsUseCases implements productsUseCasesProps {
                     contains: category
                   }
               }
+            },
+          },
+          ...(brand && brand !== "all" && {
+            brand: {
+              contains: brand,
             }
-          }
+          })
         }
       });
       
@@ -206,6 +186,12 @@ export class productsUseCases implements productsUseCasesProps {
             contains: query,
             mode: 'insensitive',
           },
+          ...(brand && brand !== "all" && {
+            brand: {
+              contains: brand,
+              mode: 'insensitive',
+            }
+          }),
           subCategories: {
             name: {
               contains: !subcategory || subcategory === "all" ? "" : subcategory
@@ -224,8 +210,6 @@ export class productsUseCases implements productsUseCasesProps {
             skip: ( pageIndex || 0 ) * perPage 
           }
         ),
-        // take: perPage,
-        // skip: ( pageIndex || 0 ) * perPage,
         include: {
           categories: true,
           subCategories: true

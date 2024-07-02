@@ -18,6 +18,7 @@ export type completeOrderProps = ({
                 price: number,
                 desc: string[],
                 stock: number,
+                brand: string,
             };
         }[];
     } | null,

@@ -233,26 +233,24 @@ export class CartUseCases implements cartUseCasesProps {
         }
     }
 
-    deleteCartProcuts = async (userId: number) => {
+    deleteCartProducts = async (userId: number) => {
         const cart = await this.getUniqueCartByUserId(userId);
 
         if(!cart){
             throw new BadRequest("Cart Not Found");
         }
 
-        const del = await db?.cart.update({
+        const del = await db?.cartProducts.deleteMany({
             where: {
-                id: cart.id
+                cartId: cart.id
             },
-            data: {
-                cartProducts: {
-                    set: []
-                }
-            }
         });
 
         if(del){
+            console.log('DELETE: ', del);
             return { message: "Cart Emptied" };
         }
+
+        throw new BadRequest('Error Removing Cart Products');
     }
 }

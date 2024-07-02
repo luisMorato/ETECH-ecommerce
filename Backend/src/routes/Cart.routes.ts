@@ -123,10 +123,10 @@ export const CartRoutes = async (app: FastifyInstance) => {
 
     app
     .withTypeProvider<ZodTypeProvider>()
-    .delete('/', {
+    .delete('/:productId', {
         schema: {
-            body: z.object({
-                productId: z.number().int()
+            params: z.object({
+                productId: z.string().transform((val) => parseInt(val))
             }),
             response: {
                 200: z.object({
@@ -135,7 +135,7 @@ export const CartRoutes = async (app: FastifyInstance) => {
             }
         }
     }, async (req, reply) => {
-        const { productId } = req.body;
+        const { productId } = req.params;
 
         const token = await getToken(req);
 
@@ -149,29 +149,6 @@ export const CartRoutes = async (app: FastifyInstance) => {
             }
 
             throw new UnprocessableEntity("Cart Not Found!");
-        }
-    });
-
-    app
-    .withTypeProvider<ZodTypeProvider>()
-    .put('/', {
-        schema: {
-            body: z.object({
-                productId: z.number().int()
-            }),
-        },
-    }, async (req, reply) => {
-        const { productId } = req.body;
-        const token = await getToken(req);
-        
-        if(token) {
-            const { userId } = Jwt.verify(token, process.env.SECRET_KEY!) as JwtPayload;
-
-            const res = cartUseCases.deleteCartProcuts(userId);
-
-            // if(res){
-             //   return reply.send({  });
-            // }
         }
     });
 
@@ -204,11 +181,26 @@ export const CartRoutes = async (app: FastifyInstance) => {
     //ToDo: Crate an route to Clear the Cart
     app
     .withTypeProvider<ZodTypeProvider>()
-    .delete('/removeAll', {
+    .delete('/', {
         schema: {
-
+            response: {
+                200: z.object({
+                    message: z.string()
+                })
+            }
         }
     }, async (req, reply) => {
+        const token = await getToken(req);
 
+        if(token){
+            const { userId } = Jwt.verify(token, process.env.SECRET_KEY!) as JwtPayload;
+
+            const del = await cartUseCases.deleteCartProducts(userId);
+
+            if(del){
+                const { message } = del;
+                return reply.send({ message })
+            }
+        }
     })
 }

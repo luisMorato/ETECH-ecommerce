@@ -22,7 +22,8 @@ export const completeOrder = z.object({
                 image: z.array(z.string()),
                 price: z.number(),
                 desc: z.array(z.string()),
-                stock: z.number().int()
+                stock: z.number().int(),
+                brand: z.string(),
               }),
               quantity: z.number().int().nullable()
         }))

@@ -9,25 +9,25 @@ const seed = async () => {
                 createMany: {
                     data: [
                         {
-                            name: "ssd",
+                            name: "SSD",
                         },
                         {
-                            name: "harddrive"
+                            name: "HardDrive"
                         },
                         {
-                            name: "rammemory"
+                            name: "RAMMemory"
                         },
                         {
-                            name: "videocard"
+                            name: "VideoCard"
                         },
                         {
-                            name: "motherboards"
+                            name: "MotherBoard"
                         },
                         {
-                            name: "processors"
+                            name: "Processors"
                         },
                         {
-                            name: "powersupply"
+                            name: "PowerSupply"
                         },
                     ],
                     skipDuplicates: true,
@@ -43,25 +43,25 @@ const seed = async () => {
                 createMany: {
                     data: [
                         {
-                            name: "keyboard",
+                            name: "Keyboard",
                         },
                         {
-                            name: "headSets"
+                            name: "HeadSets"
                         },
                         {
-                            name: "mouse"
+                            name: "Mouse"
                         },
                         {
-                            name: "soundbox"
+                            name: "SoundBox"
                         },
                         {
-                            name: "printers"
+                            name: "Printers"
                         },
                         {
-                            name: "cabinets"
+                            name: "Cabinets"
                         },
                         {
-                            name: "cablesandadapters"
+                            name: "CablesAndAdapters"
                         },
                     ],
                     skipDuplicates: true,
@@ -77,13 +77,13 @@ const seed = async () => {
                 createMany: {
                     data: [
                         {
-                            name: "gamercomputer",
+                            name: "GamerComputer",
                         },
                         {
-                            name: "computerworkstation"
+                            name: "ComputerWorkstation"
                         },
                         {
-                            name: "houseandofficecomputer"
+                            name: "HouseAndOfficeComputer"
                         },
                     ],
                     skipDuplicates: true,
@@ -99,13 +99,13 @@ const seed = async () => {
                 createMany: {
                     data: [
                         {
-                            name: "noteBooks",
+                            name: "NoteBooks",
                         },
                         {
-                            name: "notebookgamer"
+                            name: "NotebookGamer"
                         },
                         {
-                            name: "chargesandsources"
+                            name: "ChargesAndSources"
                         },
                     ],
                     skipDuplicates: true,
@@ -121,16 +121,16 @@ const seed = async () => {
                 createMany: {
                     data: [
                         {
-                            name: "gamermonitors",
+                            name: "GamerMonitors",
                         },
                         {
-                            name: "homeandofficemonitor"
+                            name: "HomeAndOfficeMonitor"
                         },
                         {
-                            name: "monitorandtvsupport"
+                            name: "MonitorAndTVSupport"
                         },
                         {
-                            name: "monitoraccessories"
+                            name: "MonitorAccessories"
                         },
                     ],
                     skipDuplicates: true,
@@ -139,7 +139,6 @@ const seed = async () => {
         },
     });
 }
-
 
 seed().then(async () => {
     console.log('Database Seeded');

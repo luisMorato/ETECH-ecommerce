@@ -4,7 +4,8 @@ export interface DbProducts {
     name: string,
     price: number,
     desc: string[],
-    stock: number
+    stock: number,
+    brand: string,
 }
 
 export interface requestProduct {
@@ -13,6 +14,7 @@ export interface requestProduct {
     price: string,
     desc: string[],
     stock: number,
+    brand: string,
     category: string,
     subCategory: string
 }
@@ -46,17 +48,6 @@ export type productProps = (
         }[];
     }
 );
-
-// interface commentData { 
-//     id: number,
-//     text: string,
-//     user: {
-//       id: number, 
-//       name: string, 
-//       image?: Buffer, 
-//     }
-// }
-
 
 export interface productsUseCasesProps {
     registerProduct: (data: Omit<requestProduct, 'image'>, filesName: string[]) => Promise<{ product: productProps, message: string } | null>;

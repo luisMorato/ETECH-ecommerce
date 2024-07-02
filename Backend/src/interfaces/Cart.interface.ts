@@ -21,6 +21,7 @@ export type cartProps = (
                 price: number,
                 desc: string[],
                 stock: number,
+                brand: string,
             };
         }[];
     }
@@ -52,5 +53,6 @@ export interface cartUseCasesProps {
     subtractCartProduct: ({ quantity, productId, userId }: requestCartProps) => Promise<{ message: string } | undefined>,
     removeProduct: (productId: number, userId: number) => void,
     getUniqueCartByUserId: (userId: number) => Promise<cartProps | null | undefined>,
-    getuniqueCartById: (cartId: number) => Promise<cartProps | null | undefined>
+    getuniqueCartById: (cartId: number) => Promise<cartProps | null | undefined>,
+    deleteCartProducts: (userId: number) => Promise<{ message: string } | undefined>
 }

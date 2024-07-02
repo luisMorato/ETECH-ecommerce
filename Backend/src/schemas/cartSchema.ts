@@ -12,6 +12,7 @@ export const cartSchema = z.object({
                 price: z.number(),
                 desc: z.array(z.string()),
                 stock: z.number().int(),
+                brand: z.string(),
             }),
             quantity: z.number().int().nullable(),
         })

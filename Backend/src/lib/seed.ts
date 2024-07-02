@@ -14,6 +14,7 @@ const seed = async () => {
             ],
             price: 1099.99,
             stock: 20,
+            brand: 'Husky Gaming',
             categoryId: 5,
             subCategoryId: 21
         }
@@ -30,6 +31,7 @@ const seed = async () => {
             ],
             price: 1298.99,
             stock: 10,
+            brand: 'AMD',
             categoryId: 5,
             subCategoryId: 6
         }
@@ -46,6 +48,7 @@ const seed = async () => {
             ],
             price: 329.99,
             stock: 30,
+            brand: 'Redragon',
             categoryId: 2,
             subCategoryId: 9
         }
@@ -64,6 +67,7 @@ const seed = async () => {
             ],
             price: 389.99,
             stock: 27,
+            brand: 'Kingston',
             categoryId: 1,
             subCategoryId: 1
         }
@@ -80,6 +84,7 @@ const seed = async () => {
             ],
             price: 39.90,
             stock: 50,
+            brand: 'Multilaser',
             categoryId: 2,
             subCategoryId: 11
         }
@@ -87,7 +92,7 @@ const seed = async () => {
 
     const product6 = await db?.product.create({
         data: {
-            name: "Teclado Multi Slim ABNT2, Preto ",
+            name: "Teclado Multilaser ABNT2, Preto ",
             image: ["prod6_01.jpg", "prod6_02.jpg", "prod6_03.jpg"],
             desc: [
                 "Este teclado é ideal para proporcionar alta qualidade, praticidade e simplicidade ao seu dia-a-dia.",
@@ -95,6 +100,7 @@ const seed = async () => {
             ],
             price: 22.90,
             stock: 40,
+            brand: 'Multilaser',
             categoryId: 2,
             subCategoryId: 8
         }
@@ -114,6 +120,7 @@ const seed = async () => {
             ],
             price: 28.90,
             stock: 50,
+            brand: 'Logitech',
             categoryId: 2,
             subCategoryId: 10
         }
@@ -133,6 +140,7 @@ const seed = async () => {
             ],
             price: 1059.99,
             stock: 30,
+            brand: 'Epson',
             categoryId: 2,
             subCategoryId: 12
         }
@@ -151,6 +159,7 @@ const seed = async () => {
             ],
             price: 499.99,
             stock: 20,
+            brand: 'XPG',
             categoryId: 1,
             subCategoryId: 7
         }
@@ -169,6 +178,7 @@ const seed = async () => {
             ],
             price: 439.99,
             stock: 15,
+            brand: 'MSI',
             categoryId: 1,
             subCategoryId: 5
         }
@@ -186,6 +196,7 @@ const seed = async () => {
             ],
             price: 359.99,
             stock: 15,
+            brand: 'ASRock',
             categoryId: 1,
             subCategoryId: 9
         }
@@ -202,6 +213,7 @@ const seed = async () => {
             ],
             price: 1269.99,
             stock: 35,
+            brand: 'Radeon',
             categoryId: 1,
             subCategoryId: 4
         }
@@ -220,6 +232,7 @@ const seed = async () => {
             ],
             price: 158.90,
             stock: 65,
+            brand: 'Rise Mode',
             categoryId: 2,
             subCategoryId: 13
         }
@@ -236,6 +249,7 @@ const seed = async () => {
             ],
             price: 2348.99,
             stock: 25,
+            brand: 'Intel',
             categoryId: 1,
             subCategoryId: 6
         }
@@ -253,6 +267,7 @@ const seed = async () => {
             ],
             price: 599.99,
             stock: 35,
+            brand: 'Seagate',
             categoryId: 1,
             subCategoryId: 2
         }
@@ -271,6 +286,7 @@ const seed = async () => {
             ],
             price: 699.99,
             stock: 45,
+            brand: 'Seagate',
             categoryId: 1,
             subCategoryId: 2
         }
@@ -287,6 +303,7 @@ const seed = async () => {
             ],
             price: 23.16,
             stock: 85,
+            brand: 'MultiLaser',
             categoryId: 2,
             subCategoryId: 14
         }
@@ -304,6 +321,7 @@ const seed = async () => {
             ],
             price: 33.99,
             stock: 65,
+            brand: 'Husky Gaming',
             categoryId: 2,
             subCategoryId: 14
         }
@@ -320,6 +338,7 @@ const seed = async () => {
             ],
             price: 8.49,
             stock: 95,
+            brand: 'MultiLaser',
             categoryId: 2,
             subCategoryId: 14
         }
@@ -335,6 +354,7 @@ const seed = async () => {
             ],
             price: 15.99,
             stock: 44,
+            brand: 'MultiLaser',
             categoryId: 2,
             subCategoryId: 14
         }
