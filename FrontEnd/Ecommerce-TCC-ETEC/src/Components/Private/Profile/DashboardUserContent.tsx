@@ -291,16 +291,16 @@ const DashboardUserContent = ({ user, orders, setOption }: dashboardUserContentP
                     {/* Get Only The Last Order */}
                     {orders && orders.length > 0 ? (
                         <div>
-                            {orders[0].orderDetails?.orderProduct.map((product) => (
+                            {orders[orders.length - 1].orderDetails?.orderProduct.map((product) => (
                             <div key={product.products.id} className="flex flex-1 justify-between font-medium mb-3">
                                 <p>{product.products.name}</p>
                                 <p>${product.products.price}</p>
                             </div>
                             ))}
                             <div className="flex flex-col gap-2 font-medium text-neutral-400 mt-6 pt-2 border-t border-t-neutral-300">
-                            <p>Tracking Code: {orders[0].trackingCode}</p>
-                            <p>Status: {orders[0].status}</p>
-                            <p>Ordered At: {new Date(orders[0].date).toLocaleDateString()}</p>
+                            <p>Tracking Code: {orders[orders.length - 1].trackingCode}</p>
+                            <p>Status: {orders[orders.length - 1].status}</p>
+                            <p>Ordered At: {new Date(orders[orders.length - 1].date).toLocaleDateString()}</p>
                             </div>
                         </div>
                     )

@@ -26,7 +26,7 @@ const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
         expiration: '',
         cardCode: ''
     });
-    const [order, setOrder] = useState<completeOrderProps>();
+    const [order, setOrder] = useState<completeOrderProps[]>();
 
     //Handle the CreditCard Input Change
     const handleCreditCardDataChange = (e: ChangeEvent<HTMLInputElement>, name: string) => {
@@ -38,30 +38,30 @@ const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
 
     //Build the Order Without the payment method and the status of "processing Order"
     useEffect(() => {
-        const buildOrder = async () => {
+        const getOrder = async () => {
             const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout`);
 
             const response = await fetch(url, {
-                method: "POST",
+                method: "GET",
                 headers: {
                     "authorization": `Bearer ${token}`
                 }
             });
 
             const resJson = await response.json();
-            const { order: apiOrder, message } = resJson;
+            const { completeOrders: apiOrders, message } = resJson;
 
             if(!response.ok){
                 toast.error(message);
                 return;
             }
 
-            console.log(apiOrder);
-            setOrder(apiOrder);
+            setOrder(apiOrders);
         }
 
-        buildOrder()
+        getOrder()
     }, [token]);
+    
 
     //Place the order, replacing the payment method to the one chosen and changing the status to be "Payment Made"
     const placeOrder = async (orderId: number) => {
@@ -143,15 +143,16 @@ const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
                             <FaBarcode size={25}/>
                         </span>
                         <div>
-                            <h2 className="text-xl font-medium">Ticket</h2>
+                            <h2 className="text-xl font-medium">Payment Slip</h2>
                             <span className="text-neutral-400 text-sm font-medium">Approval in 1 to 2 business days</span>
                         </div>
                     </div>
                     </div>
                 <div className="flex mt-5">
                     <Button
+                        type="button"
                         className="flex-1"
-                        onClick={() => placeOrder(order.id)}
+                        onClick={() => placeOrder(order[order.length - 1].id)}
                     >
                         Place Order
                     </Button>

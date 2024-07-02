@@ -33,17 +33,22 @@ const CreditCard = ({ setPaymentMethod, paymentMethod, handleCreditCardDataChang
                 <span className="border border-neutral-400 rounded-full p-1"><BsCreditCard size={25}/></span>
                 <span className="text-xl font-medium">Credit Card</span>
             </h2>
-            <button
+            <div
                 className="flex items-center gap-3"
-                onClick={() => setOpenCredit((prevValue) => !prevValue)}
             >
-                <FaCcVisa size={25}/>
-                <FaCcMastercard size={25}/>
-                {<MdKeyboardArrowUp size={25} className={`transition duration-100 ${openCredit ? "rotate-180" : "rotate-90"}`}/>}
-            </button>
+                <div className="flex items-center gap-3">
+                    <FaCcVisa size={25}/>
+                    <FaCcMastercard size={25}/>
+                </div>
+                <button
+                    onClick={() => setOpenCredit((prevValue) => !prevValue)}
+                >
+                    {<MdKeyboardArrowUp size={25} className={`transition duration-100 ${openCredit ? "rotate-180" : "rotate-90"}`}/>}
+                </button>
+            </div>
             {openCredit && 
                 <div 
-                className={`absolute top-full left-0 -translate-x-[1px] z-20 flex flex-col gap-8 py-4 px-5 w-[932px] bg-white rounded-b-xl rounded-bl-2xl overflow-hidden
+                className={`absolute top-full left-0 -translate-x-[1px] z-30 flex flex-col gap-8 py-4 px-5 w-full bg-white rounded-b-xl rounded-bl-2xl overflow-hidden
                 ${paymentMethod === "Credit Card" ? "border border-[#2295E9] border-t-transparent" : ""}`}>
                     <div className={`relative border border-neutral-400 rounded-xl max-w-[500px]`}>
                         <label htmlFor="number" className="absolute top-0 -translate-y-3 left-3 px-1 text-sm text-black font-medium bg-white">Card Number *:</label>

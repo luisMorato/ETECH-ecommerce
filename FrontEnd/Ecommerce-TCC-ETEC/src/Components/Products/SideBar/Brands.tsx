@@ -4,48 +4,55 @@ import { IoIosSearch } from "react-icons/io";
 import { MdOutlineKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 interface brandsProps {
-    name: string
+    setBrand: (brand: string) => void,
+    currentBrand: string
 }
 
-const Brands = () => {
+const Brands = ({ setBrand, currentBrand }: brandsProps) => {
     const [showMore, setShowMore] = useState(false);
     const [brandSearch, setBrandSearch] = useState('');
 
-    const brands: brandsProps[] = useMemo(() => [
-        {name: "Acer"},
-        {name: "AMD"},
-        {name: "Adata"},
-        {name: "Aorus"},
-        {name: "Apple"},
-        {name: "ASUS"},
-        {name: "Corsair"},
-        {name: "Crucial"},
-        {name: "Dell"},
-        {name: "Husky Gaming"},
-        {name: "Intel"},
-        {name: "Kingston"},
-        {name: "Logitech"},
-        {name: "Nvidia"},
-        {name: "NZXT"},
-        {name: "Razer"},
-        {name: "Redragon"},
-        {name: "Samsung"},
-        {name: "Seagate"},
-        {name: "Sony"},
-        {name: "Xiaomi"},
-        {name: "XPG"},
+    const  brands: { name: string }[] = useMemo(() => [
+        { name: "Acer" },
+        { name: "AMD" },
+        { name: "Adata" },
+        { name: "Aorus" },
+        { name: "Apple" },
+        { name: "ASUS" },
+        { name: "ASRock" },
+        { name: "Corsair" },
+        { name: "Crucial" },
+        { name: "Dell" },
+        { name: "Epson" },
+        { name: "Husky Gaming" },
+        { name: "Intel" },
+        { name: "Kingston" },
+        { name: "Logitech" },
+        { name: "Nvidia" },
+        { name: "NZXT" },
+        { name: "MultiLaser" },
+        { name: "MSI" },
+        { name: "Razer" },
+        { name: "Redragon" },
+        { name: "Radeon" },
+        { name: "Rise Mode" },
+        { name: "Samsung" },
+        { name: "Seagate" },
+        { name: "Sony" },
+        { name: "Xiaomi" },
+        { name: "XPG" },
     ], []);
 
-    const currentUrl = new URL(window.location.toString());
+    //const currentUrl = new URL(window.location.toString());
 
-    //Set the Brand in the URL State to Persist The Reloads
-    const setBrand = (brand: string) => {
-        currentUrl.searchParams.set('brand', brand);
-        window.history.pushState(null, '', currentUrl);
-        window.location.reload();
-    }
+    // //Set the Brand in the URL State to Persist The Reloads
+    // const setBrand = (brand: string) => {
+    //     currentUrl.searchParams.set('brand', brand);
+    //     window.history.pushState(null, '', currentUrl);
+    //     window.location.reload();
+    // }
   
-    const currentBrand = currentUrl.searchParams.get('brand');
+    //const currentBrand = currentUrl.searchParams.get('brand');
 
     //Handle the Brand Search Input Change
     const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,17 +74,19 @@ const Brands = () => {
                 />
             </div>
             <div className={`flex flex-col gap-2 pl-3 ${showMore ? "h-fit" : "h-56 overflow-y-hidden"}`}>
-                <div className="flex gap-1.5">
-                    <input
-                        id={("All").toLowerCase()}
-                        name="brand"
-                        type="radio"
-                        className="cursor-pointer"
-                        checked={!currentBrand || currentBrand === "all" ? true : false}
-                        onChange={(e) => setBrand(e.currentTarget.id)}
-                    />
-                    <label htmlFor="subcategory">All</label>
-                </div>
+                {!window.location.pathname.includes('/profile') &&
+                    <div className="flex gap-1.5">
+                        <input
+                            id={("All").toLowerCase()}
+                            name="brand"
+                            type="radio"
+                            className="cursor-pointer"
+                            checked={!currentBrand || currentBrand === "all" ? true : false}
+                            onChange={(e) => setBrand(e.currentTarget.id)}
+                        />
+                        <label htmlFor="subcategory">All</label>
+                    </div>
+                }
                 {brands
                 .filter((brand) => brand.name.toLowerCase().includes(brandSearch.toLowerCase()))
                 .map((brand) => (
@@ -95,6 +104,7 @@ const Brands = () => {
                 ))}
             </div>
             <button
+                type="button"
                 onClick={() => setShowMore((prevValue) => !prevValue)}
                 className="absolute top-full -translate-y-2 left-1/2 -translate-x-1/2 z-30"
             >

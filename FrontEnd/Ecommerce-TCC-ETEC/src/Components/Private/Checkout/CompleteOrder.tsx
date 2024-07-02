@@ -11,7 +11,7 @@ const CompleteOrder = () => {
   const navigate = useNavigate();
 
   const clearCartProducts = async () => {
-    const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart/removeAll`);
+    const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart`);
 
     const response = await fetch(url, {
       method: "DELETE",

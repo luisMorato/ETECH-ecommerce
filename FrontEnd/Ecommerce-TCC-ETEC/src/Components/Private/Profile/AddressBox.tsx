@@ -24,7 +24,7 @@ const AddressBox = ({ user, editFunction, deleteFunction, ...props }: addressBox
                     <span className="text-neutral-400">{user.city} - {user.state} | {user.country}</span>
                 </div>
                 {editFunction && deleteFunction && (
-                    <div className="flex justify-between w-1/2 mx-auto text-[#2295E9] text-lg font-medium">
+                    <div className="flex justify-between w-1/2 mx-auto text-[#2295E9] text-lg font-medium mt-3">
                         <button 
                             className="hover:text-[#1678BE]" 
                             onClick={editFunction}

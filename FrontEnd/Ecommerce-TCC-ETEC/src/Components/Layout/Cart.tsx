@@ -26,7 +26,7 @@ const Cart = ({ cartProducts, token, subtotal }: CartProductsProps) => {
 
     //Removes a CartProduct from database
     const removeProduct = useCallback(async (productId: number) => {
-        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart`);
+        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart/${productId}`);
 
         try {
             const response = await fetch(url, {
@@ -35,7 +35,6 @@ const Cart = ({ cartProducts, token, subtotal }: CartProductsProps) => {
                     "content-type": "application/json",
                     "authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({ productId })
             });
 
             const resJson = await response.json();

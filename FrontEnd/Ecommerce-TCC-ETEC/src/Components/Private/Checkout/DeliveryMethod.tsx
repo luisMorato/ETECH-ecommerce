@@ -195,30 +195,6 @@ const DeliveryMethod = ({ setNextStep }: deliveryMethodProps) => {
                             deleteFunction={() => setIsOpen(true)}
                             className="max-h-[300px]"
                         />
-                        {/* <div className="flex flex-col gap-5 bg-white text-black p-5 flex-1 min-w-[300px]">
-                            <div className="flex items-center gap-3">
-                                <IoLocationSharp size={30}/>
-                                <h2 className="text-xl font-medium">Adresses</h2>
-                            </div>
-                            <div className="flex flex-col justify-between h-full">
-                                <div className="flex flex-col gap-2 font-medium">
-                                    <span>Street: {userData.address}, {userData.houseNumber}</span>
-                                    <span className="text-neutral-400">Postal Code: {userData.postalCode}</span>
-                                    <span className="text-neutral-400">{userData.city} - {userData.state} | {userData.country}</span>
-                                </div>
-                                <div className="flex justify-between w-1/2 mx-auto text-[#2295E9] text-lg font-medium mt-3">
-                                    <button
-                                        onClick={() => setEditInfo(true)}
-                                        className="hover:text-[#1678BE]"
-                                    >Edit</button>
-                                    <button 
-                                        onClick={() => setIsOpen(true)}
-                                        className="hover:text-[#1678BE]"
-                                    >Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                     <div className="border border-neutral-400 rounded-2xl overflow-hidden">
                         <div className="flex flex-col gap-5 bg-white text-black p-5 flex-1 min-w-[300px]">

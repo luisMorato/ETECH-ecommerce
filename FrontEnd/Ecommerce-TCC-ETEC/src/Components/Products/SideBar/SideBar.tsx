@@ -9,7 +9,6 @@ import NoteBookSubCategory from "./NoteBookSubCategory";
 import MonitorsSubCategory from "./MonitorsSubCategory";
 import Brands from "./Brands";
 
-
 import { captilze } from "../../../utils/captalize";
 
 interface SideBarProps {
@@ -35,6 +34,17 @@ const SideBar = ({ category, setPriceInterval, priceInterval }: SideBarProps) =>
     window.location.reload();
     setPriceInterval(5);
   }
+
+  const currentUrl = new URL(window.location.toString());
+
+  //Set the Brand in the URL State to Persist The Reloads
+  const setBrand = (brand: string) => {
+      currentUrl.searchParams.set('brand', brand);
+      window.history.pushState(null, '', currentUrl);
+      window.location.reload();
+  }
+
+  const currentBrand = currentUrl.searchParams.get('brand') ?? '';
 
   return (
     <aside className="flex flex-col flex-1 bg-white text-black w-[250px] max-w-[250px] pt-5">
@@ -95,7 +105,10 @@ const SideBar = ({ category, setPriceInterval, priceInterval }: SideBarProps) =>
         </div>
         <div className="pl-3 mb-3 border-b border-b-neutral-300">
           <p className="text-black font-medium mb-2">Brands</p>
-          <Brands />
+          <Brands 
+            setBrand={setBrand}
+            currentBrand={currentBrand}
+          />
         </div>
       </div>
     </aside>

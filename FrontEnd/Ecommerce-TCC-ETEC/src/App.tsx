@@ -88,7 +88,7 @@ function App() {
         />
         <FixedButton
           onClick={scrollToTop}
-          className="bottom-5 left-1/2 border border-neutral-400 bg-white text-mainBlue animate-bounce"
+          className="bottom-5 left-1/2 border border-neutral-300 bg-white text-mainBlue animate-bounce"
         >
           <MdKeyboardDoubleArrowUp size={30} />
         </FixedButton>

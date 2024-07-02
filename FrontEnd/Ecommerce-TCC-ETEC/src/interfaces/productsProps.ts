@@ -5,6 +5,7 @@ export interface DbProducts {
     image: File[],
     desc: string[],
     stock: number,
+    brand: string,
     category: string,
     subCategory: string
 }

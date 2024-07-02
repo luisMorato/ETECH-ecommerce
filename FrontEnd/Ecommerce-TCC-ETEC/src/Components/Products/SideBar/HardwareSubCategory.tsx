@@ -38,11 +38,11 @@ const HardwareSubCategory = () => {
             {hardwareSubCategories.map((subCategory) => (
                 <div key={subCategory.name} className="flex gap-1.5">
                     <input
-                        id={(subCategory.name).replace(/\s+/g, '').toLowerCase()}
+                        id={(subCategory.name).replace(/\s+/g, '')}
                         name="subcategory"
                         type="radio"
                         className="cursor-pointer"
-                        checked={(subCategory.name).replace(/\s+/g, '').toLowerCase() === currentSubCategory}
+                        checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
                         onChange={(e) => setHardwareSubCategory(e.currentTarget.id)}
                     />
                     <label htmlFor="subcategory">{subCategory.name}</label>

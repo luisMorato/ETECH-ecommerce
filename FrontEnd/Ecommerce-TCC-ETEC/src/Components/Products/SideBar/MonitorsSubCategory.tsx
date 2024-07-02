@@ -3,8 +3,8 @@ import { useMemo } from "react";
 const MonitorsSubCategory = () => {
     const monitorSubCategories: {name: string}[] = useMemo(() => [
         {name: "Gamer Monitors"},
-        {name: "Home and Office Monitor"},
-        {name: "Monitor and TV Support"},
+        {name: "Home And Office Monitor"},
+        {name: "Monitor And TV Support"},
         {name: "Monitor Accessories"}
       ], []);
 
@@ -37,11 +37,11 @@ const MonitorsSubCategory = () => {
                 {monitorSubCategories.map((subCategory) => (
                     <div key={subCategory.name} className="flex gap-1.5">
                         <input
-                            id={(subCategory.name).replace(/\s+/g, '').toLowerCase()}
+                            id={(subCategory.name).replace(/\s+/g, '')}
                             name="subcategory"
                             type="radio"
                             className="cursor-pointer"
-                            checked={(subCategory.name).replace(/\s+/g, '').toLowerCase() === currentSubCategory}
+                            checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
                             onChange={(e) => setMonitorSubCategory(e.currentTarget.id)}
                         />
                         <label htmlFor="subcategory">{subCategory.name}</label>

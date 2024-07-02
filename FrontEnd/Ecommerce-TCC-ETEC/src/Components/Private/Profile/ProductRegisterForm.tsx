@@ -14,6 +14,7 @@ import Button from "../../../Components/Layout/Button";
 
 import { checkTextLength } from "../../../utils/checkTextLength";
 import { captilze } from "../../../utils/captalize";
+import Brands from "../../Products/SideBar/Brands";
 
 interface productRegisterFormProps {
     token: string | undefined
@@ -26,11 +27,19 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
         image: [],
         desc: [],
         stock: 0,
+        brand: '',
         category: '',
         subCategory:  ''
     });
 
     const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState<categoriesAndSubCategories[]>([]);
+
+    const handleBrandChange = (brand: string) => {
+      setProductToRegister({
+        ...productToRegister,
+        brand: brand
+      })
+    }
 
     //Handle the Change From the Inputs in the Form Component
     const handleFormEdit = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>, name: string) => {
@@ -259,7 +268,12 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
                 onChange={(e) => handleFormEdit(e, e.target.name)}
               />
             </div>
-
+            <div>
+                <Brands 
+                  setBrand={handleBrandChange}
+                  currentBrand={productToRegister.brand}
+                />
+            </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="category" className="font-medium">Category:</label>
               <select

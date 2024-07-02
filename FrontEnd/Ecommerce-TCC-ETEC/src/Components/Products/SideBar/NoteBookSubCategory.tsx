@@ -4,7 +4,7 @@ const NoteBookSubCategory = () => {
     const notebookSubCategories: {name: string}[] = useMemo(() => [
         {name: "NoteBooks"},
         {name: "Notebook Gamer"},
-        {name: "Charges and Sources"},
+        {name: "Charges And Sources"},
     ], []);
 
     const currentUrl = new URL(window.location.toString());
@@ -36,11 +36,11 @@ const NoteBookSubCategory = () => {
             {notebookSubCategories.map((subCategory) => (
                 <div key={subCategory.name} className="flex gap-1.5">
                     <input
-                        id={(subCategory.name).replace(/\s+/g, '').toLowerCase()}
+                        id={(subCategory.name).replace(/\s+/g, '')}
                         name="subcategory"
                         type="radio"
                         className="cursor-pointer"
-                        checked={(subCategory.name).replace(/\s+/g, '').toLowerCase() === currentSubCategory}
+                        checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
                         onChange={(e) => setNotebooksSubCategory(e.currentTarget.id)}
                     />
                     <label htmlFor="subcategory">{subCategory.name}</label>

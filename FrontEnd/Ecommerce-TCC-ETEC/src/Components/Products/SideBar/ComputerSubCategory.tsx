@@ -8,7 +8,7 @@ const ComputerSubCategory = () => {
   const computerSubCategories: HardwareSubcategories[] = useMemo(() => [
     {name: "Gamer Computer"},
     {name: "Computer WorkStation"},
-    {name: "House and Office Computer"},
+    {name: "House And Office Computer"},
   ], []);
 
   const currentUrl = new URL(window.location.toString());
@@ -40,11 +40,11 @@ const ComputerSubCategory = () => {
           {computerSubCategories.map((subCategory) => (
               <div key={subCategory.name} className="flex gap-1.5">
                   <input
-                      id={(subCategory.name).replace(/\s+/g, '').toLowerCase()}
+                      id={(subCategory.name).replace(/\s+/g, '')}
                       name="subcategory"
                       type="radio"
                       className="cursor-pointer"
-                      checked={(subCategory.name).replace(/\s+/g, '').toLowerCase() === currentSubCategory}
+                      checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
                       onChange={(e) => setComputerSubCategory(e.currentTarget.id)}
                   />
                   <label htmlFor="subcategory">{subCategory.name}</label>

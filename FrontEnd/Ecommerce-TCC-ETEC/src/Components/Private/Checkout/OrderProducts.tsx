@@ -29,7 +29,7 @@ const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
 
     //Remove a cart product before build the order
     const removeFromCart = useCallback(async (productId: number) => {
-        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart`);
+        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart/${productId}`);
 
         try {
             const response = await fetch(url, {
@@ -38,7 +38,6 @@ const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
                     "content-type": "application/json",
                     "authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({productId})
             });
     
             const resJson = await response.json();
@@ -56,6 +55,29 @@ const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
             console.log('Error: ', error);
         }
     }, [token]);
+
+
+    //Build the Order Without the payment method and the status of "processing Order"
+    const buildOrder = async () => {
+        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout`);
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "authorization": `Bearer ${token}`
+            }
+        });
+
+        const resJson = await response.json();
+        const { message } = resJson;
+
+        if(!response.ok){
+            toast.error(message);
+            return;
+        }
+
+        setNextStep('deliverymethod');
+    }
     
     return (
         <div className="flex flex-col gap-5 px-3 w-full">
@@ -84,7 +106,8 @@ const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
                 </div>
                 <div className="flex">
                     <Button
-                        onClick={() => setNextStep('deliverymethod')}
+                        type="button"
+                        onClick={buildOrder}
                         className="flex-1"
                     >
                         Continue

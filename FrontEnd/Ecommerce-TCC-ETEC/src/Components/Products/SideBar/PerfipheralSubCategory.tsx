@@ -11,7 +11,7 @@ const PerfipheralSubCategory = () => {
         {name: "Sound Box"},
         {name: "Printers"},
         {name: "Cabinets"},
-        {name: "Cables and Adapters"}
+        {name: "Cables And Adapters"}
     ], []);
 
     const currentUrl = new URL(window.location.toString());
@@ -44,11 +44,11 @@ const PerfipheralSubCategory = () => {
                 {peripheralSubCategories.map((subCategory) => (
                     <div key={subCategory.name} className="flex gap-1.5">
                         <input
-                            id={(subCategory.name).replace(/\s+/g, '').toLowerCase()}
+                            id={(subCategory.name).replace(/\s+/g, '')}
                             name="subcategory"
                             type="radio"
                             className="cursor-pointer"
-                            checked={(subCategory.name).replace(/\s+/g, '').toLowerCase() === currentSubCategory}
+                            checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
                             onChange={(e) => {setPeripheralSubCategory(e.currentTarget.id)}}
                         />
                         <label htmlFor="subcategory">{subCategory.name}</label>
