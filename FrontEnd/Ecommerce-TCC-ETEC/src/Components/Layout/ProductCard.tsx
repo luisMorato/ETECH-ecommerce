@@ -23,7 +23,7 @@ const ProductCard = ({ product, addProduct }: productCardProps) => {
             <Link to={`/products/${product?.id}`}>
                 <div className="flex justify-center w-3/4 max-h-[250px] mx-auto cursor-pointer py-3">
                     {<img
-                        src={`${import.meta.env.VITE_BACKEND_URL}/public/images/products/${product?.image[0]}`}
+                        src={`${import.meta.env.VITE_BACKEND_URL}/public/images/products/${product?.images[0]}`}
                         alt={`product-${product?.name}`}
                         className="hover:scale-105 transition duration-150"
                     />}

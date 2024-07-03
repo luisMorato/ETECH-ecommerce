@@ -55,7 +55,6 @@ export const CartRoutes = async (app: FastifyInstance) => {
                             id: z.number(),
                             cartId: z.number(),
                             productId: z.number(),
-                            //orderDetailId: z.number().nullable(),
                             quantity: z.number().nullable(),
                         })
                     ]),

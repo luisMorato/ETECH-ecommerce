@@ -5,7 +5,7 @@ const seed = async () => {
     const product1 = await db?.product.create({
         data: {
             name: "Monitor Gamer KBM! GAMING MG330 31.5' Led, Curvo",
-            image: ["prod1_01.jpg", "prod1_02.jpg", "prod1_03.jpg", "prod1_04.jpg"],
+            images: ["prod1_01.jpg", "prod1_02.jpg", "prod1_03.jpg", "prod1_04.jpg"],
             desc: [
                 "O Monitor Gamer KBM! GAMING MG330 conta com resposta de 1ms e taxa de atualização de 165Hz, permitindo a mais alta performance durante suas gameplays. Sua curvatura amplia o campo de visão relativo, concentrando toda a ação ao alcance dos olhos do usuário, sem perder resolução.", 
                 "Melhor Entrega de Imagens para sua Gameplay Compatível com a tecnologia Adaptive Sync, permite a sincronização dos frames da placa de vídeo, decretando o fim do input lag, bem como do tearing.",
@@ -23,7 +23,7 @@ const seed = async () => {
     const product2 = await db?.product.create({
         data: {
             name: "Processador AMD Ryzen 7 5700X3D, 3.6 GHz, (4.1GHz Max Turbo), Cachê 4MB, 8 Núcleos",
-            image: ["prod2_01.jpg", "prod2_02.jpg", "prod2_03.jpg", "prod2_04.jpg"],
+            images: ["prod2_01.jpg", "prod2_02.jpg", "prod2_03.jpg", "prod2_04.jpg"],
             desc: [
                 "Processador AMD Ryzen 7 5700X3D Arquitetura Zen 3 Refinada Desfrute de velocidades supersônicas com 8 núcleos e 16 threads de processamento, prontos para enfrentar os títulos mais desafiadores.", 
                 "Frequência base de 3,0GHz e boost dinâmico de até 4,1GHz para eliminar qualquer engasgo. Eficiência Energética sem Abdicar da PotênciaJogue por horas sem se preocupar.",
@@ -40,7 +40,7 @@ const seed = async () => {
     const product3 = await db?.product.create({
         data: {
             name: "Headset Gamer Sem Fio Redragon Zeus Pro, 7.1",
-            image: ["prod3_01.jpg", "prod3_02.jpg", "prod3_03.jpg", "prod3_04.jpg"],
+            images: ["prod3_01.jpg", "prod3_02.jpg", "prod3_03.jpg", "prod3_04.jpg"],
             desc: [
                 "Headset Gamer Sem Fio Redragon Zeus Pro. O headset gamer Redragon Zeus Pro é a escolha perfeita para quem busca um produto de qualidade, com excelente desempenho e conforto.",
                 "Com um design moderno e ergonômico, ele proporciona horas de diversão sem cansaço. O Zeus Pro possui drivers de 53mm, que oferecem uma qualidade sonora imersiva, com graves profundos e agudos cristalinos.",
@@ -57,7 +57,7 @@ const seed = async () => {
     const product4 = await db?.product.create({
         data: {
             name: "SSD 1 TB Kingston NV2, M.2 2280 PCIe, NVMe",
-            image: ["prod4_01.jpg", "prod4_02.jpg", "prod4_03.jpg", "prod4_04.jpg"],
+            images: ["prod4_01.jpg", "prod4_02.jpg", "prod4_03.jpg", "prod4_04.jpg"],
             desc: [
                 "O NV2 PCIe 4.0 NVMe SSD da Kingston é uma solução substancial de armazenamento de última geração alimentada por um controlador Gen 4x4 NVMe.",
                 "O NV2 oferece velocidades de leitura/gravação de até 3.500/2.100 MB/s com menores requisitos de energia e menor aquecimento para ajudar a otimizar o desempenho do seu sistema e agregar valor sem sacrifícios.",
@@ -76,7 +76,7 @@ const seed = async () => {
     const product5 = await db?.product.create({
         data: {
             name: "Caixa De Som 2.0 Multilaser Sp093",
-            image: ["prod5_01.jpg", "prod5_02.jpg", "prod5_03.jpg", "prod5_04.jpg"],
+            images: ["prod5_01.jpg", "prod5_02.jpg", "prod5_03.jpg", "prod5_04.jpg"],
             desc: [
                 "Leve mais qualidade de som para a sua casa! Discretas e compactas, as Caixas de Som Multilaser SP093 combinam perfeitamente com o seu computador.",
                 "Possuem conexão USB, potência de 1W RMS e visual diferenciado.",
@@ -93,7 +93,7 @@ const seed = async () => {
     const product6 = await db?.product.create({
         data: {
             name: "Teclado Multilaser ABNT2, Preto ",
-            image: ["prod6_01.jpg", "prod6_02.jpg", "prod6_03.jpg"],
+            images: ["prod6_01.jpg", "prod6_02.jpg", "prod6_03.jpg"],
             desc: [
                 "Este teclado é ideal para proporcionar alta qualidade, praticidade e simplicidade ao seu dia-a-dia.",
                 "Com tecnologia de conexão Plug e Play, conecte a entrada USB e comece a usar. O teclado possui resistência a água, além de design compacto para ocupar menos espaço."
@@ -109,7 +109,7 @@ const seed = async () => {
     const product7 = await db?.product.create({
         data: {
             name: "Mouse com fio USB Logitech M90",
-            image: ["prod7_01.jpg", "prod7_02.jpg", "prod7_03.jpg", "prod7_04.jpg"],
+            images: ["prod7_01.jpg", "prod7_02.jpg", "prod7_03.jpg", "prod7_04.jpg"],
             desc: [
                 "Mouse com fio USB Logitech M90 com Design Ambidestro e Facilidade Plug and Play O M90 fornece o necessário para seu conforto e controle confiável de seu computador.",
                 "esenvolvido pela Logitech, a marca especialista em mouses, apresentando a qualidade de quem já produziu mais de um bilhão de mouses.",
@@ -129,7 +129,7 @@ const seed = async () => {
     const product8 = await db?.product.create({
         data: {
             name: "Impressora Multifuncional Epson EcoTank L3250",
-            image: ["prod8_01.jpg", "prod8_02.jpg", "prod8_03.jpg", "prod8_04.jpg"],
+            images: ["prod8_01.jpg", "prod8_02.jpg", "prod8_03.jpg", "prod8_04.jpg"],
             desc: [
                 "Impressora Multifuncional Epson EcoTank L3250 A Epson EcoTank L3250 é uma multifuncional tanque de tinta 3 em 1 com conexão wireless destinada à famílias, estudantes, e profissionais.",
                 "Oferece baixo custo de impressão graças ao sistema de EcoTank, que imprime até 4.500 páginas em preto e 7.500 páginas coloridas¹ com cada kit de garrafas de reposição original.",
@@ -149,7 +149,7 @@ const seed = async () => {
     const product9 = await db?.product.create({
         data: {
             name: "Fonte XPG Kyber, 750W, 80 Plus Gold, Com Cabo",
-            image: ["prod9_01.jpg", "prod9_02.jpg", "prod9_03.jpg", "prod9_04.jpg"],
+            images: ["prod9_01.jpg", "prod9_02.jpg", "prod9_03.jpg", "prod9_04.jpg"],
             desc: [
                 "As unidades de fonte de alimentação KYBER aderem às especificações do guia de design Intel ATX 3.0 e oferecem um conector 12VHPWR na categoria de 750 e 850 watts.",
                 "A KYBER pode suportar as placas gráficas mais recentes, e é feita especificamente para aqueles que exigem alta capacidade gráfica e desempenho.",
@@ -168,7 +168,7 @@ const seed = async () => {
     const product10 = await db?.product.create({
         data: {
             name: "Placa Mãe MSI B560M PRO-E, Intel LGA 1200, mATX, DDR4",
-            image: ["prod10_01.jpg", "prod10_02.jpg", "prod10_03.jpg", "prod10_04.jpg"],
+            images: ["prod10_01.jpg", "prod10_02.jpg", "prod10_03.jpg", "prod10_04.jpg"],
             desc: [
                 "A série PRO ajuda os usuários a trabalhar de forma mais inteligente, oferecendo uma experiência eficiente e produtiva.",
                 "Com funcionalidade estável e montagem de alta qualidade, as placas-mãe da série PRO oferecem não apenas fluxos de trabalho profissionais otimizados, mas também menos resolução de problemas e longevidade.",
@@ -187,7 +187,7 @@ const seed = async () => {
     const product11 = await db?.product.create({
         data: {
             name: "Placa Mãe ASRock B450M-HDV R4.0, AMD AM4, Micro ATX, DDR4",
-            image: ["prod11_01.jpg", "prod11_02.jpg", "prod11_03.jpg", "prod11_04.jpg"],
+            images: ["prod11_01.jpg", "prod11_02.jpg", "prod11_03.jpg", "prod11_04.jpg"],
             desc: [
                 "Placa Mãe ASRock B450M-HDV R4.0",
                 "AMD AM4",
@@ -205,7 +205,7 @@ const seed = async () => {
     const product12 = await db?.product.create({
         data: {
             name: "Placa de Vídeo RX 6600 V2 ASUS Dual AMD Radeon, 8GB GDDR6 ",
-            image: ["prod12_01.jpg", "prod12_02.jpg", "prod12_03.jpg", "prod12_04.jpg"],
+            images: ["prod12_01.jpg", "prod12_02.jpg", "prod12_03.jpg", "prod12_04.jpg"],
             desc: [
                 "Oferecendo a mais recente experiência de arquitetura AMD RDNA 2 na sua forma mais pura, o ASUS Dual Radeon RX 6600 V2 combina desempenho e simplicidade como nenhum outro. Aproveitando tecnologias de refrigeração avançadas derivadas de placas gráficas emblemáticas, a escolha perfeita para uma construção bem equilibrada.",
                 "As novas placas graficas AMD Radeon RX 6950 XT, RX 6750 XT e RX 6650 XT são otimizadas para DirectStorage para ajudar a reduzir o tempo de carregamento em jogos e dar vida a mundos expansivos com detalhes incriveis.",
@@ -222,7 +222,7 @@ const seed = async () => {
     const product13 = await db?.product.create({
         data: {
             name: "Gabinete Gamer Rise Mode Glass 06X, Mid Tower",
-            image: ["prod13_01.jpg", "prod13_02.jpg", "prod13_03.jpg", "prod13_04.jpg"],
+            images: ["prod13_01.jpg", "prod13_02.jpg", "prod13_03.jpg", "prod13_04.jpg"],
             desc: [
                 "Os Gabinetes são a estrutura que une toda sua build, onde você vai querer algo que tenha flexibilidade para montagem da suas peças, garanta boa refrigeração dos componentes e que deixe tudo bonito.",
                 "O Gabinete Rise Mode Glass 06X é a melhor escolha para tudo isso. Com acabamento externo em Vidro, dand um toque de estilo ao seu setup. Além de possuir espaço para 6 Fans (que não acompanham o gabinete).",
@@ -240,7 +240,7 @@ const seed = async () => {
     const product14 = await db?.product.create({
         data: {
             name: "Processador Intel Core i9-12900KF, 3.2GHz ",
-            image: ["prod14_01.jpg", "prod14_02.jpg"],
+            images: ["prod14_01.jpg", "prod14_02.jpg"],
             desc: [
                 "Projetado para os jogos da próxima geração. ",
                 "Desempenho revolucionário e capacidade para multitarefas com as mais elevadas velocidades do clock e uma nova arquitetura revolucionária.",
@@ -258,7 +258,7 @@ const seed = async () => {
     const product15 = await db?.product.create({
         data: {
             name: "HD Seagate 4TB BarraCuda, 3.5', SATA - ST4000DM004 ",
-            image: ["prod15_01.jpg", "prod15_02.jpg", "prod15_03.jpg"],
+            images: ["prod15_01.jpg", "prod15_02.jpg", "prod15_03.jpg"],
             desc: [
                 "Versátil, Rápido e Confiável",
                 "Os discos rígidos BarraCuda da Seagate são perfeitos para armazenamento de notebooks, armazenamento de dispositivos móveis, armazenamento tudo em um e muito mais.",
@@ -276,7 +276,7 @@ const seed = async () => {
     const product16 = await db?.product.create({
         data: {
             name: "HD Externo Seagate Expansion, 4TB, USB, Preto",
-            image: ["prod16_01.jpg", "prod16_02.jpg", "prod16_03.jpg", "prod16_04.jpg"],
+            images: ["prod16_01.jpg", "prod16_02.jpg", "prod16_03.jpg", "prod16_04.jpg"],
             desc: [
                 "Disco Seagate Expansion para desktop armazenamento extra para o seu PC e Mac. A unidade portátil Seagate Expansion é compacta e perfeita para viagens.",
                 "A configuração é simples e direta; simplesmente conecte um único cabo USB e você estará pronto para começar. A unidade é alimentada pelo cabo USB, portanto, não há necessidade de uma fonte de alimentação externa.",
@@ -295,7 +295,7 @@ const seed = async () => {
     const product17 = await db?.product.create({
         data: {
             name: "Adaptador Hdmi M/vga F Sem Áudio",
-            image: ["prod17_01.jpg", "prod17_02.jpg", "prod17_03.jpg", "prod17_04.jpg"],
+            images: ["prod17_01.jpg", "prod17_02.jpg", "prod17_03.jpg", "prod17_04.jpg"],
             desc: [
                 "Suporta resolução até 1080p, sem áudio - Instalação plug and play",
                 "Não possui função áudio, converte apenas vídeo",
@@ -312,7 +312,7 @@ const seed = async () => {
     const product18 = await db?.product.create({
         data: {
             name: "HUB USB KABUM! essentials AS200, 4 Portas",
-            image: ["prod18_01.jpg", "prod18_02.jpg", "prod18_03.jpg"],
+            images: ["prod18_01.jpg", "prod18_02.jpg", "prod18_03.jpg"],
             desc: [
                 "O HUB USB AS200 é um dispositivo compacto que permite conectar até 4 dispositivos USB ao seu computador ou notebook.",
                 "Portas USB 3.0, para altas velocidades de transferência de dados e grandes arquivos rapidamente.",
@@ -330,7 +330,7 @@ const seed = async () => {
     const product19 = await db?.product.create({
         data: {
             name: "Cabo Hdmi 2.0 4k 1,5 Metros",
-            image: ["prod19_01.jpg", "prod19_02.jpg", "prod19_03.jpg"],
+            images: ["prod19_01.jpg", "prod19_02.jpg", "prod19_03.jpg"],
             desc: [
                 "Conector: HDMI macho x HDMI macho",
                 "Revestimento: PVC - Tipo: Cabo HDMI para HDMI",
@@ -347,7 +347,7 @@ const seed = async () => {
     const product20 = await db?.product.create({
         data: {
             name: "Adaptador DVI-D M X VGA F MD9, 24+1, Dual Link",
-            image: ["prod20_01.jpg"],
+            images: ["prod20_01.jpg"],
             desc: [
                 "Conexão: DVI-D (Macho) x VGA (Fêmea)",
                 "Pinagem: 24+1- Dual Link"
@@ -363,7 +363,7 @@ const seed = async () => {
     // const product21 = await db?.product.create({
     //     data: {
     //         name: "Adaptador DVI-D M X VGA F MD9, 24+1, Dual Link",
-    //         image: ["prod20_01.jpg"],
+    //         images: ["prod20_01.jpg"],
     //         desc: [
     //             "Conexão: DVI-D (Macho) x VGA (Fêmea)",
     //             "Pinagem: 24+1- Dual Link"
@@ -378,7 +378,7 @@ const seed = async () => {
     // const product22 = await db?.product.create({
     //     data: {
     //         name: "Adaptador DVI-D M X VGA F MD9, 24+1, Dual Link",
-    //         image: ["prod20_01.jpg"],
+    //         images: ["prod20_01.jpg"],
     //         desc: [
     //             "Conexão: DVI-D (Macho) x VGA (Fêmea)",
     //             "Pinagem: 24+1- Dual Link"
@@ -393,7 +393,7 @@ const seed = async () => {
     // const product23 = await db?.product.create({
     //     data: {
     //         name: "Adaptador DVI-D M X VGA F MD9, 24+1, Dual Link",
-    //         image: ["prod20_01.jpg"],
+    //         images: ["prod20_01.jpg"],
     //         desc: [
     //             "Conexão: DVI-D (Macho) x VGA (Fêmea)",
     //             "Pinagem: 24+1- Dual Link"

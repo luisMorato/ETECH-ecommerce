@@ -32,26 +32,27 @@ const Profile = () => {
   //UseEffect Used to fetch the user's data everytime the token changes, that is, everytime a login is made
   useEffect(() => {
     const fetchUser = async () => {
-      if(token){
-        const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
-       
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "authorization": `Bearer ${token}`
-          },
-        });
-        const resJson = await response.json();
-        
-        if(response.ok){
-          const { user: apiUser } = resJson;
-          if(!apiUser){
-            navigate("/");
-            return;
-          }
-
-          setUser(apiUser);
+      if(!token){
+        navigate('/');
+      }
+      const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
+      
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "authorization": `Bearer ${token}`
+        },
+      });
+      const resJson = await response.json();
+      
+      if(response.ok){
+        const { user: apiUser } = resJson;
+        if(!apiUser){
+          navigate("/");
+          return;
         }
+
+        setUser(apiUser);
       }
     }
 
@@ -61,7 +62,7 @@ const Profile = () => {
   //UseEffect Used to fetch the user's orders everytime the token and user changes
   useEffect(() => {
     const fetchOrders = async () => {
-      if(!user || user?.role === "ADMIN"){
+      if(!token || !user || user?.role === "ADMIN"){
         return;
       }
 

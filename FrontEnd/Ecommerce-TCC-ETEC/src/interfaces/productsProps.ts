@@ -2,12 +2,13 @@ export interface DbProducts {
     id: number,
     name: string,
     price: number,
-    image: File[],
+    images: File[],
     desc: string[],
     stock: number,
     brand: string,
     category: string,
-    subCategory: string
+    subCategory: string,
+    createdAt: Date,
 }
 
 export type productProps = ( 
@@ -27,7 +28,8 @@ export type productProps = (
                 id: number,
                 name: string,
                 image: string
-            };
-        }[];
+            },
+            createdAt: Date,
+        }[],
     }
 );

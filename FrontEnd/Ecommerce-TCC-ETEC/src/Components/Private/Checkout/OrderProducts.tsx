@@ -1,28 +1,22 @@
 import { useCallback, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { cartProductsProps } from "../../../interfaces/cartProps";
 
 import Button from "../../Layout/Button";
 import OrderProductCard from "./OrderProductCard";
+
 import { checkTextLength } from "../../../utils/checkTextLength";
 
 interface orderProductsProps {
-    cartProducts: {
-        quantity: number,
-        products: {
-            id: number,
-            name: string,
-            image: string[],
-            price: number,
-            desc: string[],
-            stock: number,
-        }
-    }[],
+    cartProducts: cartProductsProps[],
     setNextStep: (step: string) => void
 }
 
 const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
     const { userToken: token } = useParams();
+    const navigate = useNavigate();
 
     //Calculate the total price from the products in the cart
     const total = useMemo(() => cartProducts.map((product) => product.quantity * product.products.price).reduce((prev, current) => prev + current, 0), [cartProducts]);
@@ -60,6 +54,12 @@ const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
     //Build the Order Without the payment method and the status of "processing Order"
     const buildOrder = async () => {
         const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/checkout`);
+
+        if(cartProducts.length === 0){
+            toast.error('cart Is Empty');
+            navigate('/');
+            return;
+        }
 
         const response = await fetch(url, {
             method: "POST",

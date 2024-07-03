@@ -7,15 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//ToDo: Add createdAt and updatedAt Fields to User's Table
-//ToDo: Add Chat Relation to User
+//ToDo: Add Chat Relation to User's Table
+//ToDo: Separate Address | houseNumber | City | State | Country | postalCode in Another Table
 model User {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
-  email       String  @unique
+  email       String   @unique
   image       String?
   password    String
-  role        String  @default("USER")
+  role        String   @default("USER")
   phoneNumber String?
   address     String?
   houseNumber Int?
@@ -23,8 +23,8 @@ model User {
   state       String?
   country     String?
   postalCode  String?
-  // createdAt   DateTime @default(now())
-  // updateddAt   DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updateddAt  DateTime @default(now())
 
   comments   Comment[]
   cart       Cart?
@@ -49,24 +49,22 @@ model CreditCard {
   @@unique([userId])
 }
 
-//ToDo: Add createdAt to Comments Table
 model Comment {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    Int
   productId Int
   text      String
-  // createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
   product Product @relation(fields: [productId], references: [id])
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-//ToDo: Add createdAt and updateddAt to Cart's Table
 model Cart {
-  id     Int @id @default(autoincrement())
-  userId Int
-  // createdAt   DateTime @default(now())
-  // updateddAt   DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @default(now())
 
   cartProducts CartProducts[]
   order        Order[]
@@ -76,16 +74,17 @@ model Cart {
 }
 
 model CartProducts {
-  id        Int  @id @default(autoincrement())
-  cartId    Int
-  productId Int
-  quantity  Int?
+  id         Int      @id @default(autoincrement())
+  cartId     Int
+  productId  Int
+  quantity   Int?
+  createdAt  DateTime @default(now())
+  updateddAt DateTime @default(now())
 
   products Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   cart     Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
 }
 
-//ToDo: Add createdAt and updateddAt to Order's Table
 model Order {
   id            Int      @id @default(autoincrement())
   cartId        Int
@@ -93,14 +92,13 @@ model Order {
   status        String   @default("Processing Order")
   trackingCode  String   @default(cuid())
   paymentMethod String
-  // createdAt   DateTime @default(now())
-  // updateddAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updateddAt    DateTime @default(now())
 
   cart         Cart         @relation(fields: [cartId], references: [id], onDelete: Cascade)
   orderDetails OrderDetail?
 
   //creditCard    CreditCard?
-  //@@unique([cartId])
 }
 
 model OrderDetail {
@@ -114,28 +112,30 @@ model OrderDetail {
 }
 
 model OrderProduct {
-  id            Int @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   productId     Int
   orderDetailId Int
   quantity      Int
+  createdAt     DateTime @default(now())
+  updateddAt    DateTime @default(now())
 
   products    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
   orderDetail OrderDetail @relation(fields: [orderDetailId], references: [id], onDelete: Cascade)
 }
 
-//ToDo: Add createdAt to Products Table
-//ToDo: Change the Field Image to be Images
+//ToDo: Add Freight to Products Table
 model Product {
   id            Int      @id @default(autoincrement())
-  image         String[]
+  images        String[]
   name          String
   price         Float
   desc          String[]
   stock         Int
   brand         String
+  //Freight       Float
   categoryId    Int
   subCategoryId Int
-  //createdAt       DateTime @default(now())
+  createdAt     DateTime @default(now())
 
   cartProducts  CartProducts[]
   orderProduct  OrderProduct[]
@@ -158,7 +158,7 @@ model productSubCategory {
   name       String
 
   products   Product[]
-  categories ProductCategory @relation(fields: [categoryId], references: [id])
+  categories ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 //ToDo: Create chat and message tables

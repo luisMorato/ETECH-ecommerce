@@ -16,7 +16,6 @@ const cartUseCases = new CartUseCases();
 
 export class OrderUseCases implements orderUseCasesProps {
     createOrder = async ( userId: number ) => {
-        //ToDo: Fix the Error that is Creating 2 Orders At same time
         const cart = await cartUseCases.getUniqueCartByUserId(userId);
 
         if(!cart) {
@@ -62,13 +61,16 @@ export class OrderUseCases implements orderUseCasesProps {
                                     select: {
                                         id: true,
                                         name: true,
-                                        image: true,
+                                        images: true,
                                         price: true,
                                         desc: true,
                                         stock: true,
                                         brand: true,
+                                        createdAt: true,
                                     },
                                 },
+                                createdAt: true,
+                                updateddAt: true,
                             },
                         },
                     }
@@ -105,16 +107,19 @@ export class OrderUseCases implements orderUseCasesProps {
                                         select: {
                                             id: true,
                                             name: true,
-                                            image: true,
+                                            images: true,
                                             price: true,
                                             desc: true,
                                             stock: true,
                                             brand: true,
+                                            createdAt: true,
                                         },
                                     },
+                                    createdAt: true,
+                                    updateddAt: true,
                                 },
                             },
-                        }
+                        },
                     }
                 }
             });

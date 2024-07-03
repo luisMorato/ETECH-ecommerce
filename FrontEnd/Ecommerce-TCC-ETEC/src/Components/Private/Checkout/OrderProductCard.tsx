@@ -1,23 +1,13 @@
-//import { useEffect, useState } from "react";
+import { cartProductsProps } from "../../../interfaces/cartProps";
 import { checkTextLength } from "../../../utils/checkTextLength";
 
 interface orderProductCardProps {
-    cartProduct: {
-        quantity: number,
-        products: {
-            id: number,
-            name: string,
-            image: string[],
-            price: number,
-            desc: string[],
-            stock: number,
-        }
-    },
+    cartProduct: cartProductsProps,
     removeFromCart: (productId: number) => void
 }
 
 const OrderProductCard = ({ cartProduct, removeFromCart }: orderProductCardProps) => {
-    const productImageUrl = `${import.meta.env.VITE_BACKEND_URL}/public/images/products/${cartProduct?.products.image[0]}`;
+    const productImageUrl = `${import.meta.env.VITE_BACKEND_URL}/public/images/products/${cartProduct?.products.images[0]}`;
   
     return (
         <div className="self-center bg-white w-2/4 rounded-2xl">

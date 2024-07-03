@@ -1,6 +1,8 @@
 export interface dbCartProps {
     id: number,
     userId: number,
+    createdAt: Date,
+    updateddAt: Date,
 }
 
 export interface requestCartProps {
@@ -17,12 +19,15 @@ export type cartProps = (
             products: {
                 id: number,
                 name: string,
-                image: string[],
+                images: string[],
                 price: number,
                 desc: string[],
                 stock: number,
                 brand: string,
+                createdAt: Date,
             };
+            createdAt: Date,
+            updateddAt: Date,
         }[];
     }
 );

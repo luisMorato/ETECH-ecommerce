@@ -277,8 +277,6 @@ export class UserUseCases implements userUseCasesProps {
                         skip: Number(( pageIndex || 0 ) * perPage) 
                     }
                 )
-                // take: Number(perPage),
-                // skip: Number(( pageIndex || 0 ) * perPage)
             });
 
             if(dbUsers){

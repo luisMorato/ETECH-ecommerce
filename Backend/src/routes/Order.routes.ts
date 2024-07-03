@@ -128,6 +128,7 @@ export const OrderRoutes = async (app: FastifyInstance) => {
     .put('/:orderId', {
         preHandler: authentication,
         schema: {
+            //ToDo: Add a status Field
             body: z.object({
                 paymentMethod: z.string().min(1),
                 number: z.string().optional(),

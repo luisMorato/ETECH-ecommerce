@@ -87,6 +87,7 @@ const LoginModal = () => {
       <h2 className='text-black text-2xl font-medium'>Welcome Back</h2>
       <form onSubmit={handleSubmit(LoginSubmit)} className="flex flex-col gap-3 mt-5">
           <StyledInput
+            id="loginEmail"
             name="email"
             label="Email:"
             register={register}
@@ -100,6 +101,7 @@ const LoginModal = () => {
           />
           <div className="flex flex-col gap-1 mt-5">
             <StyledInput
+              id="loginPassword"
               name="password"
               label="Password:"
               register={register}

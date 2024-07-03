@@ -41,6 +41,8 @@ export const completeUserSchema = z.object({
     state: z.string().nullable(),
     country: z.string().nullable(),
     postalCode: z.string().nullable(),
+    createdAt: z.date(),
+    updateddAt: z.date(),
     creditCard: z.object({
         number: z.string(),
         bank: z.string(),

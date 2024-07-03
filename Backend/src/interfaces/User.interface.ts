@@ -19,7 +19,9 @@ export interface DbUserProps {
     state: string | null,
     country: string | null,
     postalCode: string | null,
-    creditCard?: userCreditCard | null
+    creditCard?: userCreditCard | null,
+    createdAt: Date,
+    updateddAt: Date,
 }
 
 export interface requestUserProps {

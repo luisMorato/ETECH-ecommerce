@@ -102,7 +102,6 @@ export const userRoutes = async (app: FastifyInstance) => {
             response: {
                 200: z.object({
                     user: completeUserSchema,
-                    //imageBuffer: z.instanceof(Buffer).optional()
                 }),
             }
         }
@@ -114,20 +113,7 @@ export const userRoutes = async (app: FastifyInstance) => {
 
             const user = await userUseCases.getUniqueUser(userId);
 
-            // let imagePath = '';
-            // let imageBuffer;
-
-            // if(user?.image){
-            //     imagePath = path.join(
-            //         process.cwd(),
-            //         "public/images/user",
-            //         user.image
-            //     );
-            //     imageBuffer = fs.readFileSync(imagePath);
-            // }
-
             if(user){
-                //return reply.code(200).send({ user, imageBuffer });
                 return reply.code(200).send({ user });
             }
         }

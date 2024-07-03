@@ -3,7 +3,7 @@ import {
   useEffect, 
   useState
 } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { IoLogoWhatsapp, IoMdChatboxes } from 'react-icons/io';
 import { MdKeyboardDoubleArrowUp } from "react-icons/md";
 
@@ -31,7 +31,11 @@ function App() {
   //Used to Fecth the User's Data and Passes to The Header and NavBar Components
   useEffect(() => {
     const getUser = async () => {
-      const url = `${import.meta.env.VITE_BACKEND_URL}/user`
+      const url = `${import.meta.env.VITE_BACKEND_URL}/user`;
+
+      if(!token){
+        return;
+      }
 
       try {
         const response = await fetch(url, {
@@ -74,6 +78,8 @@ function App() {
     }, "Active User");
   });
 
+  const number = '+5515981818866';
+
   return (
     <>
         <RegisterModal />
@@ -96,7 +102,9 @@ function App() {
           <FixedButton
             className="bottom-20 right-5 p-2 bg-green-700"
           >
-            <IoLogoWhatsapp size={30} />
+            <Link to={`https://wa.me/${number}/`} target='_blank' rel='norefferer noopener'>
+              <IoLogoWhatsapp size={30} />
+            </Link>
           </FixedButton>
         }
         <div>

@@ -157,7 +157,7 @@ const IndividualProduct = () => {
             <div className="flex flex-col">
               <h1 className="text-lg font-medium mb-3">{product.name}</h1>
               <div className="flex items-center justify-center bg-neutral-300 rounded-full w-6 h-6 mt-2">
-                <span className="text-xs font-medium">{currentImage + 1}/{product.image.length}</span>
+                <span className="text-xs font-medium">{currentImage + 1}/{product.images.length}</span>
               </div>
                <ProductImages 
                   images={images}

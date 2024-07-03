@@ -1,27 +1,17 @@
-//import { useEffect, useState } from "react"
 import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+import { cartProductsProps } from "../../interfaces/cartProps";
 
 import { checkTextLength } from "../../utils/checkTextLength";
 
-import { Link } from "react-router-dom";
-
 interface CartProductProps {
-  cartProduct: {
-      quantity: number,
-      products: {
-          id: number,
-          name: string,
-          image: string[],
-          price: number,
-          desc: string[],
-          stock: number,
-      }
-  },
+  cartProduct: cartProductsProps,
   removeProduct: (productId: number) => void
 }
 
 const CartCard = ({ cartProduct, removeProduct }: CartProductProps) => {
-  const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/public/images/products/${cartProduct.products.image[0]}`;
+  const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/public/images/products/${cartProduct.products.images[0]}`;
   
   return (
     <section className="flex items-center gap-5 border-b border-b-neutral-400 py-2 w-full">

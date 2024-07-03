@@ -37,7 +37,7 @@ const userUseCases = new UserUseCases();
 export const ProductsRoutes = async (app: FastifyInstance) => {
   app.addHook("preHandler", (req, reply, done) => {
     try {
-      const multerArray = imageUpload.array("image");
+      const multerArray = imageUpload.array("images");
       multerArray(req.raw as Request, reply.raw as Response, done);
     } catch (error: any) {
       console.log("Error: ", error);
@@ -153,7 +153,7 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
 
       if(res){
         const { product } = res;
-        const imagesName = product?.image;
+        const imagesName = product?.images;
 
         const imagesPath =  imagesName?.map((image) => path.join(process.cwd(), "public/images/products", image));
         const imagesBuffer = imagesPath?.map((path) => fs.readFileSync(path));
@@ -173,15 +173,6 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
         response: {
           200: z.object({
             product: productSchema,
-            // commentData: z.array(z.object({
-            //   id: z.number(),
-            //   text: z.string(),
-            //   user: z.object({
-            //       id: z.number(),
-            //       name: z.string(),
-            //       image: z.instanceof(Buffer).optional()
-            //   })
-            // })).optional()
           }),
         },
       },
@@ -191,7 +182,6 @@ export const ProductsRoutes = async (app: FastifyInstance) => {
       const res = await productUseCases.getUniqueProduct(productId);
 
       if (res) {
-        //const { product, commentData } = res
         const { product } = res
         return reply.code(200).send({ product });
       }

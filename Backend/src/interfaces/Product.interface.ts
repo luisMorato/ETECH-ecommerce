@@ -1,16 +1,18 @@
 export interface DbProducts {
     id: number,
-    image: string[],
+    images: string[],
     name: string,
     price: number,
     desc: string[],
     stock: number,
     brand: string,
+    //freight: number,
+    createdAt: Date,
 }
 
 export interface requestProduct {
     name: string,
-    image: File[],
+    images: File[],
     price: string,
     desc: string[],
     stock: number,

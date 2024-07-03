@@ -3,7 +3,7 @@ import { zfd } from "zod-form-data";
 
 export const requestProductData = zfd.formData({
     name: z.string().min(1).max(80),
-    image: z.array(zfd.file()),
+    images: z.array(zfd.file()),
     price: z.string(),
     desc: z.array(z.string().min(1)),
     stock: z.string().transform((val) => parseInt(val)),
@@ -15,11 +15,12 @@ export const requestProductData = zfd.formData({
 export const productSchema = z.object({
     id: z.number().int(),
     name: z.string(),
-    image: z.array(z.string()),
+    images: z.array(z.string()),
     price: z.number(),
     desc: z.array(z.string()),
     stock: z.number().int(),
     brand: z.string().min(1),
+    createdAt: z.date(),
     comment: z.array(z.object({
         id: z.number(),
         text: z.string(),

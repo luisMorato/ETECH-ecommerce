@@ -15,7 +15,7 @@ import {
 import { BadRequest } from "../_errors/BadRequest";
 
 export class productsUseCases implements productsUseCasesProps {
-  registerProduct = async (data: Omit<requestProduct, 'image'>, filesName: string[]) => {
+  registerProduct = async (data: Omit<requestProduct, 'images'>, filesName: string[]) => {
     try {
       const { 
         name,
@@ -53,7 +53,7 @@ export class productsUseCases implements productsUseCasesProps {
       const registeredProduct = await db?.product.create({
         data: {
           name,
-          image: [...filesName],
+          images: [...filesName],
           price: formatedPrice,
           desc: [...desc],
           stock,
@@ -101,7 +101,7 @@ export class productsUseCases implements productsUseCasesProps {
       if(del){
         const { product } = productData;
 
-        const imagesName = product?.image;
+        const imagesName = product?.images;
         const imagesPath =  imagesName?.map((image) => path.join(process.cwd(), "public/images/products", image));
 
         imagesPath?.forEach((path) => {

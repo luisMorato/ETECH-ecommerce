@@ -199,7 +199,9 @@ export class CartUseCases implements cartUseCasesProps {
                     cartProducts: {
                         select: {
                             products: true,
-                            quantity: true, 
+                            quantity: true,
+                            createdAt: true,
+                            updateddAt: true,
                         }
                     }
                 }
@@ -247,7 +249,6 @@ export class CartUseCases implements cartUseCasesProps {
         });
 
         if(del){
-            console.log('DELETE: ', del);
             return { message: "Cart Emptied" };
         }
 

@@ -1,20 +1,3 @@
-// export interface dbUserProps {
-//     id: number,
-//     name: string,
-//     email: string,
-//     image?: string,
-//     password: string,
-//     role: string,
-//     phoneNumber?: string,
-//     address?: string,
-//     houseNumber?: number,
-//     city?: string,
-//     state?: string,
-//     country?: string,
-//     postalCode?: string,
-//     creditCard?: string,
-// }
-
 interface userCreditCard {
     number: string,
     bank: string,
@@ -36,5 +19,7 @@ export interface userProps {
     state?: string,
     country?: string,
     postalCode?: string,
-    creditCard?: userCreditCard
+    creditCard?: userCreditCard,
+    createdAt: Date,
+    updateddAt: Date,
 }

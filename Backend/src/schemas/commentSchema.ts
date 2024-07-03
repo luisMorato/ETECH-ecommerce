@@ -5,4 +5,5 @@ export const commentSchema = z.object({
     productId: z.number(),
     userId: z.number(),
     text: z.string(),
+    createdAt: z.date(),
 }).nullish();

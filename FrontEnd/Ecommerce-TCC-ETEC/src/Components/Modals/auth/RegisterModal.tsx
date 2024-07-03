@@ -79,6 +79,7 @@ const RegisterModal = () => {
       <form onSubmit={handleSubmit(registerSubmit)} className="flex flex-col gap-3 mt-5">
           <div className="flex flex-col gap-8 mb-2">
             <StyledInput
+              id="registerName"
               name="name"
               label="Name:"
               register={register}
@@ -91,6 +92,7 @@ const RegisterModal = () => {
               roundedLg
             />
             <StyledInput
+              id="registerEmail"
               name="email"
               label="Email:"
               register={register}
@@ -103,6 +105,7 @@ const RegisterModal = () => {
               roundedLg
             />
             <StyledInput
+              id="registerPassword"
               name="password"
               label="Password:"
               register={register}

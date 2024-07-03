@@ -5,6 +5,8 @@ interface dbOrderProps {
     status: string,
     trackingCode: string,
     paymentMethod: string,
+    createdAt: Date,
+    updateddAt: Date,
 }
 
 export type completeOrderProps = ({
@@ -14,11 +16,14 @@ export type completeOrderProps = ({
             products: {
                 id: number,
                 name: string,
-                image: string[],
+                images: string[],
                 price: number,
                 desc: string[],
                 stock: number,
+                createdAt: Date,
             },
+            createdAt: Date,
+            updateddAt: Date,
         }[],
     },
     cart?: {

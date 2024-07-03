@@ -3,6 +3,7 @@ export interface DbcommentsProps {
     productId: number,
     userId: number,
     text: string,
+    createdAt: Date,
 }
 
 export interface commentProps {
