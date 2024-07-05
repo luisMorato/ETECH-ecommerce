@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
 const MonitorsSubCategory = () => {
     const monitorSubCategories: {name: string}[] = useMemo(() => [
@@ -11,11 +12,11 @@ const MonitorsSubCategory = () => {
     const currentUrl = new URL(window.location.toString());
 
     //Set the Monitor SubCategory in the URL State to Persist The Reloads
-    const setMonitorSubCategory = (subcategory: string) => {
-        currentUrl.searchParams.set('subcategory', subcategory);
-        window.history.pushState(null, '', currentUrl);
-        window.location.reload();
-    }
+    // const setMonitorSubCategory = (subcategory: string) => {
+    //     currentUrl.searchParams.set('subcategory', subcategory);
+    //     window.history.pushState(null, '', currentUrl);
+    //     window.location.reload();
+    // }
   
     const currentSubCategory = currentUrl.searchParams.get('subcategory');
   
@@ -30,7 +31,7 @@ const MonitorsSubCategory = () => {
                         className="cursor-pointer"
                         defaultChecked
                         checked={!currentSubCategory || currentSubCategory === "all" ? true : false}
-                        onChange={(e) => setMonitorSubCategory(e.currentTarget.id)}
+                        onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                     />
                     <label htmlFor="subcategory">All</label>
                 </div>
@@ -42,7 +43,7 @@ const MonitorsSubCategory = () => {
                             type="radio"
                             className="cursor-pointer"
                             checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
-                            onChange={(e) => setMonitorSubCategory(e.currentTarget.id)}
+                            onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                         />
                         <label htmlFor="subcategory">{subCategory.name}</label>
                     </div>

@@ -15,7 +15,7 @@ const MyOrders = ({ orders }: myOrdersProps) => {
                 <FaShippingFast size={30}/>
                 <h2 className="text-xl font-medium">Your Orders</h2>
             </div>
-            <div className="my-5">
+            <div className={`my-5 ${orders.length >= 3 ? "overflow-y-scroll h-[700px]" : "h-fit"}`}>
                 {/* Get All User Orders Already Made */}
                 {orders && orders.length > 0 ? (
                     orders.map((order) => (

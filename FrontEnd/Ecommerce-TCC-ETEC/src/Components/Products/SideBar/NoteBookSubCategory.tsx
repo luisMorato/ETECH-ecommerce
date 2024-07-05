@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
 const NoteBookSubCategory = () => {
     const notebookSubCategories: {name: string}[] = useMemo(() => [
@@ -10,11 +11,11 @@ const NoteBookSubCategory = () => {
     const currentUrl = new URL(window.location.toString());
 
     //Set the Notebook SubCategory in the URL State to Persist The Reloads
-    const setNotebooksSubCategory = (subcategory: string) => {
-        currentUrl.searchParams.set('subcategory', subcategory);
-        window.history.pushState(null, '', currentUrl);
-        window.location.reload();
-    }
+    // const setNotebooksSubCategory = (subcategory: string) => {
+    //     currentUrl.searchParams.set('subcategory', subcategory);
+    //     window.history.pushState(null, '', currentUrl);
+    //     window.location.reload();
+    // }
   
     const currentSubCategory = currentUrl.searchParams.get('subcategory');
 
@@ -29,7 +30,7 @@ const NoteBookSubCategory = () => {
                     className="cursor-pointer"
                     defaultChecked
                     checked={!currentSubCategory || currentSubCategory === "all" ? true : false}
-                    onChange={(e) => setNotebooksSubCategory(e.currentTarget.id)}
+                    onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                 />
                 <label htmlFor="subcategory">All</label>
             </div>
@@ -41,7 +42,7 @@ const NoteBookSubCategory = () => {
                         type="radio"
                         className="cursor-pointer"
                         checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
-                        onChange={(e) => setNotebooksSubCategory(e.currentTarget.id)}
+                        onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                     />
                     <label htmlFor="subcategory">{subCategory.name}</label>
                 </div>

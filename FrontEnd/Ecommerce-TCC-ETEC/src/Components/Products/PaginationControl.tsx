@@ -33,35 +33,35 @@ const PaginationControl = ({ page, setPage, quantity }: paginationProps) => {
     }
 
     return (
-    <div className="absolute bottom-2 right-0 flex items-center justify-end gap-4 w-4/5 mx-auto mb-3 font-medium">
-        <span className="text-xl text-black">Page {page}/{pages}</span>
-        <div className="flex items-center">
-            <button
-                onClick={goToFirstPage}
-            >
-                <MdKeyboardDoubleArrowLeft size={30} className={`${page === 1 ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
-            </button>
-            <button
-                onClick={prevPage}
-            >
-                <MdArrowBackIosNew size={20} className={`${page === 1 ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
-            </button>
+        <div className="absolute bottom-2 right-0 flex items-center justify-end gap-4 w-4/5 mx-auto mb-3 font-medium">
+            <span className="text-xl text-black">Page {page}/{pages}</span>
+            <div className="flex items-center">
+                <button
+                    onClick={goToFirstPage}
+                >
+                    <MdKeyboardDoubleArrowLeft size={30} className={`${page === 1 ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
+                </button>
+                <button
+                    onClick={prevPage}
+                >
+                    <MdArrowBackIosNew size={20} className={`${page === 1 ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
+                </button>
+            </div>
+            <span className="text-xl text-black">{page}</span>
+            <div className="flex items-center gap-1">
+                <button
+                    onClick={nextPage}
+                >
+                    <MdOutlineArrowForwardIos size={20} className={`${page >= pages ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
+                </button>
+                <button
+                    onClick={goToLastPage}
+                >
+                    <MdKeyboardDoubleArrowRight size={30} className={`${page >= pages ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
+                </button>
+            </div>
         </div>
-        <span className="text-xl text-black">{page}</span>
-        <div className="flex items-center gap-1">
-            <button
-                onClick={nextPage}
-            >
-                <MdOutlineArrowForwardIos size={20} className={`${page >= pages ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
-            </button>
-            <button
-                onClick={goToLastPage}
-            >
-                <MdKeyboardDoubleArrowRight size={30} className={`${page >= pages ? "text-neutral-500 hover:scale-100" : "text-black hover:scale-110"}`} />
-            </button>
-        </div>
-    </div>
-  )
+    )
 }
 
 export default PaginationControl;

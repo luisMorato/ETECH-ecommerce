@@ -8,13 +8,14 @@ import Button from "../../Layout/Button";
 import OrderProductCard from "./OrderProductCard";
 
 import { checkTextLength } from "../../../utils/checkTextLength";
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
 interface orderProductsProps {
     cartProducts: cartProductsProps[],
-    setNextStep: (step: string) => void
+    //setNextStep: (step: string) => void
 }
 
-const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
+const OrderProducts = ({ cartProducts }: orderProductsProps) => {
     const { userToken: token } = useParams();
     const navigate = useNavigate();
 
@@ -76,7 +77,8 @@ const OrderProducts = ({ cartProducts, setNextStep }: orderProductsProps) => {
             return;
         }
 
-        setNextStep('deliverymethod');
+        //setNextStep('deliverymethod');
+        setUrlParam("step", "deliverymethod");
     }
     
     return (

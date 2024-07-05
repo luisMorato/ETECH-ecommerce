@@ -19,17 +19,15 @@ import PaginationControl from "../Components/Products/PaginationControl";
 
 const ProductsPage = () => {
   const currentUrl = useMemo(() => new URL(window.location.toString()), []);
+  const { search } = useContext(SearchContext);
+  const { token } = UseSessionStorage('token');
 
   const URLcategory = currentUrl.searchParams.get('category') ?? '';
   const URLsubCategory = currentUrl.searchParams.get('subcategory') ?? '';
   const URLbrand = currentUrl.searchParams.get('brand') ?? '';
   const URLPage = Number(currentUrl.searchParams.get('page'));
-
   const [priceInterval, setPriceInterval] = useState(5);
 
-  const { search } = useContext(SearchContext);
-
-  const { token } = UseSessionStorage('token');
   const [products, setProducts] = useState<productProps[]>([]);
   const [quantity, setQuantity] = useState<number>();
   const [page, setPage] = useState<number>(URLPage || 1);
@@ -98,23 +96,23 @@ const ProductsPage = () => {
   //Fetch Products Stored in the Database, Based in the Category | SubCategory | Search | Brand Passed to the Backend as a Filter Parameter
   useEffect(() => {
     const fetchProducts = async () => {
-      const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/products`);
+      const productURL = new URL(`${import.meta.env.VITE_BACKEND_URL}/products`);
 
-      url.searchParams.set('category', URLcategory);
-      url.searchParams.set('subcategory', URLsubCategory);
-      url.searchParams.set('brand', URLbrand);
-      url.searchParams.set('perPage', String(8));
-      url.searchParams.set('pageIndex', String(page - 1));
+      productURL.searchParams.set('category', URLcategory);
+      productURL.searchParams.set('subcategory', URLsubCategory);
+      productURL.searchParams.set('brand', URLbrand);
+      productURL.searchParams.set('perPage', String(8));
+      productURL.searchParams.set('pageIndex', String(page - 1));
 
       if(search !== ''){
-        url.searchParams.set('query', search);
+        productURL.searchParams.set('query', search);
       }
 
       currentUrl.searchParams.set('page', String(page));
       window.history.pushState(null, '', currentUrl);
 
       try {
-        const response = await fetch(url, {
+        const response = await fetch(productURL, {
           method: "GET",
           headers: {
             "content-type": "application/json",

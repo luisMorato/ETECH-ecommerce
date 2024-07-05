@@ -1,37 +1,48 @@
-import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import {
+    createContext,
+    useEffect,
+    useState
+} from "react";
 import { userProps } from "../interfaces/userProps";
+import { UseSessionStorage } from "../Hooks/useSessionStorage";
 
 interface authContextprops {
-    isSignedIn: boolean,
-    setIsSignedIn: Dispatch<SetStateAction<boolean>>,
     user: userProps | undefined,
-    setUser: Dispatch<SetStateAction<userProps | undefined>>
 }
 
-const AuthContext = createContext< authContextprops | null >({
-    isSignedIn: false,
-    setIsSignedIn: () => void 0,
+export const AuthContext = createContext< authContextprops | undefined >({
     user: undefined,
-    setUser: () => void 0
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isSignedIn, setIsSignedIn] = useState(false);
+    const { token } = UseSessionStorage('token');
     const [user, setUser] = useState<userProps | undefined>(undefined);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const url = `${import.meta.env.VITE_BACKEND_URL}/user`;
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                    "authorization": `Bearer ${token}`
+                }
+            });
+
+            const resJson = await response.json();
+
+            const { user: apiUser } = resJson;
+
+            setUser(apiUser);
+        }
+
+        fetchUser();
+    }, [token]);
     
     return (
-        <AuthContext.Provider value={{ isSignedIn, setIsSignedIn, user, setUser }}>
+        <AuthContext.Provider value={{ user }}>
             { children }
         </AuthContext.Provider>
     )
-}
-
-export const UseAuth = () => {
-    const context = useContext(AuthContext);
-
-    if(context === undefined){
-        throw new Error('Error Using UseAuth, it must be used with AuthProvider');
-    }
-
-    return context;
 }

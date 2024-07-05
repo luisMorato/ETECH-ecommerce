@@ -35,13 +35,13 @@ const DashboardUserContent = ({ user, orders, setOption }: dashboardUserContentP
     const [choice, setChoice] = useState('');
     const [preview, setPreview] = useState('');
 
-    const [userData, setUserData] = useState<Omit<userProps, 'id' | 'role'>>({
+    const [userData, setUserData] = useState<Omit<userProps, 'id' | 'role' | 'createdAt' | 'updatedAt'>>({
         name: user?.name ?? '',
         email: user?.email ?? '',
         password: '',
         phoneNumber: user?.phoneNumber ?? '',
         address: user?.address ?? '',
-        houseNumber: user?.houseNumber ?? undefined,
+        houseNumber: user?.houseNumber ?? null,
         city: user?.city ?? '',
         state: user?.state ?? '',
         postalCode: user?.postalCode ?? '',
@@ -146,7 +146,7 @@ const DashboardUserContent = ({ user, orders, setOption }: dashboardUserContentP
         console.log(userData);
 
         Object.keys(userData).forEach((key) => {
-            const value = userData[key as keyof Omit<userProps, 'id' | 'role'>];
+            const value = userData[key as keyof Omit<userProps, 'id' | 'role' | 'createdAt' | 'updatedAt'>];
 
             if(value instanceof File){
                 formData.append('image', value);

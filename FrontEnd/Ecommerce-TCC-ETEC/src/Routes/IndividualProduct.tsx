@@ -96,7 +96,7 @@ const IndividualProduct = () => {
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          "authorization": `Bearer ${token || ' '}`,
+          "authorization": `Bearer ${token}`,
           "content-type": "application/json"
         },
         body: JSON.stringify(product)

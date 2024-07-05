@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
 const PerfipheralSubCategory = () => {
     const peripheralSubCategories: {name: string}[] = useMemo(() => [
@@ -17,11 +18,11 @@ const PerfipheralSubCategory = () => {
     const currentUrl = new URL(window.location.toString());
 
     //Set the Peripheral SubCategory in the URL State to Persist The Reloads
-    const setPeripheralSubCategory = (subcategory: string) => {
-        currentUrl.searchParams.set('subcategory', subcategory);
-        window.history.pushState(null, '', currentUrl);
-        window.location.reload();
-    }
+    // const setPeripheralSubCategory = (subcategory: string) => {
+    //     currentUrl.searchParams.set('subcategory', subcategory);
+    //     window.history.pushState(null, '', currentUrl);
+    //     window.location.reload();
+    // }
   
     const currentSubCategory = currentUrl.searchParams.get('subcategory');
   
@@ -37,7 +38,7 @@ const PerfipheralSubCategory = () => {
                         type="radio"
                         className="cursor-pointer"
                         checked={!currentSubCategory || currentSubCategory === "all" ? true : false}
-                        onChange={(e) => {setPeripheralSubCategory(e.currentTarget.id)}}
+                        onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                     />
                     <label htmlFor="subcategory">All</label>
                 </div>
@@ -49,7 +50,7 @@ const PerfipheralSubCategory = () => {
                             type="radio"
                             className="cursor-pointer"
                             checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
-                            onChange={(e) => {setPeripheralSubCategory(e.currentTarget.id)}}
+                            onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                         />
                         <label htmlFor="subcategory">{subCategory.name}</label>
                     </div>

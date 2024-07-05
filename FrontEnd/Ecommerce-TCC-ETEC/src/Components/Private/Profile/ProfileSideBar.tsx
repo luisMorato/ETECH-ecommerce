@@ -10,6 +10,7 @@ import { PiUserListFill } from "react-icons/pi";
 
 import ListItem from "../../Layout/ListItem";
 import { userProps } from "../../../interfaces/userProps";
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
 interface profileSideBarProps {
     user: Omit<userProps, 'password'> | undefined
@@ -17,16 +18,15 @@ interface profileSideBarProps {
 
 const ProfileSideBar = ({ user }: profileSideBarProps) => {
     const currentUrl = new URL(window.location.toString());
-    
     const option = currentUrl.searchParams.get('option') ?? 'dashboard';
 
     //Set some Option From the SideBar and keep it in the URL, 
     //to enable the User to see different contents in the profile page and persist the reloads
-    const setOption = (option: string) => {
-        currentUrl.searchParams.set('option', option);
-        window.history.pushState(null, '', currentUrl);
-        window.location.reload();
-    }
+    // const setOption = (option: string) => {
+    //     currentUrl.searchParams.set('option', option);
+    //     window.history.pushState(null, '', currentUrl);
+    //     window.location.reload();
+    // }
   
     return (
         <aside>
@@ -37,7 +37,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                     className="cursor-pointer"
                 >
                     <button
-                        onClick={() => setOption('dashboard')} 
+                        onClick={() => setUrlParam("option", "dashboard")} 
                         className="flex items-center gap-3 py-1.5 font-medium"
                     >
                         <FaHouseChimney size={20} className="text-mainBlue"/> Dashboard
@@ -49,7 +49,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                     className="cursor-pointer"
                 >
                     <button
-                        onClick={() => setOption('profileConfig')} 
+                        onClick={() => setUrlParam("option", "profileConfig")} 
                         className="flex items-center gap-3 py-1.5 font-medium"
                     >
                         <FaUser size={20} className="text-mainBlue"/> Profile Config
@@ -62,7 +62,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                     className="cursor-pointer"
                 >
                     <button
-                        onClick={() => setOption('myoders')} 
+                        onClick={() => setUrlParam("option", "myoders")} 
                         className="flex items-center gap-3 py-1.5 font-medium"
                     >
                         <FaShoppingBasket size={20} className="text-mainBlue"/> My Orders
@@ -76,7 +76,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                             className="cursor-pointer"
                         >
                             <button
-                                onClick={() => setOption('registerProduct')}
+                                onClick={() => setUrlParam("option", "registerProduct")}
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
                                 <FaClipboardList size={20} className="text-mainBlue"/> Register Product
@@ -88,7 +88,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                             className="cursor-pointer"
                         >
                             <button
-                                onClick={() => setOption('allProducts')}
+                                onClick={() => setUrlParam("option", "allProducts")}
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
                                 <FaListUl size={20} className="text-mainBlue"/> Products
@@ -100,7 +100,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                             className="cursor-pointer"
                         >
                             <button
-                                onClick={() => setOption('usersList')}
+                                onClick={() => setUrlParam("option", "usersList")}
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
                                 <PiUserListFill size={20} className="text-mainBlue"/> Users
@@ -112,7 +112,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
                             className="cursor-pointer"
                         >
                             <button
-                                onClick={() => setOption('salesStatistics')} 
+                                onClick={() => setUrlParam("option", "salesStatistics")} 
                                 className="flex items-center gap-3 py-1.5 font-medium"
                             >
                                 <BsGraphUp size={20} className="text-mainBlue"/> Sales Statistics

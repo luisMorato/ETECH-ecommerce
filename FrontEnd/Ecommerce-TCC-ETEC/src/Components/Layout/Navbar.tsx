@@ -17,7 +17,6 @@ import UserButtons from "./UserButtons";
 
 type navbarProps = {
   user?: userProps,
-  //userImage: string,
 };
 
 const Navbar = ({ user }: navbarProps) => {
@@ -99,7 +98,6 @@ const Navbar = ({ user }: navbarProps) => {
             }
             <UserButtons
               user={user}
-              //userImage={userImage}
               signOut={signOut} 
               token={token}
             />

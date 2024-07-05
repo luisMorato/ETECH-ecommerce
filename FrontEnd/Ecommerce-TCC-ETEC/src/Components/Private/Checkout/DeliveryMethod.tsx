@@ -1,10 +1,14 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import {
+    ChangeEvent,
+    FormEvent,
+    useEffect,
+    useState
+} from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
-//import { IoLocationSharp } from "react-icons/io5";
 import { MdAddLocation } from "react-icons/md";
 
+import { UseAuth } from "../../../Hooks/UseAuth";
 import { userProps } from "../../../interfaces/userProps";
 
 import DeliveryMethodForm from "./DeliveryMethodForm";
@@ -13,12 +17,15 @@ import GetPassword from "../Profile/GetPassword";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import AddressBox from "../Profile/AddressBox";
 
-interface deliveryMethodProps {
-    setNextStep: (step: string) => void
-}
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
-const DeliveryMethod = ({ setNextStep }: deliveryMethodProps) => {
+// interface deliveryMethodProps {
+//     setNextStep: (step: string) => void
+// }
+
+const DeliveryMethod = () => {
     const { userToken: token } = useParams();
+    const { user } = UseAuth();
 
     const [userData, setUserData] = useState<Omit<userProps, 'id'>>();
     const [editInfo, setEditInfo] = useState(false);
@@ -28,26 +35,28 @@ const DeliveryMethod = ({ setNextStep }: deliveryMethodProps) => {
     
     //fetch the user data to be able to pass to the form component and render the user's current address
     useEffect(() => {
-        const fetchUserData = async () => {
-            const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
+        // const fetchUserData = async () => {
+        //     const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
 
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "content-type": "application/json",
-                    "authorization": `Bearer ${token}`
-                }
-            });
+        //     const response = await fetch(url, {
+        //         method: "GET",
+        //         headers: {
+        //             "content-type": "application/json",
+        //             "authorization": `Bearer ${token}`
+        //         }
+        //     });
 
-            if(response.ok){
-                const resJson = await response.json();
-                const { user } = resJson;
-                setUserData(user);
-            }
-        }
+        //     if(response.ok){
+        //         const resJson = await response.json();
+        //         const { user } = resJson;
+        //         setUserData(user);
+        //     }
+        // }
 
-        fetchUserData();
-    }, [token]);
+        // fetchUserData();
+
+        setUserData(user);
+    }, [user]);
 
     //Get the user's password, to check before removing the data
     const handleGetPassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -208,7 +217,7 @@ const DeliveryMethod = ({ setNextStep }: deliveryMethodProps) => {
                 )}
                 <div className="flex mt-8">
                     <Button
-                        onClick={() => setNextStep('paymentmethod')}
+                        onClick={() => setUrlParam("step", "paymentmethod")}
                         className="flex-1"
                     >
                         Continue

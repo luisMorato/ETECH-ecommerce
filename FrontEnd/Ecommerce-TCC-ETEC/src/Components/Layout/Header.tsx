@@ -10,7 +10,6 @@ import Navbar from "./Navbar";
 
 interface HeaderProps {
   user?: userProps,
-  //userImage: string,
 }
 
 const Header = ({ user }: HeaderProps) => {
@@ -37,7 +36,7 @@ const Header = ({ user }: HeaderProps) => {
     }
   }
 
-  //const pathname = window.location.pathname;
+  const pathname = window.location.pathname;
 
   return (
     <header className="flex flex-1 bg-white py-5">
@@ -52,7 +51,7 @@ const Header = ({ user }: HeaderProps) => {
                   onKeyUp={(e) => checkKeyPressed(e)}
                   value={search}
                   className={`border border-neutral-300 rounded-full py-2 px-3 focus:outline-none text-neutral-400 flex-1 
-                  ${window.location.pathname.includes('/checkout') ? "hidden" : "flex"}`}
+                  ${pathname.includes('/checkout') ? "hidden" : "flex"}`}
               />
               <button
                 onClick={handleSearchClick}
@@ -64,7 +63,6 @@ const Header = ({ user }: HeaderProps) => {
           </div>}
           <Navbar 
             user={user}
-            //userImage={userImage}
           />
         </div>
     </header>

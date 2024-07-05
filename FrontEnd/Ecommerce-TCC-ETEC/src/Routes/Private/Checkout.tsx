@@ -1,5 +1,4 @@
-import { 
-  useCallback, 
+import {
   useEffect, 
   useMemo, 
   useState
@@ -50,11 +49,11 @@ const Checkout = () => {
   const step = url.searchParams.get('step') ?? 'orderproducts';
   
   //Set the next Step to the order (Delivery Method | payment Method | Complete Order) and store it in a URL state to persist Reaload
-  const setNextStep = useCallback((step: string) => {
-      url.searchParams.set('step', step);
-      window.history.pushState(null, '', url);
-      window.location.reload();
-  }, [url]);
+  // const setNextStep = useCallback((step: string) => {
+  //     url.searchParams.set('step', step);
+  //     window.history.pushState(null, '', url);
+  //     window.location.reload();
+  // }, [url]);
 
   return (
     <div className="min-h-screen">
@@ -62,23 +61,21 @@ const Checkout = () => {
         {step === 'orderproducts' &&
           <OrderProducts
             cartProducts={cartProducts || []}
-            setNextStep={setNextStep}
+            //setNextStep={setNextStep}
           />
         }
         {step === 'deliverymethod' &&
           <DeliveryMethod
-            setNextStep={setNextStep}
+            //setNextStep={setNextStep}
           />
         }
         {step === 'paymentmethod' &&
           <PaymentMethods 
-            setNextStep={setNextStep}
+            //setNextStep={setNextStep}
           />
         }
         {step === 'completeOrder' &&
-          <CompleteOrder 
-            //orderId={order?.id}
-          />
+          <CompleteOrder />
         }
       </div>
     </div>

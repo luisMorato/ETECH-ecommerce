@@ -21,15 +21,15 @@ interface productRegisterFormProps {
 }
 
 const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
-    const [productToRegister, setProductToRegister] = useState<Omit<DbProducts, 'id'>>({
+    const [productToRegister, setProductToRegister] = useState<Omit<DbProducts, 'id' | 'createdAt'>>({
         name: '',
         price: 0,
-        image: [],
+        images: [],
         desc: [],
         stock: 0,
         brand: '',
         category: '',
-        subCategory:  ''
+        subCategory:  '',
     });
 
     const [categoriesAndSubcategories, setCategoriesAndSubcategories] = useState<categoriesAndSubCategories[]>([]);
@@ -134,7 +134,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
         const formData = new FormData();
             
         Object.keys(productToRegister).forEach((key) => {
-          const value = productToRegister[key as keyof Omit<DbProducts, 'id'>];
+          const value = productToRegister[key as keyof Omit<DbProducts, 'id' | 'createdAt'>];
           if (Array.isArray(value) && value.every(item => item instanceof File)) {
             value.forEach((file) => {
               formData.append('image', file);

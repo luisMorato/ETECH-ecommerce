@@ -34,7 +34,7 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
       postalCode: user?.postalCode ?? '',
       city: user?.city ?? '',
       address: user?.address ?? '',
-      houseNumber: user?.houseNumber ?? undefined,
+      houseNumber: user?.houseNumber ?? null,
       state: user?.state ?? '',
       country: user?.country ?? '',
     }

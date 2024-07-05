@@ -10,7 +10,6 @@ import ListItem from "./ListItem";
 
 interface userButtonsProps {
     user?: userProps,
-    //userImage: string,
     signOut: () => void,
     token: string | undefined
 }

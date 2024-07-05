@@ -2,21 +2,13 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { cartProductsProps } from "../../interfaces/cartProps";
+
 import CartCard from "./CartCard";
 import Button from "./Button";
 
 interface CartProductsProps {
-    cartProducts: {
-        quantity: number,
-        products: {
-            id: number,
-            name: string,
-            image: string[],
-            price: number,
-            desc: string[],
-            stock: number,
-        }
-    }[],
+    cartProducts: cartProductsProps[],
     token: string | undefined,
     subtotal: number
 }
@@ -83,7 +75,8 @@ const Cart = ({ cartProducts, token, subtotal }: CartProductsProps) => {
                     (
                         <div className="flex flex-col gap-1 py-3">
                             <span className="font-medium text-lg">No Products</span>
-                            <span className="font-medium">Start Adding Now</span>
+                            <a href="/products?category=hardware" className="font-medium cursor-pointer hover:underline"
+                            >Start Adding Now</a>
                         </div>
                     )
                 }

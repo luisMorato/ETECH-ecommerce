@@ -13,11 +13,13 @@ import { completeOrderProps } from "../../../interfaces/OrderProps";
 import CreditCard from "./CreditCard";
 import Button from "../../Layout/Button";
 
-interface paymentMethodProps {
-    setNextStep: (step: string) => void
-}
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
-const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
+// interface paymentMethodProps {
+//     setNextStep: (step: string) => void
+// }
+
+const PaymentMethods = () => {
     const { userToken: token } = useParams();
 
     const [paymentMethod, setPaymentMethod] = useState('Credit Card');
@@ -99,7 +101,8 @@ const PaymentMethods = ({ setNextStep }: paymentMethodProps) => {
             return;
           }
     
-          setNextStep('completeOrder');
+          setUrlParam("step", "completeOrder");
+          //setNextStep('completeOrder');
         } catch (error) {
           console.error('Error: ', error);
         }

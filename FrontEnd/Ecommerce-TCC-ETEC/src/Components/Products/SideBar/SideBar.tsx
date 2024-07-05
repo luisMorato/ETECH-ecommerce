@@ -1,6 +1,14 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useState
+} from "react";
+import {
+  BsToggleOff,
+  BsToggleOn
+ } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
-import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 
 import HardwareSubCategory from "./HardwareSubCategory";
 import PerfipheralSubCategory from "./PerfipheralSubCategory";

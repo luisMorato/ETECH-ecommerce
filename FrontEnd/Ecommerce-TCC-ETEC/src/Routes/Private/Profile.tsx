@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { userProps } from "../../interfaces/userProps";
+//import { userProps } from "../../interfaces/userProps";
 import { completeOrderProps } from "../../interfaces/OrderProps";
 
 import ProfileSideBar from "../../Components/Private/Profile/ProfileSideBar";
@@ -13,9 +13,11 @@ import AllProducts from "../../Components/Private/Profile/AllProducts";
 import SalesStatistics from "../../Components/Private/Profile/SalesStatistics";
 import UsersList from "../../Components/Private/Profile/UsersList";
 import CreditCardForm from "../../Components/Private/Profile/CreditCardForm";
+import { UseAuth } from "../../Hooks/UseAuth";
 
 const Profile = () => {
   const { userToken: token } = useParams();
+  const { user } = UseAuth();
   const navigate = useNavigate();
   
   if(!token){
@@ -23,41 +25,41 @@ const Profile = () => {
   }
 
   const [orders, setOrders] = useState<completeOrderProps[]>([]);
-  const [user, setUser] = useState<userProps | undefined>(undefined);
+  //const [user, setUser] = useState<userProps | undefined>(undefined);
 
   //Sets the profile view option (dashboard, profile data config, etc) in the URL to persist reloads
   const currentUrl = new URL(window.location.toString());
   const currentOption = currentUrl.searchParams.get('option') ?? 'dashboard';
   
   //UseEffect Used to fetch the user's data everytime the token changes, that is, everytime a login is made
-  useEffect(() => {
-    const fetchUser = async () => {
-      if(!token){
-        navigate('/');
-      }
-      const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     if(!token){
+  //       navigate('/');
+  //     }
+  //     const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
       
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "authorization": `Bearer ${token}`
-        },
-      });
-      const resJson = await response.json();
+  //     const response = await fetch(url, {
+  //       method: "GET",
+  //       headers: {
+  //         "authorization": `Bearer ${token}`
+  //       },
+  //     });
+  //     const resJson = await response.json();
       
-      if(response.ok){
-        const { user: apiUser } = resJson;
-        if(!apiUser){
-          navigate("/");
-          return;
-        }
+  //     if(response.ok){
+  //       const { user: apiUser } = resJson;
+  //       if(!apiUser){
+  //         navigate("/");
+  //         return;
+  //       }
 
-        setUser(apiUser);
-      }
-    }
+  //       setUser(apiUser);
+  //     }
+  //   }
 
-    fetchUser();
-  }, [token, navigate]);
+  //   fetchUser();
+  // }, [token, navigate]);
 
   //UseEffect Used to fetch the user's orders everytime the token and user changes
   useEffect(() => {

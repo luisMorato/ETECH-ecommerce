@@ -51,13 +51,13 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
   const [isOpen, setIsOpen] = useState(false);
   const [preview, setPreview] = useState('');
 
-  const [userData, setUserData] = useState<Omit<userProps, 'id' | 'role'>>({
+  const [userData, setUserData] = useState<Omit<userProps, 'id' | 'role' | 'createdAt' | 'updatedAt'>>({
     name: user?.name ?? '',
     email: user?.email ?? '',
     password: '',
     phoneNumber: user?.phoneNumber ?? '',
     address: user?.address ?? '',
-    houseNumber: user?.houseNumber ?? undefined,
+    houseNumber: user?.houseNumber ?? null,
     city: user?.city ?? '',
     state: user?.state ?? '',
     postalCode: user?.postalCode ?? '',
@@ -196,7 +196,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
     const formData = new FormData();
 
     Object.keys(userData).forEach((key) => {
-        const value = userData[key as keyof Omit<userProps, 'id' | 'role'>];
+        const value = userData[key as keyof Omit<userProps, 'id' | 'role' | 'createdAt' | 'updatedAt'>];
 
         if(value instanceof File){
             formData.append('image', value);
@@ -294,8 +294,8 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
             {//Check if any order exists, if it does, render it, else show "No Last Orders"
               orders.length > 0 ? (
                 <div>
-                  <p className="mb-4 mt-2">Orders: {ordersQuantity}</p>
-                  <div className={`${orders?.length >= 4 ? "overflow-y-scroll h-[700px]" : "h-fit overflow-y-hidden"}`}>
+                  <p className="mb-4 mt-2 font-medium text-neutral-400">Orders: {ordersQuantity}</p>
+                  <div className={`${orders?.length >= 3 ? "overflow-y-scroll h-[650px]" : "h-fit overflow-y-hidden"}`}>
                     {orders.map((order) => (
                       <div className="flex flex-col gap-2 p-5 mb-5 bg-neutral-100 rounded-2xl" key={order.id}>
                         <span>User: {order.cart?.user.name}</span>
@@ -325,7 +325,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                 <BsGraphUp size={30} className="text-mainBlue"/>
                 <h2 className="text-2xl font-medium">Statistics</h2>
               </div>
-              <span className="text-xl text-neutral-500 font-medium">Overview</span>
+              <span className="text-xl text-neutral-400 font-medium">Overview</span>
             </div>
             <div className="flex flex-col gap-16">
               <SalesChart />

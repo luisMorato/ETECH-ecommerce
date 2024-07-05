@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { setUrlParam } from "../../../utils/SetUrlParam";
 
 const HardwareSubCategory = () => {
     const hardwareSubCategories: {name: string}[] = useMemo(() => [
@@ -14,11 +15,11 @@ const HardwareSubCategory = () => {
     const currentUrl = new URL(window.location.toString());
 
     //Set the Hardware SubCategory in the URL State to Persist The Reloads
-    const setHardwareSubCategory = (subcategory: string) => {
-        currentUrl.searchParams.set('subcategory', subcategory);
-        window.history.pushState(null, '', currentUrl);
-        window.location.reload();
-    }
+    // const setHardwareSubCategory = (subcategory: string) => {
+    //     currentUrl.searchParams.set('subcategory', subcategory);
+    //     window.history.pushState(null, '', currentUrl);
+    //     window.location.reload();
+    // }
   
     const currentSubCategory = currentUrl.searchParams.get('subcategory');
 
@@ -31,7 +32,7 @@ const HardwareSubCategory = () => {
                     type="radio"
                     className="cursor-pointer"
                     checked={!currentSubCategory || currentSubCategory === "all" ? true : false}
-                    onChange={(e) => setHardwareSubCategory(e.currentTarget.id)}
+                    onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                 />
                 <label htmlFor="subcategory">All</label>
             </div>
@@ -43,7 +44,7 @@ const HardwareSubCategory = () => {
                         type="radio"
                         className="cursor-pointer"
                         checked={(subCategory.name).replace(/\s+/g, '') === currentSubCategory}
-                        onChange={(e) => setHardwareSubCategory(e.currentTarget.id)}
+                        onChange={(e) => setUrlParam('subcategory', e.currentTarget.id)}
                     />
                     <label htmlFor="subcategory">{subCategory.name}</label>
                 </div>

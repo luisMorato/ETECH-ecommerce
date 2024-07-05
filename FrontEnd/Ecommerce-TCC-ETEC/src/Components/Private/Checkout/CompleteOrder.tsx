@@ -10,6 +10,7 @@ const CompleteOrder = () => {
   const { userToken: token } = useParams();
   const navigate = useNavigate();
 
+  //Function Used to Clean All The Products That is Inside Current User's Cart
   const clearCartProducts = async () => {
     const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/cart`);
 
