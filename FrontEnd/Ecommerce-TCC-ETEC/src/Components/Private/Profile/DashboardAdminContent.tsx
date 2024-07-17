@@ -238,45 +238,47 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
           choice={'imageUpload'}
           handleGetPassword={handleGetPassword}
       />
-      <div className="flex flex-col gap-5 max-w-[1280px]">
-        <div className="flex gap-5">
+      <div className="flex flex-col gap-5 max-sm:max-w-[300px] max-w-[1280px]">
+        <div className="flex max-sm:flex-col sm:gap-5">
           <Welcome
               preview={preview}
               user={user}
               handleFileInputChange={handleFileInputChange}
               setOption={setOption}
           />
-          <Container className="max-w-[200px]">
-            <Box>
-              <h2 className="text-2xl font-medium">Stock</h2>
-              <FaBoxOpen size={30} className="text-[#2295E9]"/>
-            </Box>
-            <div className="flex flex-col mt-5">
-              <p className="text-4xl text-right font-medium">{stock}</p>
-            </div>
-          </Container>
-          <Container className="max-w-[200px]">
-            <Box>
-              <h2 className="text-2xl font-medium">Products</h2>
-              <FaShoppingBasket size={30} className="text-[#2295E9]"/>
-            </Box>
-            <div className="flex flex-col mt-5">
-              <p className="text-4xl text-right font-medium">{productsQuantity}</p>
-            </div>
-          </Container>
-          <Container className="max-w-[200px]">
-            <Box>
-              <h2 className="text-2xl font-medium">Users</h2>
-              <FaUserCheck size={30} className="text-[#2295E9]"/>
-            </Box>
-            <div className="flex flex-col mt-5">
-              <p className="text-4xl text-right font-medium">{usersQuantity}</p>
-            </div>
-          </Container>
+          <div className="flex max-md:flex-wrap gap-5">
+            <Container className="max-w-[150px] md:max-w-[200px]">
+              <Box>
+                <h2 className="text-2xl font-medium">Stock</h2>
+                <FaBoxOpen size={30} className="text-[#2295E9]"/>
+              </Box>
+              <div className="flex flex-col mt-5">
+                <p className="text-4xl text-right font-medium">{stock}</p>
+              </div>
+            </Container>
+            <Container className="max-w-[150px] md:max-w-[200px]">
+              <Box>
+                <h2 className="text-2xl font-medium">Products</h2>
+                <FaShoppingBasket size={30} className="text-[#2295E9]"/>
+              </Box>
+              <div className="flex flex-col mt-5">
+                <p className="text-4xl text-right font-medium">{productsQuantity}</p>
+              </div>
+            </Container>
+            <Container className="max-w-[150px] md:max-w-[200px]">
+              <Box>
+                <h2 className="text-2xl font-medium">Users</h2>
+                <FaUserCheck size={30} className="text-[#2295E9]"/>
+              </Box>
+              <div className="flex flex-col mt-5">
+                <p className="text-4xl text-right font-medium">{usersQuantity}</p>
+              </div>
+            </Container>
+          </div>
         </div>
-        <div className="flex gap-5">
+        <div className="flex max-md:flex-col gap-5">
           <Container className="max-w-1/2">
-            <div className="flex items-center justify-between pb-2 border-b">
+            <div className="flex max-sm:flex-col max-sm:gap-3 sm:items-center justify-between pb-2 border-b">
               <div className="flex items-center gap-3">
                 <FaClockRotateLeft size={25}/>
                 <h2 className="text-xl font-medium">Last Orders</h2>
@@ -297,7 +299,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                   <p className="mb-4 mt-2 font-medium text-neutral-400">Orders: {ordersQuantity}</p>
                   <div className={`${orders?.length >= 3 ? "overflow-y-scroll h-[650px]" : "h-fit overflow-y-hidden"}`}>
                     {orders.map((order) => (
-                      <div className="flex flex-col gap-2 p-5 mb-5 bg-neutral-100 rounded-2xl" key={order.id}>
+                      <div key={order.id} className="flex flex-col gap-2 p-5 mb-5 bg-neutral-100 rounded-2xl">
                         <span>User: {order.cart?.user.name}</span>
                         <span>Email: {order.cart?.user.email}</span>
                         <span>Code: {order.id}</span>
@@ -319,7 +321,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                 )
             }
           </Container>
-          <div className="bg-white flex-1 rounded-xl p-5 max-w-1/2 h-fit pb-16">
+          <div className="max-md:hidden bg-white flex-1 rounded-xl p-5 max-w-1/2 h-fit pb-16">
             <div className="mb-5">
               <div className="flex items-center gap-5 mb-3">
                 <BsGraphUp size={30} className="text-mainBlue"/>

@@ -16,12 +16,17 @@ interface productCardProps {
 
 const ProductCard = ({ product, addProduct }: productCardProps) => {
     return (
-        <div className="relative flex flex-col bg-white rounded-2xl h-[480px] min-w-[320px] max-w-[320px] py-3">
-            <div className="absolute z-20 left-5 top-3 flex items-center justify-center text-white text-xs text-center text-wrap font-medium h-10 w-10 rounded-md bg-[#2295E9]">
+        <div className="relative flex flex-col bg-white rounded-2xl py-3 
+        h-[480px]
+        w-[300px]
+        min-w-[300px]
+        max-w-[320px]
+        sm:max-md:w-[320px]">
+            <div className="absolute z-[5] left-5 top-3 flex items-center justify-center text-white text-xs text-center text-wrap font-medium h-10 w-10 rounded-md bg-[#2295E9]">
                 <span>{product?.stock > 0 ? "In Stock" : "Out Of Stock"}</span>
             </div>
             <Link to={`/products/${product?.id}`}>
-                <div className="flex justify-center w-3/4 max-h-[250px] mx-auto cursor-pointer py-3">
+                <div className="flex justify-center max-h-[250px] mx-auto cursor-pointer py-3 w-3/4">
                     {<img
                         src={`${import.meta.env.VITE_BACKEND_URL}/public/images/products/${product?.images[0]}`}
                         alt={`product-${product?.name}`}

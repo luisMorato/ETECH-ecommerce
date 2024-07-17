@@ -8,6 +8,7 @@ export interface DbProducts {
     brand: string,
     category: string,
     subCategory: string,
+    //freight: number,
     createdAt: Date,
 }
 

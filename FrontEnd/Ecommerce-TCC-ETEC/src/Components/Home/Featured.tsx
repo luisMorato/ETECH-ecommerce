@@ -9,6 +9,7 @@ const Featured = () => {
     const url = useMemo(() =>new URL(`${import.meta.env.VITE_BACKEND_URL}/products`), []);
 
     const [featuredProducts, setFeaturedProducts] = useState<productProps[]>([]);
+    const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
 
     const [start, setStart] = useState(true);
     const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -100,17 +101,32 @@ const Featured = () => {
     
         fetchProducts();
     }, [url]);
+
+    window.addEventListener('resize', () => {
+        setCurrentWidth(window.innerWidth);
+    })
   
     return (
-        <div id="featured" className="py-8 mt-5 w-4/5 mx-auto">
-            <h2 className="text-3xl text-black font-medium mb-8">Featured Collection</h2>
+        <div 
+            id="featured" 
+            className="flex flex-col py-8 mt-5 mx-auto
+            md:max-lg:px-5
+            xl:w-4/5"
+        >
+            <h2 
+                className="text-3xl text-black font-medium mb-5 ml-8 
+                md:ml-0 
+                lg:max-xl:ml-5"
+            >
+                Featured Collection
+            </h2>
             <div className="flex items-center justify-around">
                 <div>
                     <button
                         onClick={clickBackwards}
                     >
                         <MdArrowBackIosNew
-                            size={40} 
+                            size={currentWidth <= 360 || currentWidth <= 400 ? 30 : 40} 
                             className="text-black hover:scale-125 transition duration-200 mr-2"
                         />
                     </button>
@@ -118,6 +134,7 @@ const Featured = () => {
                 <div 
                     ref={sliderRef}
                     onMouseOver={handleMouseOver}
+                    onTouchStart={handleMouseOver}
                     onMouseLeave={handleMouseLeave}
                     className={`flex gap-5 pb-3 overflow-x-scroll`}
                 >
@@ -134,7 +151,7 @@ const Featured = () => {
                     <button
                         onClick={clickForwards}>
                         <MdOutlineArrowForwardIos 
-                            size={40} 
+                            size={currentWidth <= 360 || currentWidth <= 400 ? 30 : 40} 
                             className="text-black hover:scale-125 transition duration-200 ml-2"
                         />
                     </button>

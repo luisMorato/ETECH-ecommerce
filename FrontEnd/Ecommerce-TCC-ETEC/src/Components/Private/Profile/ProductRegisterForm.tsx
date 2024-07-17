@@ -191,7 +191,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
     }, []);
   
     return (
-      <div className="flex flex-col gap-8 bg-white text-black rounded-xl p-5 mt-5 h-fit w-[550px]">
+      <div className="flex flex-col gap-8 bg-white text-black rounded-xl p-5 my-5 h-fit max-sm:max-w-[300px] sm:w-[550px]">
         <h1 
           className="relative text-3xl font-medium w-fit pb-0.5
           after:absolute
@@ -221,7 +221,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
                 onChange={(e) => handleFormEdit(e, e.target.name)}
               />
             </div>
-            <div className="flex items-end gap-1">
+            <div className="flex max-sm:flex-col sm:items-end gap-1">
               <div className="flex flex-col gap-1 flex-1">
                 <label htmlFor="desc" className="font-medium">Description Item:</label>
                 <textarea
@@ -234,7 +234,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
               <Button 
                 type="button" 
                 onClick={() => handleDescAdd()} 
-                className="border py-1 px-3 w-fit bg-neutral-200 text-black rounded-2xl"
+                className="border py-1 px-3 w-fit bg-neutral-200 text-black rounded-2xl max-sm:self-end"
               >Add</Button>
             </div>
             <div>
@@ -313,7 +313,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
                         value={subCategory.name} 
                         className="text-black font-medium"
                       >
-                        {subCategory.name}
+                        {subCategory.name.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')}
                       </option>
                     ))
                   ))}

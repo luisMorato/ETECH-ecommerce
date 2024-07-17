@@ -22,58 +22,72 @@ import FooterList from "./FooterList";
 const Footer = () => {
   return (
     <footer className="bg-white border-t border-t-neutral-300 py-3">
-      <div className="flex justify-evenly gap-5 text-black w-4/5 mx-auto">
-        <div className="w-1/4">
-          <h2 className="text-2xl font-medium">About</h2>
-          <div className="mb-6 mt-3 w-4/5">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo laudantium aliquid consectetur fugit atque vero aperiam delectus tenetur?</p>
-          </div>
-          <div>
-            <ul className="flex gap-4">
-              <li><FaCcMastercard size={30} /></li>
-              <li><FaCcPaypal size={30} /></li>
-              <li><FaCcVisa size={30} /></li>
-              <li><FaCcApplePay size={30} /></li>
-              <li><FaPix size={30} /></li>
-            </ul>
-            <span className="flex items-center gap-2 font-medium text-neutral-500"><GiPadlock size={20}/>Secure Online Payment</span>
-          </div>
+      <div
+        className="flex flex-col justify-evenly gap-5 text-black mx-auto
+        xl:w-4/5
+        xl:flex-row"
+      >
+        <div
+          className="flex flex-col justify-evenly gap-5
+          md:flex-row"
+        >
+          <FooterContainer>
+            <h2 className="text-2xl">About</h2>
+            <div className="mb-6 mt-3 font-normal md:w-4/5">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo laudantium aliquid consectetur fugit atque vero aperiam delectus tenetur?</p>
+            </div>
+            <div>
+              <ul className="flex gap-4">
+                <li><FaCcMastercard size={30} /></li>
+                <li><FaCcPaypal size={30} /></li>
+                <li><FaCcVisa size={30} /></li>
+                <li><FaCcApplePay size={30} /></li>
+                <li><FaPix size={30} /></li>
+              </ul>
+              <span className="flex items-center gap-2 font-medium text-nowrap text-neutral-500"><GiPadlock size={20}/>Secure Online Payment</span>
+            </div>
+          </FooterContainer>
+          <FooterContainer className="hidden font-medium w-1/5 md:block">
+            <h2 className="text-2xl">Categories</h2>
+            <FooterList>
+              <li>Tópico 1</li>
+              <li>Tópico 2</li>
+              <li>Tópico 3</li>
+              <li>Tópico 4</li>
+              <li>Tópico 5</li>
+              <li>Tópico 6</li>
+            </FooterList>
+          </FooterContainer>
+          <FooterContainer>
+            <h2 className="text-2xl">Informations</h2>
+            <FooterList>
+              <li>About Us</li>
+              <li>Work With Us</li>
+              <li>Term & Condition</li>
+              <li>Private Policy</li>
+              <li>Shipping & Delivery</li>
+              <li>Return & Exchange</li>
+            </FooterList>
+          </FooterContainer>
         </div>
-        <FooterContainer>
-          <h2 className="text-2xl">Categories</h2>
-          <FooterList>
-            <li>Tópico 1</li>
-            <li>Tópico 2</li>
-            <li>Tópico 3</li>
-            <li>Tópico 4</li>
-            <li>Tópico 5</li>
-            <li>Tópico 6</li>
-          </FooterList>
-        </FooterContainer>
-        <FooterContainer>
-          <h2 className="text-2xl">Informations</h2>
-          <FooterList>
-            <li>About Us</li>
-            <li>Work With Us</li>
-            <li>Term & Condition</li>
-            <li>Private Policy</li>
-            <li>Shipping & Delivery</li>
-            <li>Return & Exchange</li>
-          </FooterList>
-        </FooterContainer>
-        <FooterContainer>
+        <FooterContainer 
+          className="font-medium 
+          md:w-3/5
+          md:max-xl:translate-x-12
+          xl:w-1/4"
+        >
           <h2 className="text-2xl">Find Us</h2>
-          <div className="mt-3">
+          <div className="mt-3 text-black">
             <span className="flex items-center gap-2 font-medium border-b border-b-neutral-400 pb-4 mb-4">
               <ImLocation2 size={20} /> 
               Adress: XYZ, São Paulo, Brazil.
             </span>
             <div className="flex flex-col gap-4">
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 text-nowrap">
                 <IoLogoWhatsapp size={25} />
                 Phone: (99) 9 9999-9999 
               </span>
-              <span className="flex items-center gap-1 text-nowrap">
+              <span className="flex items-center gap-1 text-sm text-wrap w-[90%] min-[400px]:text-base">
                 <MdEmail size={25} />
                 luisfernandomorato_170701@outlook.com
               </span>

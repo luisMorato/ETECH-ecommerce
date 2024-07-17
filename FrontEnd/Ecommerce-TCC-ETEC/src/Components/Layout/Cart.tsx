@@ -60,9 +60,12 @@ const Cart = ({ cartProducts, token, subtotal }: CartProductsProps) => {
     }
 
     return (
-        <div className="absolute top-full right-0 z-30 translate-y-1 bg-white text-black w-[400px] h-fit p-3 rounded-2xl border border-neutral-300">
+        <div className="absolute top-full right-0 z-30 translate-y-1 bg-white w-[336px] text-black h-fit p-3 rounded-2xl border border-neutral-300
+        min-[370px]:w-[350px]
+        min-[400px]:w-[380px]
+        sm:w-[400px]">
             <h2 className="text-black font-medium text-2xl border-b pb-2 mb-2">CART</h2>
-            <div className={`flex flex-col pr-1 ${cartProducts.length > 4 ? "overflow-y-scroll max-h-[400px]" : "h-fit"}`}>
+            <div className={`flex flex-col ${cartProducts.length > 4 ? "overflow-y-scroll max-h-[400px] pr-1.5" : "h-fit"}`}>
                 {cartProducts.length > 0 ?
                     cartProducts?.map((cartProduct) => (
                         <CartCard

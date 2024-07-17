@@ -150,10 +150,15 @@ const IndividualProduct = () => {
   }
 
   return product && (
-    <div className="flex flex-col gap-4 text-black mx-auto py-5 w-3/5">
+    <div 
+      className="flex flex-col gap-4 text-black mx-auto py-5 px-3 
+      lg:px-0 
+      lg:w-4/5 
+      xl:w-3/5"
+    >
         <div>
           <p className="text-neutral-400 font-medium mb-1">New | {quantitySold} Sold</p>
-          <div className="flex gap-5 justify-between bg-white rounded-xl py-5 px-10">
+          <div className="flex flex-col gap-5 justify-between bg-white rounded-xl py-5 px-10 md:flex-row">
             <div className="flex flex-col">
               <h1 className="text-lg font-medium mb-3">{product.name}</h1>
               <div className="flex items-center justify-center bg-neutral-300 rounded-full w-6 h-6 mt-2">
@@ -176,7 +181,7 @@ const IndividualProduct = () => {
           </div>
           <div className="flex flex-col bg-white rounded-xl p-5 mt-5">
               <h2 className="font-medium text-xl">Product Description</h2>
-              <p className="text-neutral-400 font-medium">What You Need To Know About This Product</p>
+              <p className="text-neutral-400 font-medium">What You Need To Know About This Product?</p>
               <ul className="flex flex-col gap-3 w-4/5 mt-3">
                 {product.desc.map((descItem) => (
                   <li key={descItem}>{descItem}</li>

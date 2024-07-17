@@ -20,6 +20,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const fetchUser = async () => {
+            if(!token){
+                return;
+            }
+
             const url = `${import.meta.env.VITE_BACKEND_URL}/user`;
 
             const response = await fetch(url, {

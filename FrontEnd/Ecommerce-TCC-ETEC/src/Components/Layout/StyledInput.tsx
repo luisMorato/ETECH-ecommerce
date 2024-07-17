@@ -5,7 +5,10 @@ import {
     UseFormRegister,
     ValidationRule
 } from "react-hook-form";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+    FaEye,
+    FaEyeSlash
+} from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 
 interface styledInputProps extends ComponentProps<"input"> {

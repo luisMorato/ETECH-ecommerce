@@ -5,67 +5,27 @@ import {
   Link,
   Outlet
 } from 'react-router-dom';
-import { IoLogoWhatsapp, IoMdChatboxes } from 'react-icons/io';
+import {
+  IoLogoWhatsapp,
+  IoMdChatboxes
+} from 'react-icons/io';
 import { MdKeyboardDoubleArrowUp } from "react-icons/md";
 
-//import { UseSessionStorage } from './Hooks/useSessionStorage';
+import { ChatBoxModalContext } from './Context/ChatBoxContext';
+import { UseAuth } from './Hooks/UseAuth';
 
 import LoginModal from './Components/Modals/auth/LoginModal';
 import RegisterModal from './Components/Modals/auth/RegisterModal';
-import { ChatBoxModalContext } from './Context/ChatBoxContext';
-
-//import { userProps } from './interfaces/userProps';
-
 import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import TopMenu from './Components/Layout/TopMenu';
 import ChatBox from './Components/Layout/ChatBox';
 import FixedButton from './Components/Layout/FixedButton';
-import { UseAuth } from './Hooks/UseAuth';
 
 function App() {
-  //const { token } = UseSessionStorage('token');
   const { user } = UseAuth();
 
   const { isOpen, setIsOpen } = useContext(ChatBoxModalContext);
-
-  //const [user, setUser] = useState<userProps | undefined>(undefined);
-  
-  //Used to Fecth the User's Data and Passes to The Header and NavBar Components
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const url = `${import.meta.env.VITE_BACKEND_URL}/user`;
-
-  //     if(!token){
-  //       return;
-  //     }
-
-  //     try {
-  //       const response = await fetch(url, {
-  //         method: "GET",
-  //         headers: {
-  //           "authorization": `Bearer ${token}`
-  //         }
-  //       });
-  
-  //       if(response.ok){
-  //         const resJson = await response.json();
-  //         //const { user:apiUser, imageBuffer } = resJson;
-  //         const { user: apiUser } = resJson;
-          
-  //         setUser(apiUser);
-  
-  //         // const blob = new Blob([new Uint8Array(imageBuffer.data)], { type: 'image/jpg' });
-  //         // const imageURL = URL.createObjectURL(blob);
-  //         // setUserImage(imageURL);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error: ', error);
-  //     }
-  //   }
-
-  //   getUser();
-  // }, [token]);
 
   //Function That Scrolls Back to The Top of The Page
   const scrollToTop = () => {
@@ -78,7 +38,8 @@ function App() {
   window.addEventListener("load" , () => {
     console.log({
       id: Math.random() * 1000,
-    }, "Active User");
+      status: "Active User"
+    },);
   });
 
   return (

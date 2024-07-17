@@ -32,7 +32,7 @@ const CommentsSection = ({ addComment, setText, text, comments }: commetsProps) 
             {comments && comments.length > 0 &&
              comments.map((comment) => (
                 <div key={comment?.id} className="flex gap-2 mb-5">
-                    <div className="flex items-center justify-center self-end text-neutral-400 border border-neutral-400 rounded-full overflow-hidden size-10">
+                    <div className="flex items-center justify-center self-end text-neutral-400 border border-neutral-400 rounded-full overflow-hidden size-10 shrink-0">
                        {!comment.user.image ?
                             <FaUserAlt size={25} />
                             :

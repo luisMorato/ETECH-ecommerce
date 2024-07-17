@@ -24,7 +24,15 @@ const NewRelease = () => {
   ], []);
 
   return (
-    <div id="newlyReleased" className="flex items-center justify-center gap-5 w-4/5 mx-auto mt-5">
+    <div 
+      id="newlyReleased" 
+      className="flex flex-col items-center justify-center gap-5 mx-auto mt-5 w-4/5
+      md:w-full
+      md:flex-row
+      md:max-xl:flex-wrap
+      md:max-xl:px-3
+      "
+    >
         {products.map((product) => (
             <NewReleaseProductsCard 
               key={product.title}

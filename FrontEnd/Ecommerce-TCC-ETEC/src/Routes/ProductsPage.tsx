@@ -16,10 +16,12 @@ import { productProps } from "../interfaces/productsProps";
 import ProductCard from "../Components/Layout/ProductCard";
 import SideBar from "../Components/Products/SideBar/SideBar";
 import PaginationControl from "../Components/Products/PaginationControl";
+import SmallScreenFilters from "../Components/Products/SideBar/SmallScreenFilters";
+import { BsSliders } from "react-icons/bs";
 
 const ProductsPage = () => {
   const currentUrl = useMemo(() => new URL(window.location.toString()), []);
-  const { search } = useContext(SearchContext);
+  const { setSearch, search } = useContext(SearchContext);
   const { token } = UseSessionStorage('token');
 
   const URLcategory = currentUrl.searchParams.get('category') ?? '';
@@ -28,9 +30,13 @@ const ProductsPage = () => {
   const URLPage = Number(currentUrl.searchParams.get('page'));
   const [priceInterval, setPriceInterval] = useState(5);
 
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
   const [products, setProducts] = useState<productProps[]>([]);
   const [quantity, setQuantity] = useState<number>();
   const [page, setPage] = useState<number>(URLPage || 1);
+
+  const [currentWindowSize, setCurrentWindowSize] = useState(window.innerWidth);
 
   //Function That Adds Some Product to the User's Cart
   const addProduct = useCallback(async (productId: number) => {
@@ -93,6 +99,16 @@ const ProductsPage = () => {
     }
   }, [token]);
 
+  //Remove All Filters, such as SubCategory | Brands | Free Shipping | Price Interval
+  const clearFilters = () => {
+    const currentUrl = new URL(window.location.toString());
+    currentUrl.searchParams.delete('subcategory');
+    currentUrl.searchParams.delete('brand');
+    window.history.pushState(null, '', currentUrl);
+    window.location.reload();
+    setPriceInterval(5);
+  }
+
   //Fetch Products Stored in the Database, Based in the Category | SubCategory | Search | Brand Passed to the Backend as a Filter Parameter
   useEffect(() => {
     const fetchProducts = async () => {
@@ -134,17 +150,60 @@ const ProductsPage = () => {
 
     fetchProducts();
   }, [URLcategory, URLsubCategory, URLbrand, page, currentUrl, search]);
+
+  useEffect(() => {
+    setCurrentWindowSize(window.innerWidth);
+  }, []);
+
+  window.addEventListener('resize', () => {
+    setCurrentWindowSize(window.innerWidth);
+  });
   
   return URLcategory ? (
-    <div className="flex h-full">
-      <SideBar
-        category={URLcategory}
-        setPriceInterval={setPriceInterval}
-        priceInterval={priceInterval}
-      />
-      <div className="relative w-4/5 mx-auto">
-        <h1 className="text-3xl text-black font-medium mr-10 mt-5">Products</h1>
-        <div className="flex flex-wrap gap-8 p-5 mb-12">
+    <div className={`flex h-full overflow-hidden ${currentWindowSize >= 570 ? "flex-row" : "flex-col"}`}>
+      {currentWindowSize >= 570 ? (
+        <SideBar
+          category={URLcategory}
+          setPriceInterval={setPriceInterval}
+          priceInterval={priceInterval}
+          clearFilters={clearFilters}
+        />
+      )
+      :
+      ( 
+        <>
+          <div 
+            className={`relative flex items-center justify-end bg-white py-3 w-full px-6
+            ${isFilterModalOpen && "blur-md pointer-events-none"}`}
+          >
+            <button
+                onClick={() => setIsFilterModalOpen(true)}
+                className="text-mainBlue border border-mainBlue rounded-full px-3 py-1"
+            >
+                <BsSliders size={25}/>
+            </button>
+          </div>
+          {(isFilterModalOpen &&
+            <SmallScreenFilters 
+              category={URLcategory}
+              setPriceInterval={setPriceInterval}
+              priceInterval={priceInterval}
+              setIsFilterModalOpen={setIsFilterModalOpen}
+              setSearch={setSearch}
+              search={search}
+              clearFilters={clearFilters}
+            />
+          )}
+        </>
+      )}
+      <div 
+        className={`relative mx-auto 
+          ${currentWindowSize >= 570 ? "w-4/5" : "w-full px-3"}
+          ${isFilterModalOpen && "blur-md pointer-events-none"}
+        `}
+      >
+        <h1 className="text-3xl text-black font-medium pl-3 mt-5">Products</h1>
+        <div className="flex justify-center flex-wrap gap-8 py-5 mb-12">
           {products?.length > 0 ? 
             products
             ?.filter((product) => priceInterval > 5 ? product.price <= priceInterval : product)

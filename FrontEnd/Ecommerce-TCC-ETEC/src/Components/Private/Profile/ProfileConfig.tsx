@@ -117,8 +117,8 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
   }
   
   return user && (
-    <div className="flex gap-5 my-5">
-      <div className="flex flex-col min-h-[570px] h-fit py-5 px-3 bg-white w-[550px] rounded-2xl text-black">
+    <div className="flex max-xl:flex-col gap-5 my-5">
+      <div className="flex flex-col min-h-[570px] h-fit w-full py-5 px-3 bg-white rounded-2xl text-black sm:w-[550px]">
         <h1 
           className="relative text-3xl font-medium w-fit mb-5
           after:absolute
@@ -128,7 +128,7 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
           after:h-0.5
           after:w-full"
         >Personal Data</h1>
-        <div className="flex items-center justify-center self-center rounded-full bg-neutral-400 h-24 w-24 overflow-hidden mb-5">
+        <div className="flex items-center justify-center self-center rounded-full bg-neutral-400 size-24 overflow-hidden mb-5">
             {!user.image ?
                 <span className="font-bold text-3xl">{captilze(user.name[0])}</span>
                 :
@@ -147,7 +147,7 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
               placeholder="John Doe"
               errors={errors}
             />
-            <div className="flex gap-3">
+            <div className="flex max-sm:flex-col gap-5 sm:gap-3">
               <StyledInput
                 name="password"
                 label="Password:"
@@ -204,6 +204,7 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
               type="text"
               placeholder="00000-000"
               errors={errors}
+              className="max-sm:max-w-[180px]"
             />
             <div>
               <Button
@@ -213,7 +214,7 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
               >Search</Button>
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="flex max-sm:flex-col gap-5 sm:gap-3">
             <StyledInput
               name="city"
               label="City:"
@@ -222,7 +223,7 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
               placeholder="City"
               errors={errors}
             />
-            <div className="flex gap-2 items-center">
+            <div className="flex max-sm:flex-col gap-5 sm:items-center sm:gap-2">
               <StyledInput
                 name="address"
                 label="Address:"
@@ -275,7 +276,7 @@ const ProfileConfig = ({ user, token }: profileConfigProps) => {
           {hasAddressDetails() ?
             (<AddressBox
                 user={user}
-                className="max-h-[200px] border border-mainBlue"
+                className="max-h-[200px] border border-mainBlue sm:max-w-[300px]"
               />
             )
             : 

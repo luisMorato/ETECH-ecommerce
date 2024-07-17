@@ -59,10 +59,10 @@ const CreditCardForm = ({ token }: creditCardFormProps) => {
     }
   
     return (
-        <div className="h-fit py-5 px-3 bg-white w-[550px] rounded-2xl text-black">
+        <div className="flex flex-col h-fit py-5 px-3 bg-white rounded-2xl text-black md:w-[550px]">
             <h2 className="text-xl font-medium mb-7">Credit Card</h2>
             <form onSubmit={handleSubmit(submitCreditCardForm)} className="flex flex-col gap-8">
-                <div className="flex items-center gap-5">
+                <div className="flex max-sm:flex-col gap-5 sm:items-center">
                     <StyledInput
                         name="number"
                         label="Number:"
@@ -87,7 +87,7 @@ const CreditCardForm = ({ token }: creditCardFormProps) => {
                         errors={errors}
                     />
                 </div>
-                <div className="flex items-center gap-5">
+                <div className="flex max-sm:flex-col gap-5 sm:items-center">
                     <StyledInput
                         name="expiresAt"
                         label="Expiration (MM/YY):"

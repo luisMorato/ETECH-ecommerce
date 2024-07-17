@@ -32,7 +32,7 @@ const Modal = ({ isOpen, header, body, footer, onClose }: modalProps) => {
     return (
         <div className={`${isOpen ? "opacity-100 fixed z-50 flex items-center justify-center w-full h-full bg-black/80" : "opacity-0 hidden"} `}>
             <div
-                className={`bg-white text-black rounded-2xl translate opacity duration-300 px-3 w-[400px]
+                className={`bg-white text-black rounded-2xl translate opacity duration-300 px-3 max-sm:w-[350px] w-[400px]
                     ${showModal ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`
                 }
             >

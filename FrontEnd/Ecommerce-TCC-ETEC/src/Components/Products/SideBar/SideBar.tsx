@@ -22,10 +22,11 @@ import { captilze } from "../../../utils/captalize";
 interface SideBarProps {
   category: string;
   setPriceInterval: Dispatch<SetStateAction<number>>,
-  priceInterval: number
+  priceInterval: number,
+  clearFilters: () => void
 }
 
-const SideBar = ({ category, setPriceInterval, priceInterval }: SideBarProps) => {
+const SideBar = ({ category, setPriceInterval, priceInterval, clearFilters }: SideBarProps) => {
   const [freeShipping, setFreeShipping] = useState(false);
 
   //Handle the Change of the Price Range Input
@@ -34,22 +35,22 @@ const SideBar = ({ category, setPriceInterval, priceInterval }: SideBarProps) =>
   } 
 
   //Remove All Filters, such as SubCategory | Brands | Free Shipping | Price Interval
-  const clearFilters = () => {
-    const currentUrl = new URL(window.location.toString());
-    currentUrl.searchParams.delete('subcategory');
-    currentUrl.searchParams.delete('brand');
-    window.history.pushState(null, '', currentUrl);
-    window.location.reload();
-    setPriceInterval(5);
-  }
+  // const clearFilters = () => {
+  //   const currentUrl = new URL(window.location.toString());
+  //   currentUrl.searchParams.delete('subcategory');
+  //   currentUrl.searchParams.delete('brand');
+  //   window.history.pushState(null, '', currentUrl);
+  //   window.location.reload();
+  //   setPriceInterval(5);
+  // }
 
   const currentUrl = new URL(window.location.toString());
 
   //Set the Brand in the URL State to Persist The Reloads
   const setBrand = (brand: string) => {
-      currentUrl.searchParams.set('brand', brand);
-      window.history.pushState(null, '', currentUrl);
-      window.location.reload();
+    currentUrl.searchParams.set('brand', brand);
+    window.history.pushState(null, '', currentUrl);
+    window.location.reload();
   }
 
   const currentBrand = currentUrl.searchParams.get('brand') ?? '';
@@ -60,7 +61,7 @@ const SideBar = ({ category, setPriceInterval, priceInterval }: SideBarProps) =>
       <div className="flex items-center justify-center px-3 border-b border-b-neutral-400 mb-3 w-[90%] mx-auto">
         <div className="flex items-center py-2 px-4 my-3 border border-neutral-400 rounded-full">
           <div className="flex gap-2 items-center mr-8">
-            <FaShippingFast size={25} className="text-[#2295E9]" />
+            <FaShippingFast size={25} className="text-mainBlue" />
             <span className="text-nowrap font-medium">Free Shipping</span>
           </div>
           <button onClick={() => (setFreeShipping((prevValue) => !prevValue))}>

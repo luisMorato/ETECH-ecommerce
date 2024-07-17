@@ -13,16 +13,16 @@ const ProductDetails = ({ price, installments, stock, productId, addProduct }: p
   return (
     <div className="flex flex-col min-w-[40%]">
       <div className="px-1 mt-4">
-        <h2 className="font-medium text-4xl">${price.toFixed(2).replace('.', ',')}</h2>
+        <h2 className="font-medium text-3xl sm:text-4xl">${price.toFixed(2).replace('.', ',')}</h2>
         <p className="font-medium mt-1 mb-3">
           <span>In Util </span>
-          <span className="text-[#2295E9] text-xl">{installments}x</span>
-          <span className="text-[#2295E9] text-xl"> ${(price / installments).toFixed(2)}</span>
-          <span className="text-[#2295E9] text-xl"> interest-free</span>
+          <span className="text-mainBlue text-lg sm:text-xl">{installments}x</span>
+          <span className="text-mainBlue text-lg sm:text-xl"> ${(price / installments).toFixed(2)}</span>
+          <span className="text-mainBlue text-lg sm:text-xl"> interest-free</span>
         </p>
-        <p className="text-[#2295E9] font-medium cursor-pointer hover:underline inline-block">See Payment Methods</p>
-        <p className="text-[#2295E9] font-medium">Free Shipping</p>
-        <p className="text-[#2295E9] font-medium cursor-pointer hover:underline inline-block">See More Delivery Methods</p>
+        <p className="text-mainBlue font-medium cursor-pointer hover:underline inline-block">See Payment Methods</p>
+        <p className="text-mainBlue font-medium">Free Shipping</p>
+        <p className="text-mainBlue font-medium cursor-pointer hover:underline inline-block">See More Delivery Methods</p>
       </div>
       <div className="mt-5">
         <p className="font-medium">Available Stock</p>

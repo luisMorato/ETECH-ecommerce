@@ -40,9 +40,19 @@ const Header = ({ user }: HeaderProps) => {
 
   return (
     <header className="flex flex-1 bg-white py-5">
-        <div className="flex items-center justify-around flex-1 mx-auto max-w-4/5">
-          <Link to="/"><h1 className="text-mainBlue text-4xl font-medium">E-TECH</h1></Link>
-          {<div className="relative flex w-[500px]">
+        <div className="flex items-center justify-between px-5 flex-1 mx-auto
+        lg:px-0
+        lg:justify-around
+        lg:max-w-4/5">
+          <Link to="/">
+            <h1 className="text-4xl text-nowrap text-mainBlue font-medium">E-TECH</h1>
+          </Link>
+          {
+            <div 
+              className="relative hidden w-[500px]
+              md:flex
+              md:max-lg:w-[380px]"
+            >
               <input
                   name="searchInput"
                   type="text"
@@ -50,7 +60,7 @@ const Header = ({ user }: HeaderProps) => {
                   onChange={(e) => handleSearch(e)}
                   onKeyUp={(e) => checkKeyPressed(e)}
                   value={search}
-                  className={`border border-neutral-300 rounded-full py-2 px-3 focus:outline-none text-neutral-400 flex-1 
+                  className={`border border-neutral-300 rounded-full py-2 px-3 focus:outline-none text-neutral-400 flex-1
                   ${pathname.includes('/checkout') ? "hidden" : "flex"}`}
               />
               <button

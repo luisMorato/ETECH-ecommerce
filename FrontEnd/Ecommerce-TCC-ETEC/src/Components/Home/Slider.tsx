@@ -1,4 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+    useEffect,
+    useMemo,
+    useRef,
+    useState 
+} from "react";
 
 interface sliderDataProps {
     id: number,
@@ -62,7 +67,14 @@ const Slider = () => {
     }, [SliderData, currentSlide]);
   
     return (
-        <div className="relative flex rounded-2xl overflow-x-hidden w-1/2 h-[550px]">
+        <div 
+            className="relative flex rounded-2xl overflow-hidden max-w-[400px] flex-1
+            max-md:max-h-[280px]
+            md:max-w-full
+            md:max-2xl:max-h-[550px]
+            xl:h-full
+            xl:w-1/2"
+        >
             {SliderData.map((data) => (
                 <div
                     key={data.id}
@@ -70,16 +82,29 @@ const Slider = () => {
                     className={`relative h-full transition duration-300`}
                 >
                     <div 
-                        className={`absolute top-1/4 right-0 z-20 mr-4 transition duration-150 ${currentSlide === data.id ? "block opacity-100" : "hidden opacity-0"}`} 
+                        className={`absolute top-5 right-0 z-20 translate-x-20 transition duration-150 ${currentSlide === data.id ? "block opacity-100" : "hidden opacity-0"}
+                        md:max-lg:right-5
+                        md:top-1/4
+                        md:mr-4`}
                     >
-                        <h3 className="text-xl text-[#2295E9] font-bold">{data.text.title}</h3>
-                        <h2 className="text-5xl text-black font-bold mb-3">{data.text.subtitle}</h2>
-                        <h3 className="text-xl text-black text-wrap font-bold w-4/5">{data.text.paragraph}</h3>
+                        <h3 
+                            className="text-sm text-wrap w-4/5 text-[#2295E9] font-bold
+                            md:text-2xl"
+                        >{data.text.title}</h3>
+                        <h2 
+                            className="text-xl text-black font-bold mb-3
+                            md:text-4xl"
+                        >{data.text.subtitle}</h2>
+                        <h3 
+                            className="text-sm text-black text-wrap font-bold w-4/6
+                            md:text-2xl
+                            md:w-4/5"
+                        >{data.text.paragraph}</h3>
                     </div>
                     <img
                         src={data.src}
                         alt="Slider Image"
-                        className={`h-full w-full brightness-90 ${currentSlide === data.id ? "block" : "hidden"}`}
+                        className={`flex-1 min-h-full brightness-90 ${currentSlide === data.id ? "block" : "hidden"}`}
                     />
                 </div>
             ))}

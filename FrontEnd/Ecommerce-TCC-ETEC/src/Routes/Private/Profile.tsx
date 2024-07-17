@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { UseAuth } from "../../Hooks/UseAuth";
+
 //import { userProps } from "../../interfaces/userProps";
 import { completeOrderProps } from "../../interfaces/OrderProps";
 
@@ -13,7 +15,6 @@ import AllProducts from "../../Components/Private/Profile/AllProducts";
 import SalesStatistics from "../../Components/Private/Profile/SalesStatistics";
 import UsersList from "../../Components/Private/Profile/UsersList";
 import CreditCardForm from "../../Components/Private/Profile/CreditCardForm";
-import { UseAuth } from "../../Hooks/UseAuth";
 
 const Profile = () => {
   const { userToken: token } = useParams();
@@ -31,36 +32,6 @@ const Profile = () => {
   const currentUrl = new URL(window.location.toString());
   const currentOption = currentUrl.searchParams.get('option') ?? 'dashboard';
   
-  //UseEffect Used to fetch the user's data everytime the token changes, that is, everytime a login is made
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     if(!token){
-  //       navigate('/');
-  //     }
-  //     const url = new URL(`${import.meta.env.VITE_BACKEND_URL}/user`);
-      
-  //     const response = await fetch(url, {
-  //       method: "GET",
-  //       headers: {
-  //         "authorization": `Bearer ${token}`
-  //       },
-  //     });
-  //     const resJson = await response.json();
-      
-  //     if(response.ok){
-  //       const { user: apiUser } = resJson;
-  //       if(!apiUser){
-  //         navigate("/");
-  //         return;
-  //       }
-
-  //       setUser(apiUser);
-  //     }
-  //   }
-
-  //   fetchUser();
-  // }, [token, navigate]);
-
   //UseEffect Used to fetch the user's orders everytime the token and user changes
   useEffect(() => {
     const fetchOrders = async () => {
@@ -94,19 +65,17 @@ const Profile = () => {
   }, [token, user]);
 
   return user && (
-    <div className="flex gap-12 mx-auto min-h-screen">
-      <div className="flex-1 bg-white max-w-[250px]">
-        <ProfileSideBar
-          user={user}
-        />
-      </div>
+    <div className="flex gap-3 min-h-screen md:gap-12">
+      <ProfileSideBar
+        user={user}
+      />
       {currentOption === "dashboard" && (
          <Dashboard
          user={user}
          orders={orders}
        />
       )}
-      { currentOption === "profileConfig" && (
+      {currentOption === "profileConfig" && (
         <div className="mb-5">
           <ProfileConfig
             user={user}

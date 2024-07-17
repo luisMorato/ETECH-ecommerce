@@ -224,92 +224,101 @@ const DashboardUserContent = ({ user, orders, setOption }: dashboardUserContentP
                 choice={choice}
                 handleGetPassword={handleGetPassword}
             />
-        {user && (
-            <div className="flex gap-5 w-full pr-8">
-                <div className="flex flex-col w-[620px]">
-                    <Welcome 
-                        preview={preview}
-                        user={user}
-                        handleFileInputChange={handleFileInputChange}
-                        setOption={setOption}
-                    />
-                    <div className="flex gap-5 items-center bg-white rounded-xl p-5">
-                        <span className="flex flex-col justify-center gap-3 flex-1">
-                        <div className="flex items-center gap-7 mb-3 pb-2 border-b">
-                            <FaClockRotateLeft size={30}/>
-                            <h2 className="text-xl font-medium">Purchases Historic</h2>
+            <div className="flex flex-col flex-1 space-y-5 pr-3">
+                {user && (
+                    <div className="flex flex-col gap-5 md:pr-8 xl:flex-row">
+                        <div className="flex flex-col md:w-[620px]">
+                            <Welcome
+                                preview={preview}
+                                user={user}
+                                handleFileInputChange={handleFileInputChange}
+                                setOption={setOption}
+                            />
+                            <div className="flex gap-5 items-center bg-white rounded-xl p-5">
+                                <span className="flex flex-col justify-center gap-3 flex-1">
+                                <div className="flex items-center gap-7 mb-3 pb-2 border-b">
+                                    <FaClockRotateLeft size={30}/>
+                                    <h2 className="text-xl font-medium">Purchases Historic</h2>
+                                </div>
+                                <p className="text-lg">Purchases Already Made</p>
+                                </span>
+                            </div>
                         </div>
-                        <p className="text-lg">Purchases Already Made</p>
-                        </span>
+                        <div 
+                            className="flex flex-col gap-5 
+                            min-[550px]:flex-row 
+                            md:w-2/5
+                            md:max-w-[300px]
+                            md:max-h-[280px]
+                            xl:max-2xl:flex-col"
+                        >
+                            {user.creditCard &&
+                                <div className="flex flex-col gap-5 bg-white rounded-xl p-5 flex-1 md:min-w-[300px]">
+                                    <div className="flex items-center gap-3">
+                                        <BsCreditCard size={30}/>
+                                        <h2 className="text-xl font-medium">Cards</h2>
+                                    </div>
+                                    <div className="flex flex-col justify-between h-full">
+                                        <div className="flex flex-col gap-2 font-medium">
+                                            <span className="text-lg">Ending In: {user.creditCard?.number.substring(15, user.creditCard.number.length)}</span>
+                                            <span className="text-neutral-400">{user.creditCard?.bank} Bank</span>
+                                            <span className="text-neutral-400">Expiration Date: {user.creditCard?.expiresAt}</span>
+                                        </div>
+                                        <div className="flex justify-between w-1/2 mx-auto mt-3 text-mainBlue text-lg font-medium">
+                                            <button
+                                                onClick={() => setOption('profileConfig')}
+                                                className="hover:text-[#1678BE]"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => handleChoice('deleteCreditCard')}
+                                                className="hover:text-[#1678BE]"
+                                            >Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            {hasAddressDetails() &&
+                                <AddressBox
+                                    user={user}
+                                    editFunction={() => setOption('profileConfig')}
+                                    deleteFunction={() => handleChoice('deleteAddress')}
+                                    className="max-h-[300px]"
+                                />
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className="flex gap-5 w-2/5 max-w-[300px] max-h-[280px]">
-                    {user.creditCard &&
-                        <div className="flex flex-col gap-5 bg-white rounded-xl p-5 flex-1 min-w-[300px]">
-                            <div className="flex items-center gap-3">
-                                <BsCreditCard size={30}/>
-                                <h2 className="text-xl font-medium">Cards</h2>
-                            </div>
-                            <div className="flex flex-col justify-between h-full">
-                                <div className="flex flex-col gap-2 font-medium">
-                                    <span className="text-lg">Ending In: {user.creditCard?.number.substring(15, user.creditCard.number.length)}</span>
-                                    <span className="text-neutral-400">{user.creditCard?.bank} Bank</span>
-                                    <span className="text-neutral-400">Expiration Date: {user.creditCard?.expiresAt}</span>
+                )}
+                <div className="bg-white rounded-xl p-5 md:w-[620px]">
+                    <div className="flex items-center gap-3 pb-2 border-b">
+                        <FaShippingFast size={30}/>
+                        <h2 className="text-xl font-medium">Your Last Order</h2>
+                    </div>
+                    <div className="mt-5">
+                        {/* Get Only The Last Order */}
+                        {orders && orders.length > 0 ? (
+                            <div>
+                                {orders[orders.length - 1].orderDetails?.orderProduct.map((product) => (
+                                <div key={product.products.id} className="flex flex-1 justify-between align-baseline font-medium mb-3">
+                                    <p>{product.products.name}</p>
+                                    <p>${product.products.price}</p>
                                 </div>
-                                <div className="flex justify-between w-1/2 mx-auto text-[#2295E9] text-lg font-medium">
-                                    <button
-                                        onClick={() => setOption('profileConfig')} 
-                                        className="hover:text-[#1678BE]"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => handleChoice('deleteCreditCard')}
-                                        className="hover:text-[#1678BE]"
-                                    >Delete</button>
+                                ))}
+                                <div className="flex flex-col gap-2 font-medium text-neutral-400 mt-6 pt-2 border-t border-t-neutral-300">
+                                <p>Tracking Code: {orders[orders.length - 1].trackingCode}</p>
+                                <p>Status: {orders[orders.length - 1].status}</p>
+                                <p>Ordered At: {new Date(orders[orders.length - 1].date).toLocaleDateString()}</p>
                                 </div>
                             </div>
-                        </div>
-                    }
-                    {hasAddressDetails() &&
-                        <AddressBox 
-                            user={user}
-                            editFunction={() => setOption('profileConfig')}
-                            deleteFunction={() => handleChoice('deleteAddress')}
-                            className="max-h-[300px]"
-                        />
-                    }
-                </div>
-            </div>
-            )}
-            <div className="bg-white rounded-xl p-5 w-[620px]">
-                <div className="flex items-center gap-3 pb-2 border-b">
-                    <FaShippingFast size={30}/>
-                    <h2 className="text-xl font-medium">Your Last Order</h2>
-                </div>
-                <div className="mt-5">
-                    {/* Get Only The Last Order */}
-                    {orders && orders.length > 0 ? (
-                        <div>
-                            {orders[orders.length - 1].orderDetails?.orderProduct.map((product) => (
-                            <div key={product.products.id} className="flex flex-1 justify-between font-medium mb-3">
-                                <p>{product.products.name}</p>
-                                <p>${product.products.price}</p>
+                        )
+                        :
+                        (
+                            <div>
+                                <p className="text-xl text-center mt-5">No Last Orders</p>
                             </div>
-                            ))}
-                            <div className="flex flex-col gap-2 font-medium text-neutral-400 mt-6 pt-2 border-t border-t-neutral-300">
-                            <p>Tracking Code: {orders[orders.length - 1].trackingCode}</p>
-                            <p>Status: {orders[orders.length - 1].status}</p>
-                            <p>Ordered At: {new Date(orders[orders.length - 1].date).toLocaleDateString()}</p>
-                            </div>
-                        </div>
-                    )
-                    : 
-                    ( 
-                        <div>
-                            <p className="text-xl text-center mt-5">No Last Orders</p>
-                          </div> 
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         </>

@@ -28,6 +28,7 @@ import IndividualProduct from './Routes/IndividualProduct.tsx';
 import Profile from './Routes/Private/Profile.tsx';
 import Checkout from './Routes/Private/Checkout.tsx';
 import ProtectedRoute from './Routes/ProtectedRoute.tsx';
+import ErrorBoundary from './Routes/_ErrorBoundary.tsx';
 
 const router = createBrowserRouter([{
   path: "/",
@@ -47,10 +48,11 @@ const router = createBrowserRouter([{
     },
     {
       path: "/profile/:userToken",
-      element: 
+      element: (
         <ProtectedRoute>
           <Profile />
-        </ProtectedRoute>,
+        </ProtectedRoute>
+      ),
     },
     {
       //If no userToken was provided, in this case, it's need to be redirected to the homepage
@@ -59,19 +61,28 @@ const router = createBrowserRouter([{
     },
     {
       path: "/checkout/:userToken",
-      element: 
+      element: (
         <ProtectedRoute>
           <Checkout />
         </ProtectedRoute>
+      )
     },
     {
       //If no userToken was provided, in this case, it's need to be redirected to the homepage
       path: "/checkout",
-      element: <Navigate to="/"></Navigate>
+      element: <Navigate to="/" />
     },
     {
       path: "/search",
       element: <Search />
+    },
+    {
+      path: "/error",
+      element: <ErrorBoundary />,
+    },
+    {
+      path: "*",
+      element: <Navigate to="/error" />,
     }
   ]
 }]);

@@ -26,8 +26,6 @@ const PerfipheralSubCategory = () => {
   
     const currentSubCategory = currentUrl.searchParams.get('subcategory');
   
-
-    
     return (
         <div>
             <div className="flex flex-col gap-2 pl-3">

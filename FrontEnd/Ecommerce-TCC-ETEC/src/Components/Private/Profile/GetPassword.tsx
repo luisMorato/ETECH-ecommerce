@@ -22,7 +22,6 @@ interface getPasswordProps {
 
 const GetPassword = ({ setIsOpen, isOpen, handleSubmit, choice, handleGetPassword }: getPasswordProps) => {
     const [showPassword, setShowPassword] = useState(false);
-
     const [showModal, setShowModal] = useState<boolean>(isOpen);
     
     useEffect(() => {
@@ -39,8 +38,12 @@ const GetPassword = ({ setIsOpen, isOpen, handleSubmit, choice, handleGetPasswor
 
     return (
         <div className={`${isOpen ? "fixed z-50 flex items-center justify-center w-full h-full" : "hidden"}`}>
-            <div 
-                className={`transition duration-300 bg-white border border-neutral-400 w-80 rounded-2xl p-3 
+            <div
+                className={`absolute transition duration-300 bg-white border border-neutral-400 w-80 rounded-2xl p-3
+                max-sm:left-[80%]
+                max-md:left-3/4
+                md:left-2/3
+                lg:left-1/2
                 ${showModal ? "-translate-y-1/2 opacity-100" : "translate-y-full opacity-0"}
                 ${window.location.pathname.includes('checkout') ? "translate-x-0 " : "-translate-x-full "}`}
             >

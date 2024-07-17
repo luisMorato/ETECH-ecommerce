@@ -20,6 +20,7 @@ export type completeOrderProps = ({
                 price: number,
                 desc: string[],
                 stock: number,
+                //freight: number,
                 createdAt: Date,
             },
             createdAt: Date,

@@ -83,7 +83,7 @@ const ProductImages = ({ images, product, setCurrentImage, currentImage }: produ
                     ></div>
                 </div>
             </div>
-            <div className="relative flex-1 mb-2">
+            <div className="relative flex items-center justify-between flex-1 mb-2">
                 <div className="flex justify-center gap-3 flex-1 mt-4">
                     {Array.from({ length: product.images.length }).map((_, index) => (
                         <button
@@ -93,7 +93,8 @@ const ProductImages = ({ images, product, setCurrentImage, currentImage }: produ
                         ></button>
                     ))}
                 </div>
-                <span className="absolute top-1/2 -translate-y-1/2 right-5 flex items-center justify-center bg-neutral-300 rounded-full p-1 cursor-pointer hover:bg-neutral-400"><CiShare2 size={25} /></span>
+                {/* <span className="absolute top-full -translate-y-1/2 -right-8 flex items-center justify-center bg-neutral-300 rounded-full p-1 cursor-pointer hover:bg-neutral-400 sm:right-0 md:top-1/2"><CiShare2 size={25} /></span> */}
+                <span className="flex items-center justify-center translate-y-2 bg-neutral-300 rounded-full p-1 cursor-pointer hover:bg-neutral-400"><CiShare2 size={25} /></span>
             </div>
         </>
     )
