@@ -132,7 +132,7 @@ model Product {
   desc          String[]
   stock         Int
   brand         String
-  //Freight       Float
+  //freight       Float?
   categoryId    Int
   subCategoryId Int
   createdAt     DateTime @default(now())

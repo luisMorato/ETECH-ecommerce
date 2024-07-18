@@ -28,6 +28,7 @@ export const completeOrder = z.object({
                 desc: z.array(z.string()),
                 stock: z.number().int(),
                 brand: z.string(),
+                //freight: z.number(),
                 createdAt: z.date(),
               }),
               quantity: z.number().int().nullable()

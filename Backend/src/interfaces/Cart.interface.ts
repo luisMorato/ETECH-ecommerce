@@ -24,6 +24,7 @@ export type cartProps = (
                 desc: string[],
                 stock: number,
                 brand: string,
+                //freight: number,
                 createdAt: Date,
             };
             createdAt: Date,

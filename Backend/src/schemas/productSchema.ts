@@ -8,6 +8,7 @@ export const requestProductData = zfd.formData({
     desc: z.array(z.string().min(1)),
     stock: z.string().transform((val) => parseInt(val)),
     brand: z.string().min(1),
+    //freight: z.number(),
     category: z.string().min(1),
     subCategory: z.string().min(1),
 });
@@ -20,6 +21,7 @@ export const productSchema = z.object({
     desc: z.array(z.string()),
     stock: z.number().int(),
     brand: z.string().min(1),
+    //freight: z.number(),
     createdAt: z.date(),
     comment: z.array(z.object({
         id: z.number(),

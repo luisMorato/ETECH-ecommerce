@@ -17,6 +17,7 @@ export interface requestProduct {
     desc: string[],
     stock: number,
     brand: string,
+    //freight: number,
     category: string,
     subCategory: string
 }

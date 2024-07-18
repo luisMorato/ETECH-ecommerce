@@ -88,4 +88,25 @@ export const CategoryRoutes = async (app: FastifyInstance) => {
 
         return reply.send({ categoriesandSubCategories });
     });
+
+    app
+    .withTypeProvider<ZodTypeProvider>()
+    .get('/:categoryName', {
+        schema: {
+            params: z.object({
+                categoryName: z.string()
+            }),
+            response: {
+                200: z.object({
+                    categoryAndSubCategories: categorySchema.nullish()
+                })
+            }
+        }
+    }, async (req, reply) => {
+        const { categoryName } = req.params;
+
+        const categoryAndSubCategories = await categoryUseCases.GetCategory(categoryName);
+
+        return reply.send({ categoryAndSubCategories });
+    });
 }

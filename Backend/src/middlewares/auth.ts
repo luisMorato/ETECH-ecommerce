@@ -18,7 +18,11 @@ export const authentication = async (req: FastifyRequest, reply: FastifyReply, d
 
     const token = await getToken(req);
 
-    if(!token || token === ''){
+    if(!token){
+        return;
+    }
+
+    if(token === ''){
         throw new Unauthorized("Unathorized");
     }
 

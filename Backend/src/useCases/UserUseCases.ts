@@ -256,7 +256,7 @@ export class UserUseCases implements userUseCasesProps {
 
         const token = await Jwt.sign({ userId: existingUser.id }, process.env.SECRET_KEY!);
 
-        return { token, message: "Email Sent" }
+        return { token, message: `Authenticated as ${email}` }
     }
 
     getAllUsers = async (data: queryData) => {

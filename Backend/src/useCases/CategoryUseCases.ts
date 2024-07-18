@@ -76,4 +76,23 @@ export class CategoryUseCases implements categoryUseCasesProps {
             return categories;
         }
     }
+
+    GetCategory = async (categoryName: string) => {
+        const dbCategory = await db?.productCategory.findFirst({
+            where: {
+                name: {
+                    contains: categoryName
+                }
+            },
+            include: {
+                subCategories: true
+            }
+        });
+
+        if(dbCategory){
+            const category = new Category(dbCategory).getCategory;
+
+            return category;
+        }
+    }
 }
