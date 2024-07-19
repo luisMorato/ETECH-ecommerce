@@ -152,13 +152,13 @@ const ProductsPage = () => {
     fetchProducts();
   }, [URLcategory, URLsubCategory, URLbrand, page, currentUrl, search]);
 
-  useEffect(() => {
-    setCurrentWindowSize(window.innerWidth);
-  }, []);
-
   window.addEventListener('resize', () => {
     setCurrentWindowSize(window.innerWidth);
   });
+
+  window.addEventListener('load', () => {
+    setCurrentWindowSize(window.innerWidth);
+  })
   
   return URLcategory ? (
     <div className={`flex h-full overflow-hidden ${currentWindowSize >= 570 ? "flex-row" : "flex-col"}`}>
