@@ -82,6 +82,19 @@ export class OrderUseCases implements orderUseCasesProps {
             throw new Error('Something Went Wrong');
         }
 
+        cartProducts.map(async (cartProduct) => {
+            await db?.product.updateMany({
+                where: {
+                    id: cartProduct.productId
+                },
+                data: {
+                    stock: {
+                        decrement: cartProduct.quantity!
+                    }
+                }
+            })
+        });
+
         const completeOrder = new Order(dbOrder);
 
         return { order: completeOrder.getProps, message: "Order Created Successfully!" };

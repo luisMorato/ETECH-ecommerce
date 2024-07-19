@@ -73,6 +73,7 @@ model Cart {
   @@unique([userId])
 }
 
+//ToDo: Change quantity to not be optional
 model CartProducts {
   id         Int      @id @default(autoincrement())
   cartId     Int
@@ -101,9 +102,12 @@ model Order {
   //creditCard    CreditCard?
 }
 
+//ToDo: Add Freight to OrderDetail's Table
+//Todo: Change attributes status | trackingCode | paymentMethod to be in the OrderDetail's table
 model OrderDetail {
   id      Int @id @default(autoincrement())
   orderId Int
+  //freight       Float?
 
   order        Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderProduct OrderProduct[]
@@ -123,7 +127,7 @@ model OrderProduct {
   orderDetail OrderDetail @relation(fields: [orderDetailId], references: [id], onDelete: Cascade)
 }
 
-//ToDo: Add Freight to Products Table
+//ToDo: Add Color Attribute to Product's Table
 model Product {
   id            Int      @id @default(autoincrement())
   images        String[]
@@ -132,7 +136,6 @@ model Product {
   desc          String[]
   stock         Int
   brand         String
-  //freight       Float?
   categoryId    Int
   subCategoryId Int
   createdAt     DateTime @default(now())

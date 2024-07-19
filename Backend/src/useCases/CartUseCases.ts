@@ -1,11 +1,13 @@
-import { BadRequest } from "../_errors/BadRequest";
+import { db } from "../lib/db/db";
 import { Cart } from "../entities/Cart";
+import { BadRequest } from "../_errors/BadRequest";
+import { NotFound } from "../_errors/NotFound";
+
 import {
     requestCartProps, 
     cartUseCasesProps,
 } from "../interfaces/Cart.interface";
 
-import { db } from "../lib/db/db";
 import { UserUseCases } from "./UserUseCases";
 
 const userUseCases = new UserUseCases();
@@ -16,15 +18,28 @@ export class CartUseCases implements cartUseCasesProps {
             const existingUser = await userUseCases.getUniqueUser(userId);
 
             if(!existingUser){
-                throw new BadRequest("User Not Found!");
+                throw new NotFound("User Not Found!");
+            }
+
+            const product = await db?.product.findUnique({
+                where: {
+                    id: productId
+                }
+            });
+
+            if(!product){
+                throw new NotFound("Product Not Found!");
+            }
+
+            if(product?.stock === 0){
+                throw new BadRequest("Product Out Of Stock!");
             }
 
             const existingCart = await this.getUniqueCartByUserId(userId);
 
             if(existingCart){
                 const { id: cartId } = existingCart;
-
-                //ToDo: Check if the product is registered in the table product before continue
+                
                 const existingCartProduct = await db?.cart.findUnique({
                     where: {
                         id: cartId,
@@ -33,14 +48,14 @@ export class CartUseCases implements cartUseCasesProps {
                         cartProducts: {
                             where: {
                                 productId
-                            }
+                            },
                         }
-                    }
+                    },
                 });
 
-                const cartProduct = existingCartProduct?.cartProducts.map((cartProduct) => cartProduct);
-
-                if(cartProduct?.length === 0){
+                const cartProducts = existingCartProduct?.cartProducts.map((cartProduct) => cartProduct);
+                
+                if(cartProducts?.length === 0){
                     const add = await db?.cartProducts.create({
                         data: {
                             cartId,
