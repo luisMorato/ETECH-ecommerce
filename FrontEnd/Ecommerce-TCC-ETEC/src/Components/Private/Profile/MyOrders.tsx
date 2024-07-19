@@ -14,7 +14,7 @@ const MyOrders = ({ orders }: myOrdersProps) => {
 
     window.addEventListener('resize', () => {
         setCurrentWindowWidth(window.innerWidth);
-    })
+    });
     
     return (
       <div className="flex flex-col gap-5 text-black py-5">
@@ -51,7 +51,7 @@ const MyOrders = ({ orders }: myOrdersProps) => {
                 )
                 :
                 ( 
-                    <div>
+                    <div className="sm:w-[615px]">
                         <p className="text-xl text-center mt-5">No Last Orders</p>
                     </div>
                 )

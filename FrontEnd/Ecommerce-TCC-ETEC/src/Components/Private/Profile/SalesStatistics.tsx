@@ -78,7 +78,7 @@ const SalesStatistics = ({ token }: salesStatisticsProps) => {
   }, [token]);
 
   return (
-    <div className="text-black bg-white p-5 my-5 rounded-xl w-[1100px]">
+    <div className="text-black bg-white p-2 my-5 rounded-xl max-2xl:w-fit w-[1100px] sm:p-5">
         <h1 
           className="relative text-3xl font-medium w-fit
           after:absolute
@@ -88,7 +88,7 @@ const SalesStatistics = ({ token }: salesStatisticsProps) => {
           after:h-0.5
           after:w-full"
         >Sales Statistics</h1>
-        <div className="flex gap-5 my-5 border-b border-b-neutral-400 pb-8">
+        <div className="flex max-xl:flex-wrap max-sm:justify-center gap-5 my-5 border-b border-b-neutral-400 pb-8">
           <Container className="border border-neutral-400">
             <Box>
               <h2 className="text-2xl font-medium">Stock</h2>
@@ -100,7 +100,7 @@ const SalesStatistics = ({ token }: salesStatisticsProps) => {
           </Container >
           <Container className="border border-neutral-400">
             <Box>
-              <h2 className="text-2xl font-medium">Inventory Cost</h2>
+              <h2 className="text-2xl font-medium text-nowrap">Inventory Cost</h2>
               <FaDollarSign size={25} className="text-mainBlue"/>
             </Box>
             <div className="flex flex-col mt-5">
@@ -118,7 +118,7 @@ const SalesStatistics = ({ token }: salesStatisticsProps) => {
           </Container >
           <Container className="border border-neutral-400">
             <Box>
-              <h2 className="text-2xl font-medium">Active Users</h2>
+              <h2 className="text-2xl font-medium text-nowrap">Active Users</h2>
               <FaUserCheck size={30} className="text-mainBlue"/>
             </Box>
             <div className="flex flex-col mt-5">
@@ -129,7 +129,7 @@ const SalesStatistics = ({ token }: salesStatisticsProps) => {
         <div className="flex-1 pb-10">
           <SalesChart />
         </div>
-        <div className="flex my-5 pb-5">
+        <div className="flex max-lg:flex-col my-5 pb-5">
           <BestSellingCategoryChart />
           <ActiveUsersChart />
         </div>

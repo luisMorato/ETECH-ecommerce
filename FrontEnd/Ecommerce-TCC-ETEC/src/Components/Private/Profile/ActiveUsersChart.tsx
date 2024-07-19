@@ -22,7 +22,7 @@ const ActiveUsersChart = () => {
     ];
     
     return (
-      <div className={currentOption === "dashboard" ? "w-full h-[300px]" : "w-1/2 h-[400px]"}>
+      <div className={currentOption === "dashboard" ? "w-full h-[300px]" : "h-[250px] lg:w-1/2 lg:h-[400px]"}>
         <h2 className="text-xl font-medium text-center mb-5">Active Users (Last 7 Days)</h2>
         <ResponsiveContainer width={"100%"} height={"100%"}>
           <BarChart data={data}>

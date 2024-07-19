@@ -23,7 +23,7 @@ const TopMenu = () => {
   }
 
   return (
-    <nav className="flex flex-1 bg-[#2295E9]">
+    <nav className="flex flex-1 bg-mainBlue">
         <div className='flex justify-between 
         lg:mx-auto 
         lg:w-5/6'>
@@ -33,7 +33,7 @@ const TopMenu = () => {
                 onMouseLeave={() => setIsOpen(false)}
                 onTouchStart={() =>  setIsOpen(true)}
                 onTouchEnd={() => setIsOpen(false)}
-                className="relative cursor-pointer border-r border-r-[#1678BE] text-lg font-medium hover:bg-[#1678BE] py-3 pl-3 pr-5
+                className="relative cursor-pointer border-r border-r-[#1678BE] text-lg font-medium hover:bg-[#1678BE] py-2 pl-3 pr-5
                 md:pr-12"
               >
                 <>

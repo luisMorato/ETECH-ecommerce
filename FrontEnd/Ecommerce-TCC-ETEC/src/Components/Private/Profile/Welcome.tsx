@@ -25,12 +25,11 @@ const Welcome = ({ preview, user, handleFileInputChange, setOption }: welcomePro
 
     return (
         <section 
-            className="relative flex flex-col items-center gap-3 bg-white p-3 rounded-xl mb-5 h-full
-            sm:flex-row
-            md:gap-10"
+            className="relative flex max-sm:flex-col flex-1 items-center gap-3 bg-white py-3 px-5 rounded-xl mb-5
+            md:gap-5"
         >
-            <div className="flex flex-col items-center gap-2 md:items-end">
-                <div className="relative md:ml-8">
+            <div className="flex flex-col items-center gap-2">
+                <div className="relative">
                     <div className="flex items-center justify-center rounded-full bg-neutral-400 h-16 w-16 overflow-hidden">
                         {!preview ?
                             <span className="font-bold text-3xl">{captilze(user.name[0])}</span>
@@ -50,22 +49,24 @@ const Welcome = ({ preview, user, handleFileInputChange, setOption }: welcomePro
                 </div>
                 <p className="font-medium text-neutral-400 text-sm text-center">{user.role}</p>
             </div>
-            <div>
-                <h2 className="text-2xl font-medium mb-2">Welcome, {user.name}</h2>
-                <span className="flex items-center gap-2">
-                    <TfiEmail size={15} /> 
-                    <span>{currentWindowWidth < 640 && user.email.length > 30 ? checkTextLength(user.email, 30) : user.email}</span>
-                </span>
-                <span className="flex items-center gap-2">
-                    <IoLogoWhatsapp size={15} /> {user.phoneNumber ? user.phoneNumber : "Not Setted"}
-                </span>
+            <div className="flex items-center justify-between flex-1">
+                <div>
+                    <h2 className="text-2xl font-medium mb-2">Welcome, {user.name}</h2>
+                    <span className="flex items-center gap-2">
+                        <TfiEmail size={15} />
+                        <span>{currentWindowWidth < 450 && user.email.length > 30 ? checkTextLength(user.email, 25) : user.email}</span>
+                    </span>
+                    <span className="flex items-center gap-2">
+                        <IoLogoWhatsapp size={15} /> {user.phoneNumber ? user.phoneNumber : "Not Setted"}
+                    </span>
+                </div>
+                <button
+                    onClick={() => setOption('profileConfig')}
+                    className="text-mainBlue max-sm:absolute right-5 top-5"
+                >
+                    <FaGear size={30} className="hover:rotate-90 duration-150"/>
+                </button>
             </div>
-            <button
-                onClick={() => setOption('profileConfig')}
-                className="absolute right-5 text-[#2295E9]"
-            >
-                <FaGear size={30} className="hover:rotate-90 duration-150"/>
-            </button>
         </section>
     )
 }

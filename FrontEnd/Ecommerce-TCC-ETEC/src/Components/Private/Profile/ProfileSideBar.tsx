@@ -21,7 +21,7 @@ const ProfileSideBar = ({ user }: profileSideBarProps) => {
     const option = currentUrl.searchParams.get('option') ?? 'dashboard';
   
     return (
-        <aside className="flex-1 bg-white max-w-[50px] max-lg:min-w-[50px] lg:max-w-[200px]">
+        <aside className="flex-1 bg-white max-w-[50px] max-lg:min-w-[50px] lg:max-w-[200px] xl:min-w-[180px]">
             <ul>
                 <ListItem
                     to="#"

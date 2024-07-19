@@ -10,7 +10,7 @@ const BestSellingCategoryChart = () => {
     ];
 
     return (
-        <div className="h-[400px] w-1/2">
+        <div className="lg:h-[400px] lg:w-1/2">
             <h2 className="text-2xl font-medium text-center mb-5">Best Selling Categories</h2>
             <ResponsiveContainer width={"100%"} height={"100%"}>
                 <PieChart>

@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import {
+  useEffect,
+  useState
+} from "react";
+import {
+  useNavigate,
+  useParams
+} from 'react-router-dom';
 
+//Hooks and Contexts
 import { UseAuth } from "../../Hooks/UseAuth";
 
-//import { userProps } from "../../interfaces/userProps";
+//Types
 import { completeOrderProps } from "../../interfaces/OrderProps";
 
+//Components
 import ProfileSideBar from "../../Components/Private/Profile/ProfileSideBar";
 import Dashboard from "../../Components/Private/Profile/Dashboard";
 import ProfileConfig from "../../Components/Private/Profile/ProfileConfig";
@@ -26,7 +34,6 @@ const Profile = () => {
   }
 
   const [orders, setOrders] = useState<completeOrderProps[]>([]);
-  //const [user, setUser] = useState<userProps | undefined>(undefined);
 
   //Sets the profile view option (dashboard, profile data config, etc) in the URL to persist reloads
   const currentUrl = new URL(window.location.toString());
@@ -65,7 +72,7 @@ const Profile = () => {
   }, [token, user]);
 
   return user && (
-    <div className="flex gap-3 min-h-screen md:gap-12">
+    <div className="flex gap-3 min-h-screen md:gap-10">
       <ProfileSideBar
         user={user}
       />

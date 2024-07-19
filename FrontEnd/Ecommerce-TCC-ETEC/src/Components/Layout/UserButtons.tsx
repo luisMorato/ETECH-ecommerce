@@ -42,15 +42,15 @@ const UserButtons = ({ user, signOut, token }: userButtonsProps) => {
             }
             <button
               onClick={() => setOpenUserMenu((prevValue) => !prevValue)} 
-              className="flex items-center gap-3 text-neutral-400 border border-neutral-300 rounded-full p-1 overflow-hidden h-fit hover:scale-105"
+              className="flex items-center gap-3 text-neutral-400 border border-neutral-300 rounded-full p-0.5 overflow-hidden h-fit hover:scale-105"
             >
-                <span className="bg-neutral-300 flex items-center justify-center rounded-full h-9 w-9 overflow-hidden">
+                <div className="bg-neutral-300 flex items-center justify-center rounded-full size-9 overflow-hidden">
                     {!user?.image ?
-                      <FaUserAlt size={25} className="text-neutral-400/70"/>
+                      (<FaUserAlt size={25} className="text-neutral-400/70"/>)
                       :
-                      <img src={userImageUrl} alt={`${user?.name}-image`}/>
+                      (<img src={userImageUrl} alt={`${user?.name}-image`}/>)
                     }
-                </span>
+                </div>
                 <span className="-translate-x-2 border-l border-l-neutral-300 pl-2 ml-1">
                     <FiMenu size={25}/>
                 </span>

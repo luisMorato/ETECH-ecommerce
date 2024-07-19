@@ -126,7 +126,7 @@ const AllProducts = ({ token }: allProductsProps) => {
     }
   
     return (
-        <div className="text-black py-5">
+        <div className="text-black py-5 max-sm:px-5 max-xl:h-fit max-xl:overflow-x-scroll">
             <h1 
                 className="relative text-3xl font-medium w-fit
                 after:absolute
@@ -136,7 +136,7 @@ const AllProducts = ({ token }: allProductsProps) => {
                 after:h-0.5
                 after:w-full"
             >Database Products</h1>
-            <div className="relative flex items-center px-3 my-5 w-80 text-neutral-400 border border-neutral-400 rounded-2xl">
+            <div className="relative flex items-center gap-1 px-3 my-5 max-w-[272px] text-neutral-400 border border-neutral-400 rounded-2xl sm:max-w-80">
                 <span className="group-focus:text-black">
                     <IoIosSearch size={25} />
                 </span>
@@ -145,12 +145,12 @@ const AllProducts = ({ token }: allProductsProps) => {
                     type="text"
                     placeholder="Search for Database Product..."
                     value={productSearch}
-                    className="bg-transparent py-1 pl-3 focus:outline-none flex-1 group"
+                    className="bg-transparent py-1 focus:outline-none flex-1 group"
                     onChange={(e) => setProductSearh(e.target.value)}
                 />
             </div>
             {<Suspense fallback={<Loading />}>
-                <div className="border border-neutral-400 rounded-2xl">
+                <div className="border border-neutral-400 rounded-2xl w-fit">
                     <table>
                         <thead>
                             <tr className="border-b border-neutral-400">
@@ -167,7 +167,7 @@ const AllProducts = ({ token }: allProductsProps) => {
                             {products && products.map((product) => (
                                 <tr className="border-b border-neutral-400" key={product.id}>
                                     <TableCells className="font-normal text-center">{product.id}</TableCells>
-                                    <TableCells>{checkTextLength(product.name, 50)}</TableCells>
+                                    <TableCells className="max-xl:truncate">{checkTextLength(product.name, 50)}</TableCells>
                                     <TableCells className="font-normal">${(product.price).toFixed(2).replace('.', ',')}</TableCells>
                                     <TableCells className="font-normal text-center">{product.stock}</TableCells>
                                     <TableCells className="font-normal">{product.categories?.name}</TableCells>

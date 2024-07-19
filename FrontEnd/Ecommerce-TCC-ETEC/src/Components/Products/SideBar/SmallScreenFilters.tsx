@@ -171,7 +171,7 @@ const SmallScreenFilters = ({
                     </ListItem>
                     {subcategories?.map((subcategory, index) => (
                         <ListItem
-                            key={subcategory.id}
+                            key={subcategory.name}
                             to="#"
                             isSelected={currentSubCategory === (subcategory.name).replace(/\s+/g, '')}
                             isLastItem={index === subcategories.length - 1}

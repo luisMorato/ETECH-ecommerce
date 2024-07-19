@@ -229,6 +229,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
     }
   }
   
+   //ToDo: Fix the Responsiveness Design Bug
   return user && (
     <>
       <GetPassword
@@ -238,46 +239,15 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
           choice={'imageUpload'}
           handleGetPassword={handleGetPassword}
       />
-      <div className="flex flex-col gap-5 max-sm:max-w-[300px] max-w-[1280px]">
-        <div className="flex max-sm:flex-col sm:gap-5">
+      <div className="flex max-xl:flex-col gap-5 max-[400px]:max-w-[300px] pr-3 xl:max-2xl:max-w-[1200px] max-w-[1280px]">
+        <div className="flex flex-col flex-1">
           <Welcome
               preview={preview}
               user={user}
               handleFileInputChange={handleFileInputChange}
               setOption={setOption}
           />
-          <div className="flex max-md:flex-wrap gap-5">
-            <Container className="max-w-[150px] md:max-w-[200px]">
-              <Box>
-                <h2 className="text-2xl font-medium">Stock</h2>
-                <FaBoxOpen size={30} className="text-[#2295E9]"/>
-              </Box>
-              <div className="flex flex-col mt-5">
-                <p className="text-4xl text-right font-medium">{stock}</p>
-              </div>
-            </Container>
-            <Container className="max-w-[150px] md:max-w-[200px]">
-              <Box>
-                <h2 className="text-2xl font-medium">Products</h2>
-                <FaShoppingBasket size={30} className="text-[#2295E9]"/>
-              </Box>
-              <div className="flex flex-col mt-5">
-                <p className="text-4xl text-right font-medium">{productsQuantity}</p>
-              </div>
-            </Container>
-            <Container className="max-w-[150px] md:max-w-[200px]">
-              <Box>
-                <h2 className="text-2xl font-medium">Users</h2>
-                <FaUserCheck size={30} className="text-[#2295E9]"/>
-              </Box>
-              <div className="flex flex-col mt-5">
-                <p className="text-4xl text-right font-medium">{usersQuantity}</p>
-              </div>
-            </Container>
-          </div>
-        </div>
-        <div className="flex max-md:flex-col gap-5">
-          <Container className="max-w-1/2">
+          <div className="bg-white p-3 rounded-xl h-full">
             <div className="flex max-sm:flex-col max-sm:gap-3 sm:items-center justify-between pb-2 border-b">
               <div className="flex items-center gap-3">
                 <FaClockRotateLeft size={25}/>
@@ -297,7 +267,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
               orders.length > 0 ? (
                 <div>
                   <p className="mb-4 mt-2 font-medium text-neutral-400">Orders: {ordersQuantity}</p>
-                  <div className={`${orders?.length >= 3 ? "overflow-y-scroll h-[650px]" : "h-fit overflow-y-hidden"}`}>
+                  <div className={`${orders?.length >= 3 ? "overflow-y-scroll h-[700px]" : "h-fit overflow-y-hidden"}`}>
                     {orders.map((order) => (
                       <div key={order.id} className="flex flex-col gap-2 p-5 mb-5 bg-neutral-100 rounded-2xl">
                         <span>User: {order.cart?.user.name}</span>
@@ -320,20 +290,51 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                   </div> 
                 )
             }
-          </Container>
-          <div className="max-md:hidden bg-white flex-1 rounded-xl p-5 max-w-1/2 h-fit pb-16">
-            <div className="mb-5">
-              <div className="flex items-center gap-5 mb-3">
-                <BsGraphUp size={30} className="text-mainBlue"/>
-                <h2 className="text-2xl font-medium">Statistics</h2>
-              </div>
-              <span className="text-xl text-neutral-400 font-medium">Overview</span>
-            </div>
-            <div className="flex flex-col gap-16">
-              <SalesChart />
-              <ActiveUsersChart />
-            </div>
           </div>
+        </div>
+        <div className="flex flex-col gap-5 flex-1">
+          <div className="flex max-md:flex-wrap gap-5 flex-1">
+              <Container className="max-sm:max-w-[150px]">
+                <Box>
+                  <h2 className="text-xl md:text-2xl font-medium">Stock</h2>
+                  <FaBoxOpen size={30} className="text-mainBlue shrink-0"/>
+                </Box>
+                <div className="flex flex-col mt-4">
+                  <p className="text-4xl text-right font-medium">{stock}</p>
+                </div>
+              </Container>
+              <Container className="max-sm:max-w-[150px]">
+                <Box>
+                  <h2 className="text-xl md:text-2xl font-medium">Products</h2>
+                  <FaShoppingBasket size={30} className="text-mainBlue shrink-0"/>
+                </Box>
+                <div className="flex flex-col mt-4">
+                  <p className="text-4xl text-right font-medium">{productsQuantity}</p>
+                </div>
+              </Container>
+              <Container className="max-sm:max-w-[150px]">
+                <Box>
+                  <h2 className="text-xl md:text-2xl font-medium">Users</h2>
+                  <FaUserCheck size={30} className="text-mainBlue shrink-0"/>
+                </Box>
+                <div className="flex flex-col mt-4">
+                  <p className="text-4xl text-right font-medium">{usersQuantity}</p>
+                </div>
+              </Container>
+            </div>
+            <div className="max-lg:hidden bg-white p-3 pb-16 rounded-xl">
+              <div className="mb-5">
+                <div className="flex items-center gap-5 mb-3">
+                  <BsGraphUp size={30} className="text-mainBlue"/>
+                  <h2 className="text-2xl font-medium">Statistics</h2>
+                </div>
+                <span className="text-xl text-neutral-400 font-medium">Overview</span>
+              </div>
+              <div className="flex flex-col gap-16">
+                <SalesChart />
+                <ActiveUsersChart />
+              </div>
+            </div>
         </div>
       </div>
     </>

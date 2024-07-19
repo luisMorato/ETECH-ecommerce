@@ -242,7 +242,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
               <ul className="list-disc px-4">
                 {productToRegister.desc.length > 0 ?
                   productToRegister.desc.map((descItem, index) => (
-                    <li className="flex items-center gap-2 text-black" key={descItem}>
+                    <li key={descItem} className="flex items-center gap-2 text-black">
                       <span>- {checkTextLength(descItem, 60)}</span>
                       <button
                         type="button"
@@ -269,6 +269,7 @@ const ProductRegisterForm = ({ token }: productRegisterFormProps) => {
               />
             </div>
             <div>
+                <p className="font-medium">Brand:</p>
                 <Brands 
                   setBrand={handleBrandChange}
                   currentBrand={productToRegister.brand}

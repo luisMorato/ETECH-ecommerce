@@ -78,7 +78,7 @@ const UsersList = ({ token }: usersListProps) => {
     }
 
   return users && (
-    <div className="text-black py-5">
+    <div className="text-black py-5 max-sm:px-5 max-xl:h-fit max-xl:overflow-x-scroll">
       <h1 
         className="relative text-3xl font-medium w-fit
         after:absolute
@@ -88,7 +88,7 @@ const UsersList = ({ token }: usersListProps) => {
         after:h-0.5
         after:w-full"
       >Database Users</h1>
-      <div className="relative flex items-center px-3 my-5 w-80 text-neutral-400 border border-neutral-400 rounded-2xl">
+      <div className="relative flex items-center gap-1 px-3 my-5 max-w-[272px] text-neutral-400 border border-neutral-400 rounded-2xl sm:max-w-80">
           <span className="group-focus:text-black">
               <IoIosSearch size={25} />
           </span>
@@ -97,11 +97,11 @@ const UsersList = ({ token }: usersListProps) => {
               type="text"
               placeholder="Search User..."
               value={userSearch}
-              className="bg-transparent py-1 pl-3 focus:outline-none flex-1 group"
+              className="bg-transparent py-1 focus:outline-none flex-1 group"
               onChange={(e) => setUserSearch(e.target.value)}
           />
       </div>
-      <div className="border border-neutral-400 rounded-2xl">
+      <div className="border border-neutral-400 rounded-2xl w-fit">
         <table>
           <thead>
             <tr className="border-b border-neutral-400">

@@ -144,13 +144,13 @@ const Navbar = ({ user }: navbarProps) => {
                   <div className="absolute z-30 top-full right-0 translate-y-1.5 flex flex-col gap-3 bg-white overflow-hidden border border-neutral-400/50 w-[120px] rounded-2xl">
                     <ul>
                       <ListItem
-                        to=""
-                        className="font-medium group"
+                        to="#"
+                        className="font-medium"
                       >
                         <button onClick={() => setLoginIsOpen(true)} >Sign In</button>
                       </ListItem>
                       <ListItem
-                        to=""
+                        to="#"
                         isLastItem
                         className="font-medium"
                       >
@@ -158,7 +158,6 @@ const Navbar = ({ user }: navbarProps) => {
                       </ListItem>
                     </ul>
                   </div>
-                  {/* <div className="absolute top-full right-4 pointer-events-none rotate-45 z-40 size-3 bg-white border border-neutral-400/50 border-r-0 border-b-0 group-hover:bg-neutral-200"></div> */}
                 </>
               )}
             </div>

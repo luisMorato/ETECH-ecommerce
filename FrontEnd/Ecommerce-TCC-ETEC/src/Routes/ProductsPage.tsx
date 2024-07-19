@@ -21,8 +21,8 @@ import { BsSliders } from "react-icons/bs";
 
 const ProductsPage = () => {
   const currentUrl = useMemo(() => new URL(window.location.toString()), []);
-  const { setSearch, search } = useContext(SearchContext);
   const { token } = UseSessionStorage('token');
+  const { setSearch, search } = useContext(SearchContext);
 
   const URLcategory = currentUrl.searchParams.get('category') ?? '';
   const URLsubCategory = currentUrl.searchParams.get('subcategory') ?? '';
@@ -35,6 +35,7 @@ const ProductsPage = () => {
   const [products, setProducts] = useState<productProps[]>([]);
   const [quantity, setQuantity] = useState<number>();
   const [page, setPage] = useState<number>(URLPage || 1);
+  const perPage = 8;
 
   const [currentWindowSize, setCurrentWindowSize] = useState(window.innerWidth);
 
@@ -117,7 +118,7 @@ const ProductsPage = () => {
       productURL.searchParams.set('category', URLcategory);
       productURL.searchParams.set('subcategory', URLsubCategory);
       productURL.searchParams.set('brand', URLbrand);
-      productURL.searchParams.set('perPage', String(8));
+      productURL.searchParams.set('perPage', String(perPage));
       productURL.searchParams.set('pageIndex', String(page - 1));
 
       if(search !== ''){
@@ -228,6 +229,7 @@ const ProductsPage = () => {
             page={page}
             setPage={setPage}
             quantity={quantity}
+            perPage={perPage}
           />
         }
       </div>

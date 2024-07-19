@@ -43,17 +43,6 @@ const Brands = ({ setBrand, currentBrand }: brandsProps) => {
         { name: "XPG" },
     ], []);
 
-    //const currentUrl = new URL(window.location.toString());
-
-    // //Set the Brand in the URL State to Persist The Reloads
-    // const setBrand = (brand: string) => {
-    //     currentUrl.searchParams.set('brand', brand);
-    //     window.history.pushState(null, '', currentUrl);
-    //     window.location.reload();
-    // }
-  
-    //const currentBrand = currentUrl.searchParams.get('brand');
-
     //Handle the Brand Search Input Change
     const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setBrandSearch(e.target.value);

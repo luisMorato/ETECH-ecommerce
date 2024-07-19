@@ -9,11 +9,12 @@ import {
 interface paginationProps {
     page: number,
     setPage: React.Dispatch<SetStateAction<number>>
-    quantity: number
+    quantity: number,
+    perPage: number
 }
 
-const PaginationControl = ({ page, setPage, quantity }: paginationProps) => {
-    const perPage = 8;
+const PaginationControl = ({ page, setPage, quantity, perPage }: paginationProps) => {
+    //const perPage = 8;
     const pages = Math.ceil((quantity / perPage));
   
     const nextPage = () => {
