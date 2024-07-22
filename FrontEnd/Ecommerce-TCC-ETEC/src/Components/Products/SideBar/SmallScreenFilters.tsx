@@ -131,7 +131,7 @@ const SmallScreenFilters = ({
                     onClick={clearFilters}
                     className="text-neutral-400 hover:text-black"
                 >
-                    <FaFilterCircleXmark size={20} />
+                    <FaFilterCircleXmark size={20} title="Clear Filters"/>
                 </button>
             </div>
             

@@ -8,8 +8,8 @@ interface newReleaseProductsCardProps {
 const NewReleaseProductsCard = ({ fisrtLine, title, thirdLine, imgSrc }: newReleaseProductsCardProps) => {
   return (
     <div 
-      className="first:bg-black first:text-white flex flex-col justify-center gap-12 pt-5 px-8 cursor-pointer bg-white text-black rounded-2xl h-[550px] last:h-[500px] 
-      w-[360px]
+      className="first:bg-black first:text-white flex flex-col justify-center gap-12 pt-5 px-8 cursor-pointer bg-white text-black rounded-2xl h-[550px] last:h-[500px] w-[360px]
+      max-sm:w-[340px]
       sm:w-fit
       md:h-[600px]
       md:last:h-[600px]
@@ -22,7 +22,8 @@ const NewReleaseProductsCard = ({ fisrtLine, title, thirdLine, imgSrc }: newRele
       </div>
       <div className="flex items-end self-center mt-20 h-[300px] w-[280px]
       lg:w-[300px]">
-        <img 
+        <img
+          draggable={false}
           src={imgSrc}
           alt="product-productName" 
           className="flex-1"

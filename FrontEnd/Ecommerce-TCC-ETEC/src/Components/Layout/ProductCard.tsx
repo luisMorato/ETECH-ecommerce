@@ -27,11 +27,14 @@ const ProductCard = ({ product, addProduct }: productCardProps) => {
             </div>
             <Link to={`/products/${product?.id}`}>
                 <div className="flex justify-center max-h-[250px] mx-auto cursor-pointer py-3 w-3/4">
-                    {<img
-                        src={`${import.meta.env.VITE_BACKEND_URL}/public/images/products/${product?.images[0]}`}
-                        alt={`product-${product?.name}`}
-                        className="hover:scale-105 transition duration-150"
-                    />}
+                    {
+                        <img
+                            draggable={false}
+                            src={`${import.meta.env.VITE_BACKEND_URL}/public/images/products/${product?.images[0]}`}
+                            alt={`product-${product?.name}`}
+                            className="hover:scale-105 transition duration-150"
+                        />
+                    }
                 </div>
             </Link>
             <div className="text-black">
@@ -46,9 +49,9 @@ const ProductCard = ({ product, addProduct }: productCardProps) => {
                 </div>
                 <Button
                     onClick={() => addProduct(product?.id)}
-                    className="absolute flex gap-3 bottom-5 -translate-x-1/2 left-1/2 w-3/6"
+                    className="absolute flex items-center gap-2 bottom-5 -translate-x-1/2 left-1/2 w-3/6"
                 >
-                    <><TiShoppingCart size={25} /> Add to Cart</>
+                    <><TiShoppingCart size={20} className="shrink-0"/> Add to Cart</>
                 </Button>
             </div>
         </div>

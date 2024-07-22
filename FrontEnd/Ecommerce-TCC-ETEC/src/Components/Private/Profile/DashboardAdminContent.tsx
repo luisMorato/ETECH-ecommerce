@@ -294,7 +294,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
         </div>
         <div className="flex flex-col gap-5 flex-1">
           <div className="flex max-md:flex-wrap gap-5 flex-1">
-              <Container className="max-sm:max-w-[150px]">
+              <Container className="max-sm:max-w-[180px]">
                 <Box>
                   <h2 className="text-xl md:text-2xl font-medium">Stock</h2>
                   <FaBoxOpen size={30} className="text-mainBlue shrink-0"/>
@@ -303,7 +303,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                   <p className="text-4xl text-right font-medium">{stock}</p>
                 </div>
               </Container>
-              <Container className="max-sm:max-w-[150px]">
+              <Container className="max-sm:max-w-[180px]">
                 <Box>
                   <h2 className="text-xl md:text-2xl font-medium">Products</h2>
                   <FaShoppingBasket size={30} className="text-mainBlue shrink-0"/>
@@ -312,7 +312,7 @@ const DashboardAdminContent = ( { user, setOption }: dashboardUserContentProps )
                   <p className="text-4xl text-right font-medium">{productsQuantity}</p>
                 </div>
               </Container>
-              <Container className="max-sm:max-w-[150px]">
+              <Container className="max-sm:max-w-[180px]">
                 <Box>
                   <h2 className="text-xl md:text-2xl font-medium">Users</h2>
                   <FaUserCheck size={30} className="text-mainBlue shrink-0"/>

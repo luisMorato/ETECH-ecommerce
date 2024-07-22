@@ -160,6 +160,7 @@ const ProductsPage = () => {
     setCurrentWindowSize(window.innerWidth);
   })
   
+  //ToDo: Add Skeleton Loader
   return URLcategory ? (
     <div className={`flex h-full overflow-hidden ${currentWindowSize >= 570 ? "flex-row" : "flex-col"}`}>
       {currentWindowSize >= 570 ? (
@@ -179,9 +180,10 @@ const ProductsPage = () => {
           >
             <button
                 onClick={() => setIsFilterModalOpen(true)}
-                className="text-mainBlue border border-mainBlue rounded-full px-3 py-1"
+                className="flex items-center gap-2 border border-mainBlue rounded-full px-3 py-1"
             >
-                <BsSliders size={25}/>
+                <BsSliders size={20} className="text-mainBlue shrink-0" />
+                <span className="text-lg text-black font-medium">Filters</span>
             </button>
           </div>
           {(isFilterModalOpen &&
@@ -198,13 +200,13 @@ const ProductsPage = () => {
         </>
       )}
       <div 
-        className={`relative mx-auto 
+        className={`relative mx-auto pl-5
           ${currentWindowSize >= 570 ? "w-4/5" : "w-full px-3"}
           ${isFilterModalOpen && "blur-md pointer-events-none"}
         `}
       >
-        <h1 className="text-3xl text-black font-medium pl-3 mt-5">Products</h1>
-        <div className="flex justify-center flex-wrap gap-8 py-5 mb-12">
+        <h1 className="text-3xl text-black font-medium mt-5">Products</h1>
+        <div className="flex max-lg:justify-center flex-wrap gap-8 py-5 mb-12">
           {products?.length > 0 ? 
             products
             ?.filter((product) => priceInterval > 5 ? product.price <= priceInterval : product)

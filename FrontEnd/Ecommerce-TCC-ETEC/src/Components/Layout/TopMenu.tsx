@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaPhone  } from 'react-icons/fa';
+import { FaPhone } from 'react-icons/fa';
 import { FiMenu } from "react-icons/fi";
 
 import MenuItem from './MenuItem';

@@ -37,6 +37,7 @@ const Navbar = ({ user }: navbarProps) => {
   const [cartProducts, setCartProducts] = useState<cartProductsProps[]>([]);
 
   const [open, setOpen] = useState(false);
+
   
   //SignOut the user by removing the token from the session and redirecting to the HomePage
   const signOut = () => {
@@ -85,15 +86,15 @@ const Navbar = ({ user }: navbarProps) => {
   return (
     <nav className="flex items-center gap-8">
         {user ? (
-          <div className="relative flex items-center gap-5">
-            <div className="flex gap-5">
+          <div className="relative flex items-center gap-3 sm:gap-5">
+            <div className="flex gap-3 sm:gap-5">
               {user.role !== "ADMIN" && 
                 <button
                   onClick={() => setOpenCart((prevValue) => !prevValue)}
-                  className="relative flex items-center justify-center h-10 w-10 bg-neutral-300 rounded-full hover:bg-neutral-400"
+                  className="relative flex items-center justify-center size-8 ml-3 bg-neutral-300 rounded-full hover:bg-neutral-400 sm:size-10"
                 >
-                  <div className="absolute top-0 right-0 -translate-y-1 translate-x-2 flex items-center justify-center bg-mainBlue rounded-full text-sm w-5 h-5 pointer-events-none">{CartProductsQuantity}</div>
-                  <LiaShoppingBagSolid size={30} />
+                  <div className="absolute top-0 right-0 -translate-y-1 translate-x-2 flex items-center justify-center bg-mainBlue rounded-full text-sm size-4 pointer-events-none sm:size-5">{CartProductsQuantity}</div>
+                  <LiaShoppingBagSolid className="max-sm:size-6 size-8" />
                 </button>
               }
             </div>
@@ -135,6 +136,7 @@ const Navbar = ({ user }: navbarProps) => {
             lg:hidden">
               <button
                 onClick={() => setOpen((prevValue) => !prevValue)}
+                className="ml-3"
               >
                 <IoMdMenu size={30} className="text-mainBlue" />
               </button>

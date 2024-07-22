@@ -83,7 +83,7 @@ const Footer = () => {
               Adress: XYZ, São Paulo, Brazil.
             </span>
             <div className="flex flex-col gap-4">
-              <span className="flex items-center gap-2 text-nowrap">
+              <span className="flex items-center gap-2 text-sm text-nowrap min-[400px]:text-base">
                 <IoLogoWhatsapp size={25} />
                 Phone: (99) 9 9999-9999 
               </span>
